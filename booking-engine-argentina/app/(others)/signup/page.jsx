@@ -1,14 +1,16 @@
+"use client";
 import dynamic from "next/dynamic";
 import CallToActions from "@/components/common/CallToActions";
 import DefaultHeader from "@/components/header/default-header";
 import DefaultFooter from "@/components/footer/default";
 import LoginWithSocial from "@/components/common/LoginWithSocial";
 import SignUpForm from "@/components/common/SignUpForm";
+import { GoogleLogin, GoogleOAuthProvider  } from '@react-oauth/google';
 
-export const metadata = {
-  title: "Sign Up || BE - Argentina - Travel & Tour React NextJS Template",
-  description: "BE - Argentina - Travel & Tour React NextJS Template",
-};
+// export const metadata = {
+//   title: "Sign Up || BE - Argentina - Travel & Tour React NextJS Template",
+//   description: "BE - Argentina - Travel & Tour React NextJS Template",
+// };
 
 const SignUp = () => {
   return (
@@ -33,7 +35,11 @@ const SignUp = () => {
                   <div className="col-12">
                     <div className="text-center">or sign in with</div>
                   </div>
+                  
+    <GoogleOAuthProvider 
+      clientId="387946406507-3akrm9q830gnja0pdspabuemif5fnd1e.apps.googleusercontent.com">
                   <LoginWithSocial />
+</GoogleOAuthProvider>
                   <div className="col-12">
                     <div className="text-center px-30">
                       By creating an account, you agree to our Terms of Service
