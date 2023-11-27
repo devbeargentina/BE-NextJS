@@ -7,9 +7,9 @@ import axios from "axios";
 //   baseURL: `${devEnv ? REACT_APP_DEV_API : REACT_APP_PROD_API}`,
 // });
 
-const API = axios.create({ baseURL: `https://localhost:7002` });
-debugger;
-API.interceptors.request.use((req) => {
+const APIProduct = axios.create({ baseURL: `https://localhost:7000` });
+
+APIProduct.interceptors.request.use((req) => {
   if (localStorage.getItem("userToken")) {
     req.headers.Authorization = `Bearer ${localStorage.getItem("userToken")}`;
   }
@@ -25,4 +25,4 @@ API.interceptors.request.use((req) => {
 // export const updateTour = (updatedTourData, id) =>
 //   API.patch(`/tour/${id}`, updatedTourData);
 // export const deleteTour = (id) => API.delete(`/tour/${id}`);
-export default API;
+export default APIProduct;

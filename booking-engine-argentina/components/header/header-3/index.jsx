@@ -8,10 +8,13 @@ import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
 import HeaderSearch from "../HeaderSearch";
 import MobileMenu from "../MobileMenu";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { getUser } from '../../../features/hero/authSlice';
 
 const Header1 = () => {
   const [navbar, setNavbar] = useState(false);
-
+debugger;
   const changeBackground = () => {
     if (window.scrollY >= 10) {
       setNavbar(true);
@@ -27,6 +30,22 @@ const Header1 = () => {
     };
   }, []);
 
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { user, isUserLoggedIn } = useSelector((state) => state.user);
+debugger;
+
+useEffect(() => {
+  debugger;
+  if (!user.name) {
+    dispatch(getUser());
+  }
+}, [dispatch]);
+  const logOut = () => {
+    debugger;
+    router.push('/login')
+  };
   return (
     <>
       <header className={`header bg-white ${navbar ? "is-sticky" : ""}`}>
@@ -72,6 +91,15 @@ const Header1 = () => {
                 {/* End language and currency selector */}
 
                 {/* Start btn-group */}
+                
+        {isUserLoggedIn ? (
+          <>
+            <button>{user.name}</button>
+            <button onClick={logOut}>
+              Logout
+            </button>
+          </>
+        ) : (
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
                   <Link
                     href="/signup"
@@ -79,7 +107,7 @@ const Header1 = () => {
                   >
                     Sign In / Register
                   </Link>
-                </div>
+                </div>)}
                 {/* End btn-group */}
 
                 {/* Start mobile menu icon */}

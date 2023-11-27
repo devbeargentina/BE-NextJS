@@ -6,8 +6,8 @@ export const registerUser = createAsyncThunk(
   async ({ registerData, navigate, toast }, { rejectWithValue }) => {
     try {
       const response = await API.post("api/Auth/register", registerData);
-      //toast.success("Added Successfully");
-      //navigate("/dashboard");
+      toast.success("Added Successfully");
+      navigate("/dashboard");
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -21,8 +21,8 @@ export const createCoTraveller = createAsyncThunk(
     try {
       const response = await API.post("api/Auth/cotravelers", coTravellerData);
       const userResponse = await getCoTravellers();
-      //toast.success("Added Successfully");
-      //navigate("/dashboard");
+      toast.success("Added Successfully");
+      navigate("/dashboard");
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -38,8 +38,8 @@ export const updateCoTraveller = createAsyncThunk(
         "api/Auth/update-cotravelers",
         coTravellerData
       );
-      //toast.success("Added Successfully");
-      //navigate("/dashboard");
+      toast.success("Added Successfully");
+      navigate("/dashboard");
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -75,8 +75,8 @@ export const updateUser = createAsyncThunk(
   async ({ updatedData, toast, navigate }, { rejectWithValue }) => {
     try {
       const response = await API.put(`api/Auth/update-profile`, updatedData);
-      //toast.success("Module Updated Successfully");
-      //navigate("/dashboard");
+      toast.success("Module Updated Successfully");
+      navigate("/dashboard");
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -88,8 +88,8 @@ export const deleteCoTraveller = createAsyncThunk(
   async ({ id, toast, navigate }, { rejectWithValue }) => {
     try {
       const response = await API.delete(`/api/Auth/coTravellers/${id}`);
-      // toast.success("Module Updated Successfully");
-      // navigate("/dashboard");
+      toast.success("Module Updated Successfully");
+      navigate("/dashboard");
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -99,13 +99,28 @@ export const deleteCoTraveller = createAsyncThunk(
 
 export const userLogin = createAsyncThunk(
   "auth/login",
-  async ({ loginRQ, toast, navigate }, { rejectWithValue }) => {
+  async ({ loginRQ, toast, router }, { rejectWithValue }) => {
+    try {
+      debugger;
+      const response = await API.post(`/api/auth/login`, loginRQ);
+      toast.success("Module Updated Successfully");
+      router.push("/home_3");
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const loginWithGoogle = createAsyncThunk(
+  "auth/loginWithGoogle",
+  async ({ loginRQ, toast, router }, { rejectWithValue }) => {
     try {
       debugger;
       const response = await API.post(`/api/auth/loginWithGoogle`, loginRQ);
-      // toast.success("Module Updated Successfully");
-      // navigate("/dashboard");
-      return response.data;
+       toast.success("Module Updated Successfully");
+       router.push("/home_3");
+      return response;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -120,6 +135,7 @@ const userSlice = createSlice({
     isUserLoggedIn: false,
     error: "",
     loading: false,
+    token: null,
   },
   reducers: {
     setUserData: (state, action) => {
@@ -128,15 +144,18 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(userLogin.pending, (state, action) => {
+      debugger;
       state.loading = true;
     });
     builder.addCase(userLogin.fulfilled, (state, action) => {
       try {
-        if (action.payload.data && action.payload.data.token)
-          localStorage.setItem("userToken", action.payload.data.token);
+        debugger;
+        if (action.payload.data && action.payload.data.result.token)
+          localStorage.setItem("userToken", action.payload.data.result.token);
 
         state.loading = false;
         state.isUserLoggedIn = true;
+        state.user = action.payload.data.result.user;
         // Call the getUser async thunk to fetch user data
         const userResponse = getUser(); // Make sure to dispatch the async thunk
         // if (userResponse.payload) {
@@ -155,6 +174,41 @@ const userSlice = createSlice({
       // // state.user = action.payload;
     });
     builder.addCase(userLogin.rejected, (state, action) => {
+      debugger;
+      state.loading = false;
+      state.isUserLoggedIn = false;
+      state.error = action.payload.message;
+      localStorage.removeItem("userToken");
+    });
+    builder.addCase(loginWithGoogle.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(loginWithGoogle.fulfilled, (state, action) => {
+      try {
+        if (action.payload.data && action.payload.data.token)
+          localStorage.setItem("userToken", action.payload.data.token);
+
+        state.loading = false;
+        state.isUserLoggedIn = true;
+        //state.user = action.payload;
+        // Call the getUser async thunk to fetch user data
+        const userResponse = getUser(); // Make sure to dispatch the async thunk
+        // if (userResponse.payload) {
+        //   // If the user response is successful, update the state accordingly
+        //   const user = userResponse.payload;
+        //   localStorage.setItem("userToken", user.token);
+        //   state.loading = false;
+        //   state.isUserLoggedIn = true;
+        //   // Update state with the user data, assuming `user` is the user data returned from the getUser async thunk
+        //   state.user = user;
+        // }
+      } catch (error) {
+        // Handle any errors that occur during the getUser async thunk
+        console.error(error);
+      }
+      // // state.user = action.payload;
+    });
+    builder.addCase(loginWithGoogle.rejected, (state, action) => {
       state.loading = false;
       state.isUserLoggedIn = false;
       state.error = action.payload.message;
