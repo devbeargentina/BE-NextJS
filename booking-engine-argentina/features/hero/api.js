@@ -7,6 +7,21 @@ import axios from "axios";
 //   baseURL: `${devEnv ? REACT_APP_DEV_API : REACT_APP_PROD_API}`,
 // });
 
+const createAPI = (baseURL) => {
+  const instance = axios.create({ baseURL });
+
+  instance.interceptors.request.use((req) => {
+    if (localStorage.getItem('userToken')) {
+      req.headers.Authorization = `Bearer ${localStorage.getItem('userToken')}`;
+    }
+    return req;
+  });
+
+  return instance;
+};
+
+export default createAPI;
+/* Old working code
 const API = axios.create({ baseURL: `https://localhost:7002` });
 debugger;
 API.interceptors.request.use((req) => {
@@ -15,7 +30,7 @@ API.interceptors.request.use((req) => {
   }
   return req;
 });
-
+*/
 // export const signIn = (formData) => API.post("/users/signin", formData);
 // export const signUp = (formData) => API.post("/users/signup", formData);
 
@@ -25,4 +40,4 @@ API.interceptors.request.use((req) => {
 // export const updateTour = (updatedTourData, id) =>
 //   API.patch(`/tour/${id}`, updatedTourData);
 // export const deleteTour = (id) => API.delete(`/tour/${id}`);
-export default API;
+//export default API;

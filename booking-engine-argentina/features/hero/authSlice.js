@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import API from "./api";
+import createAPI from "./api";
 
+const API = createAPI("https://localhost:7002");
 export const registerUser = createAsyncThunk(
   "auth/Register",
   async ({ registerData, navigate, toast }, { rejectWithValue }) => {
@@ -63,8 +64,11 @@ export const getUser = createAsyncThunk(
   "auth/getUser",
   async (userId, { rejectWithValue }) => {
     try {
+      if(localStorage.getItem("userToken")){
       const response = await API.get(`/api/Auth/user`);
       return response;
+    }
+    return rejectWithValue();
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -76,8 +80,8 @@ export const updateUser = createAsyncThunk(
     try {
       const response = await API.put(`api/Auth/update-profile`, updatedData);
       toast.success("Module Updated Successfully");
-      navigate("/dashboard");
-      return response.data;
+      //navigate("/dashboard");
+      return response;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -119,6 +123,7 @@ export const loginWithGoogle = createAsyncThunk(
       debugger;
       const response = await API.post(`/api/auth/loginWithGoogle`, loginRQ);
        toast.success("Module Updated Successfully");
+       debugger;
        router.push("/home_3");
       return response;
     } catch (err) {
@@ -132,7 +137,7 @@ const userSlice = createSlice({
   initialState: {
     user: {},
     coTravellers: [],
-    isUserLoggedIn: false,
+    isUserLoggedIn: null,
     error: "",
     loading: false,
     token: null,
@@ -174,22 +179,24 @@ const userSlice = createSlice({
       // // state.user = action.payload;
     });
     builder.addCase(userLogin.rejected, (state, action) => {
-      debugger;
       state.loading = false;
       state.isUserLoggedIn = false;
       state.error = action.payload.message;
       localStorage.removeItem("userToken");
     });
     builder.addCase(loginWithGoogle.pending, (state, action) => {
+      debugger;
       state.loading = true;
     });
     builder.addCase(loginWithGoogle.fulfilled, (state, action) => {
+      debugger;
       try {
         if (action.payload.data && action.payload.data.token)
           localStorage.setItem("userToken", action.payload.data.token);
 
         state.loading = false;
         state.isUserLoggedIn = true;
+        state.user = action.payload.data.user;
         //state.user = action.payload;
         // Call the getUser async thunk to fetch user data
         const userResponse = getUser(); // Make sure to dispatch the async thunk
@@ -209,6 +216,7 @@ const userSlice = createSlice({
       // // state.user = action.payload;
     });
     builder.addCase(loginWithGoogle.rejected, (state, action) => {
+      debugger;
       state.loading = false;
       state.isUserLoggedIn = false;
       state.error = action.payload.message;
@@ -268,9 +276,9 @@ const userSlice = createSlice({
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = action.payload.data.appUser;
+      state.user = action.payload.data.result.user;
       state.isUserLoggedIn = true;
-      state.coTravellers = action.payload.data.appUser.coTravellers;
+      //state.coTravellers = action.payload.data.appUser.coTravellers;
     });
     builder.addCase(getUser.rejected, (state, action) => {
       localStorage.removeItem("userToken");
@@ -284,9 +292,9 @@ const userSlice = createSlice({
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.loading = false;
-
+state.user = action.payload.data.result.user;
       // Call the getUser async thunk to fetch user data
-      const userResponse = getUser();
+      //const userResponse = getUser();
     });
     builder.addCase(updateUser.rejected, (state, action) => {
       state.loading = false;

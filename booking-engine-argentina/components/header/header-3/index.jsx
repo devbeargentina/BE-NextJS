@@ -2,6 +2,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
@@ -62,7 +63,7 @@ useEffect(() => {
                 <HeaderSearch />
                 {/* End logo */}
 
-                <div className="header-menu">
+                <div className="header-menu ms-5">
                   <div className="header-menu__content">
                     <MainMenu style="text-dark-1" />
                   </div>
@@ -75,8 +76,8 @@ useEffect(() => {
 
             <div className="col-auto">
               <div className="d-flex items-center">
-                <div className="row x-gap-20 items-center xxl:d-none">
-                  <CurrenctyMegaMenu textClass="text-dark-1" />
+                {/* <div className="row x-gap-20 items-center xxl:d-none">
+                  <CurrenctyMegaMenu textClass="text-dark-1" /> */}
                   {/* End Megamenu for Currencty */}
 
                   {/* Start vertical devider*/}
@@ -85,21 +86,72 @@ useEffect(() => {
                   </div>
                   {/* End vertical devider*/}
 
-                  <LanguageMegaMenu textClass="text-dark-1" />
+                  {/* <LanguageMegaMenu textClass="text-dark-1" /> */}
                   {/* End Megamenu for Language */}
-                </div>
+                {/* </div> */}
                 {/* End language and currency selector */}
 
                 {/* Start btn-group */}
                 
-        {isUserLoggedIn ? (
-          <>
-            <button>{user.name}</button>
-            <button onClick={logOut}>
-              Logout
-            </button>
-          </>
-        ) : (
+        {isUserLoggedIn == true ? (
+          
+          <div className="header-menu">
+          <div className="header-menu__content">
+<nav className="menu js-navList">
+<ul className={`menu__nav text-dark-1 -is-active`}>
+<li
+  className={"current menu-item-has-children"}
+>
+  <a href="#"><Image
+width={20}
+height={20}
+src="/img/general/lang.png"
+alt="image"
+className="rounded-full mr-10"
+/>
+    <span className="mr-10" style={{minWidth:"120px"}}>{user?.name} </span>
+    <i className="icon icon-chevron-sm-down" />
+  </a>
+  <ul className="subnav" style={{minWidth:"200px"}}>
+      <li
+        key={0}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"/user-profile"}>My Profile</Link>
+      </li>
+      <li
+        key={1}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"3"}>My Bookings</Link>
+      </li>
+      <li
+        key={2}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"3"}>My Co-Travellers</Link>
+      </li>
+      <li
+        key={3}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"3"}>Sign Out</Link>
+      </li>
+  </ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+        ) : ( isUserLoggedIn === false ? (
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
                   <Link
                     href="/signup"
@@ -107,7 +159,7 @@ useEffect(() => {
                   >
                     Sign In / Register
                   </Link>
-                </div>)}
+                </div>) : <></>)}
                 {/* End btn-group */}
 
                 {/* Start mobile menu icon */}

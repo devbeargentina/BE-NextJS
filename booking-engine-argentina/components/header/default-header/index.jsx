@@ -2,10 +2,14 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { getUser } from '../../../features/hero/authSlice';
 
 import MobileMenu from "../MobileMenu";
 
@@ -27,6 +31,22 @@ const Header1 = () => {
     };
   }, []);
 
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { user, isUserLoggedIn } = useSelector((state) => state.user);
+debugger;
+
+useEffect(() => {
+  debugger;
+  if (!user.name) {
+    dispatch(getUser());
+  }
+}, [dispatch]);
+  const logOut = () => {
+    debugger;
+    router.push('/login')
+  };
   return (
     <>
       <header className={`header bg-white ${navbar ? "is-sticky" : ""}`}>
@@ -40,7 +60,7 @@ const Header1 = () => {
                 </Link>
                 {/* End logo */}
 
-                <div className="header-menu">
+                <div className="header-menu ms-5">
                   <div className="header-menu__content">
                     <MainMenu style="text-dark-1" />
                   </div>
@@ -69,7 +89,75 @@ const Header1 = () => {
                 {/* End language and currency selector */}
 
                 {/* Start btn-group */}
+                
+        {isUserLoggedIn == true ? (
+          
+          <div className="header-menu">
+          <div className="header-menu__content">
+<nav className="menu js-navList">
+<ul className={`menu__nav text-dark-1 -is-active`}>
+<li
+  className={"current menu-item-has-children"}
+>
+  <a href="#"><Image
+width={20}
+height={20}
+src="/img/general/lang.png"
+alt="image"
+className="rounded-full mr-10"
+/>
+    <span className="mr-10" style={{minWidth:"120px"}}>{user?.name} </span>
+    <i className="icon icon-chevron-sm-down" />
+  </a>
+  <ul className="subnav" style={{minWidth:"200px"}}>
+      <li
+        key={0}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"/user-profile"}>My Profile</Link>
+      </li>
+      <li
+        key={1}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"3"}>My Bookings</Link>
+      </li>
+      <li
+        key={2}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"3"}>My Co-Travellers</Link>
+      </li>
+      <li
+        key={3}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"3"}>Sign Out</Link>
+      </li>
+  </ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+        ) : ( isUserLoggedIn === false ? (
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+                  <Link
+                    href="/signup"
+                    className="button px-30 fw-400 text-14 -blue-1 bg-blue-1 h-50 text-white"
+                  >
+                    Sign In / Register
+                  </Link>
+                </div>) : <></>)}
+                <div className="d-none items-center ml-20 is-menu-opened-hide md:d-none">
                   <Link
                     href="/login"
                     className="button px-30 fw-400 text-14 -blue-1 bg-blue-1 h-50 text-white"

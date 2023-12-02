@@ -4,12 +4,15 @@
 import { GoogleLogin, GoogleOAuthProvider  } from '@react-oauth/google';
 
 import { useDispatch } from 'react-redux';
-import { userLogin } from '../../features/hero/authSlice';
+import { userLogin, loginWithGoogle } from '../../features/hero/authSlice';
 
 import { insertProduct } from '../../features/hero/productSlice';
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const LoginWithSocial = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   
   const handleGoogleLoginSuccess1 = async () => {
     try {
@@ -48,10 +51,11 @@ const LoginWithSocial = () => {
       // );
       // Perform the login action here by dispatching the userLogin action
       await dispatch(
-        userLogin({
+        loginWithGoogle({
           loginRQ: {
             accessToken: credentialResponse.credential,
           },
+          toast, router
         })
       ); 
     } catch (error) {

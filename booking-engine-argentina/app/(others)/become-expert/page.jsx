@@ -13,7 +13,7 @@ export const metadata = {
   description: "BE - Argentina - Travel & Tour React NextJS Template",
 };
 
-const BecomeExpert = () => {
+const UserProfile = () => {
   return (
     <>
       {/* End Page Title */}
@@ -129,4 +129,4 @@ const BecomeExpert = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(BecomeExpert), { ssr: false });
+export default dynamic(() => Promise.resolve(UserProfile), { ssr: false });

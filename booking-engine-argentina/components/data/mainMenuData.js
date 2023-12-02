@@ -68,6 +68,10 @@ export const pageItems = [
     routePath: "/become-expert",
   },
   {
+    name: "User Profile",
+    routePath: "/user-profile",
+  },
+  {
     name: "Help Center",
     routePath: "/help-center",
   },
