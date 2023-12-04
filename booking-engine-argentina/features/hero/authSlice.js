@@ -76,9 +76,9 @@ export const getUser = createAsyncThunk(
 );
 export const updateUser = createAsyncThunk(
   "auth/updateUser",
-  async ({ updatedData, toast, navigate }, { rejectWithValue }) => {
+  async ({ userDataRQ, toast, navigate }, { rejectWithValue }) => {
     try {
-      const response = await API.put(`api/Auth/update-profile`, updatedData);
+      const response = await API.put(`api/Auth/update-profile`, userDataRQ);
       toast.success("Module Updated Successfully");
       //navigate("/dashboard");
       return response;

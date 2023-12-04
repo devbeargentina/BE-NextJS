@@ -3,14 +3,14 @@ const ContactInfo = () => {
     {
       id: 1,
       title: "Toll Free Customer Care",
-      action: "tel:+(1) 123 456 7890",
-      text: "+(1) 123 456 7890",
+      action: "tel:+(91) 972 281 3544",
+      text: "+(91) 972 281 3544",
     },
     {
       id: 2,
       title: "Need live support?",
       action: "mailto:xyz@abc.com",
-      text: "hi@bookingengineargentina.com",
+      text: "cprafulm@gmail.com",
     },
   ];
   return (

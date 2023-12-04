@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../features/hero/authSlice';
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { tr } from "@faker-js/faker";
 const initialState = {
