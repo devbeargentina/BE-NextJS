@@ -4,41 +4,78 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../features/hero/authSlice';
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { tr } from "@faker-js/faker";
 const initialState = {
   email : "",
-  name : "",
-  phonenumber : "",
+  firstname : "",
+  lastname : "",
   password : "",
+  confirmPassword: "", // Added confirmPassword field
 };
 const SignUpForm = () => {
-  debugger;
   const [registerData, setregisterData] = useState(initialState);
+  const [validation, setValidation] = useState({
+    email: true,
+    firstname: true,
+    lastname: true,
+    password: true,
+    confirmPassword: true,
+  });
   const { loading, error } = useSelector((state) => ({ ...state.auth }));
-  const { email, name, phonenumber, password } = registerData;
+  const { email, firstname, lastname, password, confirmPassword } = registerData;
   const dispatch = useDispatch();
   const router = useRouter();
   
   useEffect(() => {
-    debugger;
-    console.log(error);
     error && toast.error(error);
   }, [error]);
 
+  const validationRules = {
+    email: true,
+    firstname: true,
+    lastname: true,
+    password: true,
+    confirmPassword: true,
+  };
+
+  const validateEmail = (email) => {
+    // Basic email validation using a regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const validateInput = () => {
+    const newValidation = {
+      email: !validationRules.email || validateEmail(email),
+      firstname: !validationRules.firstname || !!firstname,
+      lastname: !validationRules.lastname || !!lastname,
+      password: !validationRules.password || !!password,
+      confirmPassword: !validationRules.confirmPassword || !!confirmPassword,
+    };
+
+    setValidation(newValidation);
+
+    return Object.values(newValidation).every((isValid) => isValid);
+  };
+
   const handleSubmit = async (e) => {
-    debugger;
-    if (email && password && name && phonenumber) {
+    if (validateInput()) {
       try {
-        await dispatch(registerUser({ registerData,router,toast }));
-        
+          await dispatch(registerUser({ registerData,router,toast }));        
         } catch (error) {
           console.error('Login error:', error);
         }
-    }
+      }
   };
   const onInputChange = (e) => {
     debugger;
     let { name, value } = e.target;
     setregisterData({ ...registerData, [name]: value });
+    if(value) {
+      setValidation({...validation, [name]:true});
+    }
+    else{
+      setValidation({...validation, [name]:false});
+    }
   };
 
   return (
@@ -54,41 +91,41 @@ const SignUpForm = () => {
       </div>
       {/* End .col */}
 
-      <div className="col-12">
-        <div className="form-input ">
-          <input type="text" required id="name" name="name" onChange={onInputChange} />
+      <div className={`col-12`}>
+        <div className={`form-input ${validationRules.firstname && !validation.firstname ? 'error' : ''}`}>
+          <input type="text" required id="firstname" name="firstname" onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">First Name</label>
         </div>
       </div>
       {/* End .col */}
 
-      <div className="col-12">
-        <div className="form-input ">
-          <input type="text" required id="phonenumber" name="phonenumber" onChange={onInputChange} />
+      <div className={`col-12`}>
+        <div className={`form-input ${validationRules.lastname && !validation.lastname ? 'error' : ''}`}>
+          <input type="text" required id="lastname" name="lastname" onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Last Name</label>
         </div>
       </div>
       {/* End .col */}
 
-      <div className="col-12">
-        <div className="form-input ">
-          <input type="text" required id="email" name="email" onChange={onInputChange} />
+      <div className={`col-12`}>
+        <div className={`form-input ${validationRules.email && !validation.email ? 'error' : ''}`}>
+          <input type="email" required id="email" name="email" onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Email</label>
         </div>
       </div>
       {/* End .col */}
 
-      <div className="col-12">
-        <div className="form-input ">
+      <div className={`col-12`}>
+        <div className={`form-input ${validationRules.password && !validation.password ? 'error' : ''}`}>
           <input type="password" required id="password" name="password" onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Password</label>
         </div>
       </div>
       {/* End .col */}
 
-      <div className="col-12">
-        <div className="form-input ">
-          <input type="password" required />
+      <div className={`col-12`}>
+        <div className={`form-input ${validationRules.confirmPassword && !validation.confirmPassword ? 'error' : ''}`}>
+          <input type="password" required id="confirmpassword" name="password" onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Confirm Password</label>
         </div>
       </div>

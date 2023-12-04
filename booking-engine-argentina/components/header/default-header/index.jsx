@@ -39,7 +39,7 @@ debugger;
 
 useEffect(() => {
   debugger;
-  if (!user.name) {
+  if (!user.firstname) {
     dispatch(getUser());
   }
 }, [dispatch]);
@@ -99,14 +99,12 @@ useEffect(() => {
 <li
   className={"current menu-item-has-children"}
 >
-  <a href="#"><Image
+  <a href="#"><i
 width={20}
 height={20}
-src="/img/general/lang.png"
-alt="image"
-className="rounded-full mr-10"
-/>
-    <span className="mr-10" style={{minWidth:"120px"}}>{user?.name} </span>
+className=" icon-user text-22 px-10 text-blue-3"
+></i>
+    <span className="mr-10" style={{minWidth:"120px"}}>{user?.firstName + " " + user?.lastName} </span>
     <i className="icon icon-chevron-sm-down" />
   </a>
   <ul className="subnav" style={{minWidth:"200px"}}>

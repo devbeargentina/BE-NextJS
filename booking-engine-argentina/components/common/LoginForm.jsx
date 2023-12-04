@@ -12,20 +12,42 @@ const initialState = {
 const LoginForm = () => {
   debugger;
   const [loginRQ, setloginRQ] = useState(initialState);
+  const [validation, setValidation] = useState({
+    username: true,
+    password: true,
+  });
   const { loading, error } = useSelector((state) => ({ ...state.auth }));
   const { username, password } = loginRQ;
   const dispatch = useDispatch();
   const router = useRouter();
   
+  const validationRules = {
+    username: true,
+    password: true,
+  };
   useEffect(() => {
     debugger;
     console.log(error);
     error && toast.error(error);
   }, [error]);
 
+  const validateEmail = (username) => {
+    // Basic email validation using a regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(username);
+  };
+  const validateInput = () => {
+    const newValidation = {
+      username: !validationRules.username || validateEmail(username),
+      password: !validationRules.password || !!password,
+    };
+
+    setValidation(newValidation);
+
+    return Object.values(newValidation).every((isValid) => isValid);
+  };
   const handleSubmit = async (e) => {
-    debugger;
-    if (username && password) {
+    if (validateInput()) {
       try {
         await dispatch(userLogin({ loginRQ,toast,router }));
         
@@ -74,7 +96,7 @@ const LoginForm = () => {
       {/* End .col */}
 
       <div className="col-12">
-        <div className="form-input ">
+        <div className={`form-input ${validationRules.username && !validation.username ? 'error' : ''}`}>
           <input type="text" required id="username" name="username"  onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Email</label>
         </div>
@@ -82,7 +104,7 @@ const LoginForm = () => {
       {/* End .col */}
 
       <div className="col-12">
-        <div className="form-input ">
+        <div className={`form-input ${validationRules.password && !validation.password ? 'error' : ''}`}>
           <input type="password" id="password" name="password" required  onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Password</label>
         </div>
