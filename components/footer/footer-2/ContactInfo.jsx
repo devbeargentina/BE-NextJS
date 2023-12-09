@@ -5,6 +5,8 @@ const ContactInfo = () => {
       title: "Toll Free Customer Care",
       action: "tel:+1 (786) 840-0659",
       text: "+1 (786) 840-0659",
+      action1: "tel:+1 (786) 840-0659",
+      text1: "+1 (786) 840-0659",
     },
     {
       id: 2,
@@ -21,6 +23,9 @@ const ContactInfo = () => {
           <a href={item.action} className="text-18 fw-500 text-white mt-5">
             {item.text}
           </a>
+          {item.text1 ? <><br /><a href={item.action1} className="text-18 fw-500 text-dark-1 mt-5">
+            {item.text1}
+          </a></> : <></>}
         </div>
       ))}
     </>

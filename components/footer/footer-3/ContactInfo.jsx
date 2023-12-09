@@ -1,3 +1,5 @@
+import { it } from "@faker-js/faker";
+
 const ContactInfo = () => {
   const contactContent = [
     {
@@ -5,6 +7,8 @@ const ContactInfo = () => {
       title: "Toll Free Customer Care",
       action: "tel:+1 (786) 840-0659",
       text: "+1 (786) 840-0659",
+      action1: "tel:+54 (11) 524-62123",
+      text1: "+54 (11) 524-62123",
     },
     {
       id: 2,
@@ -16,11 +20,14 @@ const ContactInfo = () => {
   return (
     <>
       {contactContent.map((item) => (
-        <div className="mb-20" key={item.id}>
+        <div className="col-sm-6" key={item.id}>
           <div className={"text-14"}>{item.title}</div>
           <a href={item.action} className="text-18 fw-500 text-dark-1 mt-5">
             {item.text}
           </a>
+          {item.text1 ? <><br /><a href={item.action1} className="text-18 fw-500 text-dark-1 mt-5">
+            {item.text1}
+          </a></> : <></>}
         </div>
       ))}
     </>

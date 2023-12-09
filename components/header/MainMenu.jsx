@@ -23,7 +23,11 @@ const MainMenu = ({ style = "" }) => {
   return (
     <nav className="menu js-navList">
       <ul className={`menu__nav ${style} -is-active`}>
-        <li
+
+        <li className={pathname === "/" ? "current" : ""}>
+          <Link href="/">Home</Link>
+        </li>
+        {/* <li
           className={`${
             isActiveParentChaild(homeItems, pathname) ? "current" : ""
           } menu-item-has-children`}
@@ -44,7 +48,7 @@ const MainMenu = ({ style = "" }) => {
               </li>
             ))}
           </ul>
-        </li>
+        </li> */}
         {/* End home page menu */}
 
         {/* <li className={isActiveParent ? "menu-item-has-children -has-mega-menu current":'menu-item-has-children -has-mega-menu'}>
@@ -87,7 +91,7 @@ const MainMenu = ({ style = "" }) => {
         </li> */}
         {/* End blogIems */}
 
-        {/* <li
+        <li
           className={`${
             isActiveParentChaild(pageItems, pathname) ? "current" : ""
           } menu-item-has-children`}
@@ -108,7 +112,7 @@ const MainMenu = ({ style = "" }) => {
               </li>
             ))}
           </ul>
-        </li> */}
+        </li>
         {/* End pages items */}
 
         {/* <li
