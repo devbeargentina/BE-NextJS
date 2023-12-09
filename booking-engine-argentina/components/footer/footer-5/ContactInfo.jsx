@@ -3,8 +3,8 @@ const ContactInfo = () => {
     {
       id: 1,
       title: "Toll Free Customer Care",
-      action: "tel:+(91) 972 281 3544",
-      text: "+(91) 972 281 3544",
+      action: "tel:+1 (786) 840-0659",
+      text: "+1 (786) 840-0659",
     },
     {
       id: 2,

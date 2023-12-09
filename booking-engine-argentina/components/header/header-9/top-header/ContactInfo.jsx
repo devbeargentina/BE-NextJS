@@ -4,8 +4,8 @@ const ContactInfo = () => {
   return (
     <div className="row x-gap-15 y-gap-15 items-center">
       <div className="col-auto md:d-none">
-        <a href="tel:+(91) 972 281 3544" className="text-12 text-white">
-          +(91) 972 281 3544
+        <a href="tel:+1 (786) 840-0659" className="text-12 text-white">
+          +1 (786) 840-0659
         </a>
       </div>
       {/* End .col-auto */}

@@ -34,8 +34,8 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <Link href="/" className="header-logo mr-50">
-                  <img src="/img/general/logo-dark-2.svg" alt="logo icon" />
-                  <img src="/img/general/logo-dark-2.svg" alt="logo icon" />
+                  <img src="/img/general/SkySun-Inner.png" alt="logo icon" />
+                  <img src="/img/general/SkySun-Inner.png" alt="logo icon" />
                 </Link>
                 {/* End logo */}
 
