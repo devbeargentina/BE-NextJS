@@ -120,10 +120,8 @@ export const loginWithGoogle = createAsyncThunk(
   "auth/loginWithGoogle",
   async ({ loginRQ, toast, router }, { rejectWithValue }) => {
     try {
-      debugger;
       const response = await API.post(`/api/auth/loginWithGoogle`, loginRQ);
        toast.success("Module Updated Successfully");
-       debugger;
        router.push("/home_3");
       return response;
     } catch (err) {
@@ -275,15 +273,18 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
+      debugger;
       state.loading = false;
       state.user = action.payload.data.result.user;
       state.isUserLoggedIn = true;
       //state.coTravellers = action.payload.data.appUser.coTravellers;
     });
     builder.addCase(getUser.rejected, (state, action) => {
+      debugger;
       localStorage.removeItem("userToken");
       state.isUserLoggedIn = false;
       state.loading = false;
+      state.user = {};
       state.error = action.payload;
     });
 
