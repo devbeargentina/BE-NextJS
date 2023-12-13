@@ -20,7 +20,7 @@ export const metadata = {
 };
 
 const home_3 = () => {
-  debugger;
+  
   return (
     <>
       {/* End Page Title */}

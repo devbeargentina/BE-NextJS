@@ -23,7 +23,7 @@ const createAPI = (baseURL) => {
 export default createAPI;
 /* Old working code
 const API = axios.create({ baseURL: `https://localhost:7002` });
-debugger;
+
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("userToken")) {
     req.headers.Authorization = `Bearer ${localStorage.getItem("userToken")}`;

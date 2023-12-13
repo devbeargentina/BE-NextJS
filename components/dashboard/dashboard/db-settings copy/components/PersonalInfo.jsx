@@ -18,7 +18,7 @@ const initialState = {
   phonenumber: "",
 };
 const PersonalInfo = () => {
-  debugger;
+  
   const [userDataRQ, setuserDataRQ] = useState(initialState);
   const [validation, setValidation] = useState({
     firstname: true,
@@ -59,7 +59,7 @@ const PersonalInfo = () => {
     phonenumber: true,
   };
   useEffect(() => {
-    debugger;
+    
     console.log(error);
     error && toast.error(error);
   }, [error]);
@@ -88,6 +88,7 @@ const PersonalInfo = () => {
     return Object.values(newValidation).every((isValid) => isValid);
   };
   const handleSubmit = async (e) => {
+    
     if (validateInput()) {
       try {
         await dispatch(userLogin({ userDataRQ,toast,router }));
@@ -98,7 +99,7 @@ const PersonalInfo = () => {
     }
   };
   const onInputChange = (e) => {
-    debugger;
+    
     let { name, value } = e.target;
     setuserDataRQ({ ...userDataRQ, [name]: value });
     if(value) {

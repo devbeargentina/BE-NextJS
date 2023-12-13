@@ -38,7 +38,7 @@ const LoginWithSocial = () => {
     try {
       
     console.log('Login Success', credentialResponse);
-      debugger;
+      
       // await dispatch(
       //   userLogin({
       //     loginRQ: {
@@ -96,7 +96,7 @@ const LoginWithSocial = () => {
         <GoogleLogin
             onSuccess={handleGoogleLoginSuccess}
             onError={() => {
-              debugger;
+              
               console.log('Login Failed');
             }}
           />

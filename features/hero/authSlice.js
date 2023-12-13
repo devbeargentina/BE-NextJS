@@ -105,7 +105,7 @@ export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ loginRQ, toast, router }, { rejectWithValue }) => {
     try {
-      debugger;
+      
       const response = await API.post(`/api/auth/login`, loginRQ);
       toast.success("Module Updated Successfully");
       router.push("/home_3");
@@ -130,6 +130,21 @@ export const loginWithGoogle = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  "auth/logout",
+  async ({ router, toast }, { rejectWithValue }) => {
+    try {
+      // You might want to add an API call to revoke the user's session on the server side
+      // For now, just remove the user token from localStorage and reset the state
+      localStorage.removeItem("userToken");
+      router.push("/login"); // Redirect to the login page or any other desired page
+      toast.success("Logout Successful");
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -147,12 +162,12 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(userLogin.pending, (state, action) => {
-      debugger;
+      
       state.loading = true;
     });
     builder.addCase(userLogin.fulfilled, (state, action) => {
       try {
-        debugger;
+        
         if (action.payload.data && action.payload.data.result.token)
           localStorage.setItem("userToken", action.payload.data.result.token);
 
@@ -183,11 +198,11 @@ const userSlice = createSlice({
       localStorage.removeItem("userToken");
     });
     builder.addCase(loginWithGoogle.pending, (state, action) => {
-      debugger;
+      
       state.loading = true;
     });
     builder.addCase(loginWithGoogle.fulfilled, (state, action) => {
-      debugger;
+      
       try {
         if (action.payload.data && action.payload.data.token)
           localStorage.setItem("userToken", action.payload.data.token);
@@ -214,7 +229,7 @@ const userSlice = createSlice({
       // // state.user = action.payload;
     });
     builder.addCase(loginWithGoogle.rejected, (state, action) => {
-      debugger;
+      
       state.loading = false;
       state.isUserLoggedIn = false;
       state.error = action.payload.message;
@@ -273,14 +288,14 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
-      debugger;
+      
       state.loading = false;
       state.user = action.payload.data.result.user;
       state.isUserLoggedIn = true;
       //state.coTravellers = action.payload.data.appUser.coTravellers;
     });
     builder.addCase(getUser.rejected, (state, action) => {
-      debugger;
+      
       localStorage.removeItem("userToken");
       state.isUserLoggedIn = false;
       state.loading = false;
@@ -328,6 +343,23 @@ state.user = action.payload.data.result.user;
       state.loading = false;
       state.error = action.payload.message;
     });
+    
+    builder.addCase(logoutUser.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(logoutUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.isUserLoggedIn = false;
+      state.user = {};
+      state.coTravellers = [];
+    });
+
+    builder.addCase(logoutUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+
   },
 });
 

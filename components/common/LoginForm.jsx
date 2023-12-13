@@ -10,7 +10,7 @@ const initialState = {
   password: "",
 };
 const LoginForm = () => {
-  debugger;
+  
   const [loginRQ, setloginRQ] = useState(initialState);
   const [validation, setValidation] = useState({
     username: true,
@@ -26,7 +26,7 @@ const LoginForm = () => {
     password: true,
   };
   useEffect(() => {
-    debugger;
+    
     console.log(error);
     error && toast.error(error);
   }, [error]);
@@ -57,12 +57,12 @@ const LoginForm = () => {
     }
   };
   const onInputChange = (e) => {
-    debugger;
+    
     let { name, value } = e.target;
     setloginRQ({ ...loginRQ, [name]: value });
   };
   const handleGoogleLoginSuccess1 = async () => {
-    debugger;
+    
     try {
       await dispatch(
         userLogin({

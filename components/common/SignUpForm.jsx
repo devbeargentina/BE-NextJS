@@ -67,7 +67,7 @@ const SignUpForm = () => {
       }
   };
   const onInputChange = (e) => {
-    debugger;
+    
     let { name, value } = e.target;
     setregisterData({ ...registerData, [name]: value });
     if(value) {

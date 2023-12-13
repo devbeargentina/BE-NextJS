@@ -6,7 +6,7 @@ import { addCurrentTab } from "../../../features/hero/findPlaceSlice";
 import MainFilterSearchBox from "./MainFilterSearchBox";
 
 const Index = () => {
-  debugger;
+  
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
   const user = useSelector((state) => state.user) || {};
   const dispatch = useDispatch();

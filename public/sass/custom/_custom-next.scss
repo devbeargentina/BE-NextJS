@@ -4,6 +4,9 @@
     display: block;
     overflow: hidden;
 }
+.error input {
+    border: 1px red solid;
+}
 .ratio:before {
     display: block;
     width: 100%;

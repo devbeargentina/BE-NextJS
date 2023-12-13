@@ -3,13 +3,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { getUser } from '../../../features/hero/authSlice';
+import { getUser, logoutUser } from '../../../features/hero/authSlice';
 
 import MobileMenu from "../MobileMenu";
 
@@ -35,16 +36,23 @@ const Header1 = () => {
   const router = useRouter();
 
   const { user, isUserLoggedIn } = useSelector((state) => state.user);
-debugger;
 
+
+const handleLogout = async () => {
+  
+  await dispatch(logoutUser({ router, toast })); // Pass the necessary parameters
+  
+  router.push("/"); // Redirect to the login page or any other desired page
+  toast.success("Logout Successful");
+};
 useEffect(() => {
-  debugger;
+  
   if (!user.firstname) {
     dispatch(getUser());
   }
 }, [dispatch]);
   const logOut = () => {
-    debugger;
+    
     router.push('/login')
   };
   return (
@@ -138,7 +146,7 @@ className=" icon-user text-22 px-10 text-blue-3"
           "current menu-item-has-children"
         }
       >
-        <Link href={"3"}>Sign Out</Link>
+        <Link href={"#"} onClick={()=>handleLogout()}>Sign Out</Link>
       </li>
   </ul>
 </li>
@@ -149,10 +157,16 @@ className=" icon-user text-22 px-10 text-blue-3"
         ) : ( isUserLoggedIn === false ? (
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
                   <Link
-                    href="/signup"
+                    href="/login"
                     className="button px-30 fw-400 text-14 -blue-1 bg-blue-1 h-50 text-white"
                   >
-                    Sign In / Register
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="button ml-10 px-30 fw-400 text-14 -blue-1 bg-blue-1 h-50 text-white"
+                  >
+                    Sign Up / Register
                   </Link>
                 </div>) : <></>)}
                 <div className="d-none items-center ml-20 is-menu-opened-hide md:d-none">

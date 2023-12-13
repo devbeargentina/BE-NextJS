@@ -18,7 +18,7 @@ export const findPlaceSlice = createSlice({
   initialState,
   reducers: {
     addCurrentTab: (state, { payload }) => {
-      debugger;
+      
       state.currentTab = payload;
     },
   },
