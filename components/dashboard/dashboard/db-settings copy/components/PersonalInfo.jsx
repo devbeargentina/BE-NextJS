@@ -19,7 +19,7 @@ const initialState = {
 };
 const PersonalInfo = () => {
   
-  const [userDataRQ, setuserDataRQ] = useState(initialState);
+  const [userData, setuserData] = useState(initialState);
   const [validation, setValidation] = useState({
     firstname: true,
     lastname: true,
@@ -32,7 +32,8 @@ const PersonalInfo = () => {
     zipcode: true,
     phonenumber: true,
   });
-  const { loading, error } = useSelector((state) => ({ ...state.auth }));
+  const { loading, error, user } = useSelector((state) => ({ ...state.user }));
+  console.log(user);
   const { firstname,
     lastname,
     gender,
@@ -42,7 +43,7 @@ const PersonalInfo = () => {
     state,
     country,
     zipcode,
-    phonenumber } = userDataRQ;
+    phonenumber } = userData;
   const dispatch = useDispatch();
   const router = useRouter();
   
@@ -64,6 +65,24 @@ const PersonalInfo = () => {
     error && toast.error(error);
   }, [error]);
 
+  
+  useEffect(() => {
+    // Populate userData with user data when user changes
+    setuserData({
+      firstname: user.firstname || "",
+      lastname: user.lastname || "",
+      gender: user.gender || "",
+      birthdate: user.birthdate || "",
+      address: user.address || "",
+      city: user.city || "",
+      state: user.state || "",
+      country: user.country || "",
+      zipcode: user.zipcode || "",
+      phonenumber: user.phonenumber || "",
+    });
+
+    // ... your other useEffect logic
+  }, [user]);
   const validateEmail = (username) => {
     // Basic email validation using a regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -91,7 +110,7 @@ const PersonalInfo = () => {
     
     if (validateInput()) {
       try {
-        await dispatch(userLogin({ userDataRQ,toast,router }));
+        await dispatch(userLogin({ userData,toast,router }));
         
         } catch (error) {
           console.error('Login error:', error);
@@ -101,7 +120,7 @@ const PersonalInfo = () => {
   const onInputChange = (e) => {
     
     let { name, value } = e.target;
-    setuserDataRQ({ ...userDataRQ, [name]: value });
+    setuserData({ ...userData, [name]: value });
     if(value) {
       setValidation({...validation, [name]:true});
     }
@@ -129,7 +148,8 @@ const PersonalInfo = () => {
             {/* End col-12 */}
             <div className="col-md-6">
               <div className={`form-input ${validationRules.firstname && !validation.firstname ? 'error' : ''}`}>
-                <input type="text" required id="firstname" name="firstname" onChange={onInputChange} />
+                <input type="text" required id="firstname" name="firstname" onChange={onInputChange} 
+                value={userData.firstname} />
                 <label className="lh-1 text-16 text-light-1">First Name</label>
               </div>
             </div>
@@ -137,7 +157,8 @@ const PersonalInfo = () => {
 
             <div className="col-md-6">
               <div className={`form-input ${validationRules.lastname && !validation.lastname ? 'error' : ''}`}>
-                <input type="text" required id="lastname" name="lastname" onChange={onInputChange} />
+                <input type="text" required id="lastname" name="lastname" onChange={onInputChange}
+                value={userData.lastname} />
                 <label className="lh-1 text-16 text-light-1">Last Name</label>
               </div>
             </div>
@@ -153,7 +174,7 @@ const PersonalInfo = () => {
             <div className="col-md-6">
               <div className={`form-input ${validationRules.birthdate && !validation.birthdate  ? 'error' : ''}`}>
                 <input type="text" required  id="birthdate" name="birthdate" onChange={onInputChange} />
-                <label className="lh-1 text-16 text-light-1">First Name</label>
+                <label className="lh-1 text-16 text-light-1">Birthdate</label>
               </div>
             </div>
             {/* End col-6 */}
@@ -161,7 +182,7 @@ const PersonalInfo = () => {
             <div className="col-md-6">
               <div className={`form-input ${validationRules.address && !validation.address  ? 'error' : ''}`}>
                 <input type="text" required  id="address" name="address" onChange={onInputChange} />
-                <label className="lh-1 text-16 text-light-1">Last Name</label>
+                <label className="lh-1 text-16 text-light-1">Address</label>
               </div>
             </div>
             {/* End col-6 */}
@@ -169,7 +190,7 @@ const PersonalInfo = () => {
             <div className="col-md-6">
               <div className={`form-input ${validationRules.city && !validation.city  ? 'error' : ''}`}>
                 <input type="text" required  id="city" name="city" onChange={onInputChange} />
-                <label className="lh-1 text-16 text-light-1">Email</label>
+                <label className="lh-1 text-16 text-light-1">City</label>
               </div>
             </div>
             {/* End col-6 */}
@@ -178,7 +199,7 @@ const PersonalInfo = () => {
               <div className={`form-input ${validationRules.state && !validation.state  ? 'error' : ''}`}>
                 <input type="text" required  id="state" name="state" onChange={onInputChange} />
                 <label className="lh-1 text-16 text-light-1">
-                  Phone Number
+                  State
                 </label>
               </div>
             </div>
@@ -186,7 +207,7 @@ const PersonalInfo = () => {
               <div className={`form-input ${validationRules.country && !validation.country  ? 'error' : ''}`}>
                 <input type="text" required  id="country" name="country" onChange={onInputChange} />
                 <label className="lh-1 text-16 text-light-1">
-                  Phone Number
+                  Country
                 </label>
               </div>
             </div>
@@ -194,18 +215,18 @@ const PersonalInfo = () => {
               <div className={`form-input ${validationRules.zipcode && !validation.zipcode  ? 'error' : ''}`}>
                 <input type="text" required  id="zipcode" name="zipcode" onChange={onInputChange} />
                 <label className="lh-1 text-16 text-light-1">
-                  Phone Number
+                  Zipcode
                 </label>
               </div>
             </div>
             {/* End col-6 */}
 
-            <div className="col-12">
+            {/* <div className="col-12">
               <div className={`form-input ${validationRules.phonenumber && !validation.phonenumber  ? 'error' : ''}`}>
                 <input type="text" required  id="phonenumber" name="phonenumber" onChange={onInputChange} />
                 <label className="lh-1 text-16 text-light-1">Birthday</label>
               </div>
-            </div>
+            </div> */}
             {/* End col-6 */}
 
             {/* <div className="col-12">
