@@ -131,7 +131,7 @@ className=" icon-user text-22 px-10 text-blue-3"
           "current menu-item-has-children"
         }
       >
-        <Link href={"3"}>My Bookings</Link>
+        <Link href={"#"}>My Bookings</Link>
       </li>
       <li
         key={2}
@@ -139,7 +139,7 @@ className=" icon-user text-22 px-10 text-blue-3"
           "current menu-item-has-children"
         }
       >
-        <Link href={"3"}>My Co-Travellers</Link>
+        <Link href={"#"}>My Co-Travellers</Link>
       </li>
       <li
         key={3}
@@ -174,12 +174,69 @@ className=" icon-user text-22 px-10 text-blue-3"
 
                 {/* Start mobile menu icon */}
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-dark-1">
-                  <div>
+                  
+        {isUserLoggedIn == true ? (
+          
+          <div className="header-menu">
+          <div className="header-menu__content">
+<nav className="menu js-navList">
+<ul className={`menu__nav text-dark-1 -is-active`}>
+<li
+  className={"current menu-item-has-children"}
+>
+  <a href="#"><i
+width={30}
+height={30}
+className=" icon-user text-22 px-10 text-blue-3"
+></i>
+    <span className="ms-2 mr-10 " style={{minWidth:"120px"}}>{user?.firstName + " " + user?.lastName} </span>
+    <i className="icon icon-chevron-sm-down" />
+  </a>
+  <ul className="subnav" style={{minWidth:"200px"}}>
+      <li
+        key={0}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"/user-profile"}>My Profile</Link>
+      </li>
+      <li
+        key={1}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"#"}>My Bookings</Link>
+      </li>
+      <li
+        key={2}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"#"}>My Co-Travellers</Link>
+      </li>
+      <li
+        key={3}
+        className={
+          "current menu-item-has-children"
+        }
+      >
+        <Link href={"#"} onClick={()=>handleLogout()}>Sign Out</Link>
+      </li>
+  </ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+        ) : ( isUserLoggedIn === false ? (<div>
                     <Link
                       href="/login"
                       className="d-flex items-center icon-user text-inherit text-22"
                     />
-                  </div>
+                  </div>) : <></>)}
                   <div>
                     <button
                       className="d-flex items-center icon-menu text-inherit text-20"

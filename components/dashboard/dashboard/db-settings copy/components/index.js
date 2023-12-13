@@ -13,10 +13,10 @@ const Index = () => {
       label: "Personal Information",
       content: <PersonalInfo />,
     },
-    {
-      label: "Location Information",
-      content: <LocationInfo />,
-    },
+    // {
+    //   label: "Location Information",
+    //   content: <LocationInfo />,
+    // },
     {
       label: "Change Password",
       content: <PasswordInfo />,

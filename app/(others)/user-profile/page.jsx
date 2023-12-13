@@ -38,7 +38,7 @@ const BecomeExpert = () => {
           <div className="row justify-center text-center">
             <div className="col-xl-6 col-lg-8 col-md-10">
               <h1 className="text-40 md:text-25 fw-600 text-white">
-                Looking for joy?
+                My Profile
               </h1>
               <div className="text-white mt-15">
                 Your trusted trip companion

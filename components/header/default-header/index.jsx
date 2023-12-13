@@ -130,7 +130,7 @@ className=" icon-user text-22 px-10 text-blue-3"
           "current menu-item-has-children"
         }
       >
-        <Link href={"3"}>My Bookings</Link>
+        <Link href={"#"}>My Bookings</Link>
       </li>
       <li
         key={2}
@@ -138,7 +138,7 @@ className=" icon-user text-22 px-10 text-blue-3"
           "current menu-item-has-children"
         }
       >
-        <Link href={"3"}>My Co-Travellers</Link>
+        <Link href={"#"}>My Co-Travellers</Link>
       </li>
       <li
         key={3}

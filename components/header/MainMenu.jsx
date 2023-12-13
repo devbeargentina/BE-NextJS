@@ -27,6 +27,9 @@ const MainMenu = ({ style = "" }) => {
         <li className={pathname === "/" ? "current" : ""}>
           <Link href="/">Home</Link>
         </li>
+        <li className={pathname === "/about" ? "current" : ""}>
+          <Link href="/about">About</Link>
+        </li>
         {/* <li
           className={`${
             isActiveParentChaild(homeItems, pathname) ? "current" : ""
@@ -90,7 +93,7 @@ const MainMenu = ({ style = "" }) => {
           </ul>
         </li> */}
         {/* End blogIems */}
-
+{/* 
         <li
           className={`${
             isActiveParentChaild(pageItems, pathname) ? "current" : ""
@@ -112,7 +115,7 @@ const MainMenu = ({ style = "" }) => {
               </li>
             ))}
           </ul>
-        </li>
+        </li> */}
         {/* End pages items */}
 
         {/* <li
