@@ -31,7 +31,7 @@ const ForgotPassword = () => {
   const validateEmail = (email) => {
     // Basic email validation using a regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(username);
+    return emailRegex.test(email);
   };
   const validateInput = () => {
     const newValidation = {
