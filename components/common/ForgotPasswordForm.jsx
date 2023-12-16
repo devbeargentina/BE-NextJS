@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const initialState = {
-  eamil: "",
+  email: "",
 };
 const ForgotPassword = () => {
   
