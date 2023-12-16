@@ -12,7 +12,6 @@ const initialState = {
   token : ""
 };
 const ResetPassword = () => {
-  
   const [loginRQ, setloginRQ] = useState(initialState);
   const [validation, setValidation] = useState({
     confirmPassword: true,
@@ -26,13 +25,17 @@ const ResetPassword = () => {
   const queryParams = useSearchParams();
   const userId = queryParams.get('userId');
   const token = queryParams.get('token');  
-  if(userId && token){    
-    setloginRQ({ ...loginRQ, [userId]: userId, [token]: token  });
-  }
   const validationRules = {
     confirmPassword: true,
     password: true,
   };
+  
+  useEffect(() => {
+    
+  if(userId && token){    
+    setloginRQ({ ...loginRQ, ["userId"]: userId, ["token"]: token  });
+  }
+}, []);
   useEffect(() => {
     
     console.log(error);
