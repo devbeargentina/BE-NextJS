@@ -145,6 +145,34 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async ({ loginRQ, toast, router }, { rejectWithValue }) => {
+    try {
+      const response = await API.post(`/api/auth/forgotPassword`, loginRQ);
+       toast.success("Module Updated Successfully");
+       router.push("/home_3");
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async ({ loginRQ, toast, router }, { rejectWithValue }) => {
+    try {
+      const response = await API.post(`/api/auth/resetPassword`, loginRQ);
+       toast.success("Module Updated Successfully");
+       router.push("/home_3");
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -253,6 +281,28 @@ const userSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(createCoTraveller.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+    
+    builder.addCase(forgotPassword.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(forgotPassword.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(forgotPassword.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+    
+    builder.addCase(resetPassword.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(resetPassword.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(resetPassword.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     });

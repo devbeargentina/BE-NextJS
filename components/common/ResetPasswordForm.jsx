@@ -1,28 +1,36 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogin } from '../../features/hero/authSlice';
+import { resetPassword } from '../../features/hero/authSlice';
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const initialState = {
-  username: "",
+  confirmPassword: "",
   password: "",
+  userId : "",
+  token : ""
 };
-const LoginForm = () => {
+const ResetPassword = () => {
   
   const [loginRQ, setloginRQ] = useState(initialState);
   const [validation, setValidation] = useState({
-    username: true,
+    confirmPassword: true,
     password: true,
   });
   const { loading, error } = useSelector((state) => ({ ...state.auth }));
   const { username, password } = loginRQ;
   const dispatch = useDispatch();
   const router = useRouter();
-  
+
+  const queryParams = useSearchParams();
+  const userId = queryParams.get('userId');
+  const token = queryParams.get('token');  
+  if(userId && token){    
+    setloginRQ({ ...loginRQ, [userId]: userId, [token]: token  });
+  }
   const validationRules = {
-    username: true,
+    confirmPassword: true,
     password: true,
   };
   useEffect(() => {
@@ -31,15 +39,10 @@ const LoginForm = () => {
     error && toast.error(error);
   }, [error]);
 
-  const validateEmail = (username) => {
-    // Basic email validation using a regular expression
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(username);
-  };
   const validateInput = () => {
     const newValidation = {
-      username: !validationRules.username || validateEmail(username),
       password: !validationRules.password || !!password,
+      confirmPassword: !validationRules.confirmPassword || !!confirmPassword,
     };
 
     setValidation(newValidation);
@@ -47,9 +50,9 @@ const LoginForm = () => {
     return Object.values(newValidation).every((isValid) => isValid);
   };
   const handleSubmit = async (e) => {
-    if (validateInput()) {
+    if (validateInput() && userId && token) {
       try {
-        await dispatch(userLogin({ loginRQ,toast,router }));
+        await dispatch(resetPassword({ loginRQ,toast,router }));
         
         } catch (error) {
           console.error('Login error:', error);
@@ -61,62 +64,25 @@ const LoginForm = () => {
     let { name, value } = e.target;
     setloginRQ({ ...loginRQ, [name]: value });
   };
-  const handleGoogleLoginSuccess1 = async () => {
-    
-    try {
-      await dispatch(
-        userLogin({
-          productData: {
-            productId: "0123123123",
-            name: "string",
-            price: 110,
-            description: "string",
-            categoryName: "string",
-            imageUrl: "string",
-            imageLocalPath: "string",
-            image: null
-          },
-        },toast, router)
-      ); 
-    } catch (error) {
-      console.error('Login error:', error);
-    }
-  };
+
   return (
     <div className="row y-gap-20">
       <div className="col-12">
-        <h1 className="text-22 fw-500">Welcome back</h1>
-        <p className="mt-10">
-          Don&apos;t have an account yet?{" "}
-          <Link href="/signup" className="text-blue-1">
-            Sign up for free
-          </Link>
-        </p>
+        <h1 className="text-22 fw-500">Reset Password</h1>
       </div>
-      {/* End .col */}
-
-      <div className="col-12">
-        <div className={`form-input ${validationRules.username && !validation.username ? 'error' : ''}`}>
-          <input type="text" required id="username" name="username"  onChange={onInputChange} />
-          <label className="lh-1 text-14 text-light-1">Email</label>
-        </div>
-      </div>
-      {/* End .col */}
-
       <div className="col-12">
         <div className={`form-input ${validationRules.password && !validation.password ? 'error' : ''}`}>
           <input type="password" id="password" name="password" required  onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Password</label>
         </div>
       </div>
-      {/* End .col */}
-
+      
       <div className="col-12">
-      <Link href="/forgotpassword" className="text-14 fw-500 text-blue-1 underline">
-          Forgot your password?
-        </Link>
+        <div className={`form-input ${validationRules.confirmPassword && !validation.confirmPassword ? 'error' : ''}`}>
+          <input type="text" required id="confirmPassword" name="confirmPassword"  onChange={onInputChange} />
+          <label className="lh-1 text-14 text-light-1">Confirm Password</label>
+        </div>
       </div>
-      {/* End .col */}
 
       <div className="col-12">
         <button
@@ -125,7 +91,7 @@ const LoginForm = () => {
           className="button py-20 -dark-1 bg-blue-1 text-white w-100"
           onClick={() => handleSubmit()}
         >
-          Sign In <div className="icon-arrow-top-right ml-15" />
+          Submit <div className="icon-arrow-top-right ml-15" />
         </button>
       </div>
       {/* End .col */}
@@ -133,4 +99,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ResetPassword;

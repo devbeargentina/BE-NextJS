@@ -80,6 +80,14 @@ export const pageItems = [
     routePath: "/login",
   },
   {
+    name: "Forgot Password",
+    routePath: "/forgotpassword",
+  },
+  {
+    name: "Reset Password",
+    routePath: "/resetpassword",
+  },
+  {
     name: "Register",
     routePath: "/signup",
   },

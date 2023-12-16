@@ -1,29 +1,26 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogin } from '../../features/hero/authSlice';
+import { forgotPassword } from '../../features/hero/authSlice';
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const initialState = {
-  username: "",
-  password: "",
+  eamil: "",
 };
-const LoginForm = () => {
+const ForgotPassword = () => {
   
   const [loginRQ, setloginRQ] = useState(initialState);
   const [validation, setValidation] = useState({
-    username: true,
-    password: true,
+    email: true,
   });
   const { loading, error } = useSelector((state) => ({ ...state.auth }));
-  const { username, password } = loginRQ;
+  const { email } = loginRQ;
   const dispatch = useDispatch();
   const router = useRouter();
   
   const validationRules = {
-    username: true,
-    password: true,
+    email: true,
   };
   useEffect(() => {
     
@@ -31,15 +28,14 @@ const LoginForm = () => {
     error && toast.error(error);
   }, [error]);
 
-  const validateEmail = (username) => {
+  const validateEmail = (email) => {
     // Basic email validation using a regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(username);
   };
   const validateInput = () => {
     const newValidation = {
-      username: !validationRules.username || validateEmail(username),
-      password: !validationRules.password || !!password,
+      email: !validationRules.email || validateEmail(email),
     };
 
     setValidation(newValidation);
@@ -49,7 +45,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     if (validateInput()) {
       try {
-        await dispatch(userLogin({ loginRQ,toast,router }));
+        await dispatch(forgotPassword({ loginRQ,toast,router }));
         
         } catch (error) {
           console.error('Login error:', error);
@@ -61,31 +57,11 @@ const LoginForm = () => {
     let { name, value } = e.target;
     setloginRQ({ ...loginRQ, [name]: value });
   };
-  const handleGoogleLoginSuccess1 = async () => {
-    
-    try {
-      await dispatch(
-        userLogin({
-          productData: {
-            productId: "0123123123",
-            name: "string",
-            price: 110,
-            description: "string",
-            categoryName: "string",
-            imageUrl: "string",
-            imageLocalPath: "string",
-            image: null
-          },
-        },toast, router)
-      ); 
-    } catch (error) {
-      console.error('Login error:', error);
-    }
-  };
+  
   return (
     <div className="row y-gap-20">
       <div className="col-12">
-        <h1 className="text-22 fw-500">Welcome back</h1>
+        <h1 className="text-22 fw-500">Forgot Password</h1>
         <p className="mt-10">
           Don&apos;t have an account yet?{" "}
           <Link href="/signup" className="text-blue-1">
@@ -96,24 +72,15 @@ const LoginForm = () => {
       {/* End .col */}
 
       <div className="col-12">
-        <div className={`form-input ${validationRules.username && !validation.username ? 'error' : ''}`}>
-          <input type="text" required id="username" name="username"  onChange={onInputChange} />
+        <div className={`form-input ${validationRules.email && !validation.email ? 'error' : ''}`}>
+          <input type="text" required id="email" name="email"  onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Email</label>
         </div>
       </div>
-      {/* End .col */}
 
       <div className="col-12">
-        <div className={`form-input ${validationRules.password && !validation.password ? 'error' : ''}`}>
-          <input type="password" id="password" name="password" required  onChange={onInputChange} />
-          <label className="lh-1 text-14 text-light-1">Password</label>
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-12">
-      <Link href="/forgotpassword" className="text-14 fw-500 text-blue-1 underline">
-          Forgot your password?
+      <Link href="/login" className="text-14 fw-500 text-blue-1 underline">
+          Already Login ?
         </Link>
       </div>
       {/* End .col */}
@@ -125,7 +92,7 @@ const LoginForm = () => {
           className="button py-20 -dark-1 bg-blue-1 text-white w-100"
           onClick={() => handleSubmit()}
         >
-          Sign In <div className="icon-arrow-top-right ml-15" />
+          Submit <div className="icon-arrow-top-right ml-15" />
         </button>
       </div>
       {/* End .col */}
@@ -133,4 +100,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ForgotPassword;
