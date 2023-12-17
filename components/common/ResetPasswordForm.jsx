@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const initialState = {
   confirmPassword: "",
-  password: "",
+  newPassword: "",
   userId : "",
   token : ""
 };
@@ -15,10 +15,10 @@ const ResetPassword = () => {
   const [loginRQ, setloginRQ] = useState(initialState);
   const [validation, setValidation] = useState({
     confirmPassword: true,
-    password: true,
+    newPassword: true,
   });
   const { loading, error } = useSelector((state) => ({ ...state.auth }));
-  const { username, password } = loginRQ;
+  const { username, newPassword } = loginRQ;
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -27,7 +27,7 @@ const ResetPassword = () => {
   const token = queryParams.get('token');  
   const validationRules = {
     confirmPassword: true,
-    password: true,
+    newPassword: true,
   };
   
   useEffect(() => {
@@ -44,7 +44,7 @@ const ResetPassword = () => {
 
   const validateInput = () => {
     const newValidation = {
-      password: !validationRules.password || !!password,
+      newPassword: !validationRules.newPassword || !!newPassword,
       confirmPassword: !validationRules.confirmPassword || !!confirmPassword,
     };
 
@@ -74,8 +74,8 @@ const ResetPassword = () => {
         <h1 className="text-22 fw-500">Reset Password</h1>
       </div>
       <div className="col-12">
-        <div className={`form-input ${validationRules.password && !validation.password ? 'error' : ''}`}>
-          <input type="password" id="password" name="password" required  onChange={onInputChange} />
+        <div className={`form-input ${validationRules.newPassword && !validation.newPassword ? 'error' : ''}`}>
+          <input type="newPassword" id="newPassword" name="newPassword" required  onChange={onInputChange} />
           <label className="lh-1 text-14 text-light-1">Password</label>
         </div>
       </div>
