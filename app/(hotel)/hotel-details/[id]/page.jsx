@@ -125,12 +125,12 @@ const HotelSingleV1Dynamic = ({ params }) => {
           <ReviewProgress />
           {/* End review with progress */}
 
-          <div className="pt-40">
+          <div className="pt-40 d-none">
             <DetailsReview />
             {/* End review with details */}
           </div>
 
-          <div className="row pt-30">
+          <div className="row pt-30 d-none">
             <div className="col-auto">
               <a href="#" className="button -md -outline-blue-1 text-blue-1">
                 Show all 116 reviews{" "}
@@ -145,7 +145,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End Review section */}
 
-      <section className="pt-40">
+      <section className="pt-40 d-none">
         <div className="container">
           <div className="row">
             <div className="col-xl-8 col-lg-10">
@@ -169,7 +169,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End Reply Comment box section */}
 
-      <section className="mt-40" id="facilities">
+      <section className="mt-40 d-none" id="facilities">
         <div className="container">
           <div className="row x-gap-40 y-gap-40">
             <div className="col-12">
@@ -220,7 +220,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End health &  safety measures section */}
 
-      <section className="pt-40">
+      <section className="pt-40 d-none">
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -238,7 +238,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End hotel surroundings */}
 
-      <section className="pt-40">
+      <section className="pt-40 d-none">
         <div className="container">
           <div className="pt-40 border-top-light">
             <div className="row">
@@ -259,7 +259,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End helpful facts surroundings */}
 
-      <section id="faq" className="pt-40 layout-pb-md">
+      <section id="faq" className="pt-40 layout-pb-md d-none">
         <div className="container">
           <div className="pt-40 border-top-light">
             <div className="row y-gap-20">
@@ -286,7 +286,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End Faq about sections */}
 
-      <section className="layout-pt-md layout-pb-lg">
+      <section className="layout-pt-md layout-pb-lg d-none">
         <div className="container">
           <div className="row justify-center text-center">
             <div className="col-auto">

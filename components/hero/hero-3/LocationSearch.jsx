@@ -1,11 +1,22 @@
+// Import necessary modules and hooks
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
 
-'use client'
+const LocationSearch = ({ locationCode, locationName }) => {
+  const dispatch = useDispatch(); // Hook to dispatch actions
+  const [searchValue, setSearchValue] = useState(locationName || ""); // Set default searchValue based on locationName
+  const [selectedItem, setSelectedItem] = useState(null); // Set default selectedItem based on initialState
 
-import { useState } from "react";
-
-const LocationSearch = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedItem, setSelectedItem] = useState(null);
+  useEffect(() => {
+    // Dispatch action to update locationCode and locationName in the Redux store with default values
+    dispatch(
+      addCurrentCriteria({
+        locationCode: locationCode || "", // Modify the format as needed
+        locationName: locationName || "",
+      })
+    );
+  }, []); // Run this effect only once when the component mounts
 
   const locationSearchContent = [
     {
@@ -38,6 +49,14 @@ const LocationSearch = () => {
   const handleOptionClick = (item) => {
     setSearchValue(item.name);
     setSelectedItem(item);
+
+    // Dispatch action to update locationCode and locationName in the Redux store
+    dispatch(
+      addCurrentCriteria({
+        locationCode: `loc-${item.id}`, // Modify the format as needed
+        locationName: item.name,
+      })
+    );
   };
 
   return (

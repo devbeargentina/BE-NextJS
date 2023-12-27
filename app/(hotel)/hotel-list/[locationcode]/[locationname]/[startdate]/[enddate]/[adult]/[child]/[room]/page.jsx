@@ -1,18 +1,23 @@
 import CallToActions from "@/components/common/CallToActions";
 import Header11 from "@/components/header/header-11";
+import { hotelsData } from "@/data/hotels";
 import DefaultFooter from "@/components/footer/default";
-import MainFilterSearchBox from "@/components/hotel-list/hotel-list-v1/MainFilterSearchBox";
-import TopHeaderFilter from "@/components/hotel-list/hotel-list-v1/TopHeaderFilter";
-import HotelProperties from "@/components/hotel-list/hotel-list-v1/HotelProperties";
+import MainFilterSearchBox from "@/components/hotel-list/hotel-list/MainFilterSearchBox";
+import TopHeaderFilter from "@/components/hotel-list/hotel-list/TopHeaderFilter";
+import HotelProperties from "@/components/hotel-list/hotel-list/HotelProperties";
 import Pagination from "@/components/hotel-list/common/Pagination";
-import Sidebar from "@/components/hotel-list/hotel-list-v1/Sidebar";
+import Sidebar from "@/components/hotel-list/hotel-list/Sidebar";
 
 export const metadata = {
   title: "Hotel List v1 || BE - Argentina - Travel & Tour React NextJS Template",
   description: "BE - Argentina - Travel & Tour React NextJS Template",
 };
 
-const index = () => {
+const index = ({params}) => {
+  debugger;
+  const id = params.id;
+  const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];
+  console.log(hotel);
   return (
     <>
       {/* End Page Title */}
@@ -28,7 +33,7 @@ const index = () => {
           <div className="row">
             <div className="col-12">
               <div className="text-center">
-                <h1 className="text-30 fw-600">Find Your Dream Luxury Hotel</h1>
+                <h1 className="text-30 fw-600">{`Find Your Dream Luxury Hotel`}</h1>
               </div>
               {/* End text-center */}
               <MainFilterSearchBox />

@@ -53,7 +53,7 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <div className="row x-gap-20 items-center xxl:d-none">
-                  <CurrenctyMegaMenu textClass="text-white" />
+                  {/* <CurrenctyMegaMenu textClass="text-white" /> */}
                   {/* End Megamenu for Currencty */}
 
                   {/* Start vertical devider*/}
@@ -62,7 +62,7 @@ const Header1 = () => {
                   </div>
                   {/* End vertical devider*/}
 
-                  <LanguageMegaMenu textClass="text-white" />
+                  {/* <LanguageMegaMenu textClass="text-white" /> */}
                   {/* End Megamenu for Language */}
                 </div>
                 {/* End language and currency selector */}

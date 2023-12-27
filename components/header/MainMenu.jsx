@@ -24,10 +24,10 @@ const MainMenu = ({ style = "" }) => {
     <nav className="menu js-navList">
       <ul className={`menu__nav ${style} -is-active`}>
 
-        <li className={pathname === "/" ? "current" : ""}>
+        <li className={pathname === "/" ? "current ms-3" : " ms-3"}>
           <Link href="/">Home</Link>
         </li>
-        <li className={pathname === "/about" ? "current" : ""}>
+        <li className={pathname === "/about" ? "current ms-3" : " ms-3"}>
           <Link href="/about">About</Link>
         </li>
         {/* <li
@@ -142,7 +142,7 @@ const MainMenu = ({ style = "" }) => {
           </ul>
         </li> */}
 
-        <li className={pathname === "/contact" ? "current" : ""}>
+        <li className={pathname === "/contact" ? "current ms-3" : " ms-3"}>
           <Link href="/contact">Contact</Link>
         </li>
       </ul>

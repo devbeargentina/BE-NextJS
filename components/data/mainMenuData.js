@@ -152,7 +152,7 @@ export const categorieMegaMenuItems = [
         megaBanner: "/img/backgrounds/7.png",
         title: "Things to do on your hotel",
         btnText: "See Hotel",
-        btnRoute: "/hotel-list-v1",
+        btnRoute: "/hotel-list",
         menuItems: [
           {
             id: 1,
@@ -160,7 +160,7 @@ export const categorieMegaMenuItems = [
             menuList: [
               {
                 name: "Hotel List v1",
-                routePath: "/hotel-list-v1",
+                routePath: "/hotel-list",
               },
               {
                 name: "Hotel List v2",
@@ -186,11 +186,11 @@ export const categorieMegaMenuItems = [
             menuList: [
               {
                 name: "Hotel Single v1",
-                routePath: "/hotel-single-v1/5",
+                routePath: "/hotel-details/5",
               },
               {
                 name: "Hotel Single v2",
-                routePath: "/hotel-single-v2/3",
+                routePath: "/hotel-details-v2/3",
               },
             ],
           },
@@ -457,7 +457,7 @@ export const categorieMobileItems = [
         menuList: [
           {
             name: "Hotel List v1",
-            routePath: "/hotel-list-v1",
+            routePath: "/hotel-list",
           },
           {
             name: "Hotel List v2",
@@ -483,11 +483,11 @@ export const categorieMobileItems = [
         menuList: [
           {
             name: "Hotel Single v1",
-            routePath: "/hotel-single-v1/5",
+            routePath: "/hotel-details/5",
           },
           {
             name: "Hotel Single v2",
-            routePath: "/hotel-single-v2/5",
+            routePath: "/hotel-details-v2/5",
           },
         ],
       },

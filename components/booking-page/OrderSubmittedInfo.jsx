@@ -1,7 +1,7 @@
 const OrderSubmittedInfo = () => {
   return (
     <>
-      <div className="col-xl-8 col-lg-8">
+      <div className="col-xl-12 col-lg-12">
         <div className="order-completed-wrapper">
           <div className="d-flex flex-column items-center mt-40 lg:md-40 sm:mt-24">
             <div className="size-80 flex-center rounded-full bg-dark-3">

@@ -2,9 +2,12 @@
 'use client'
 
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";  // Adjust the path accordingly
+
 const counters = [
   { name: "Adults", defaultValue: 2 },
-  { name: "Children", defaultValue: 1 },
+  { name: "Children", defaultValue: 0 },
   { name: "Rooms", defaultValue: 1 },
 ];
 
@@ -61,14 +64,25 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
   );
 };
 
-const GuestSearch = () => {
+const GuestSearch = ({adult, child, room}) => {
+  const dispatch = useDispatch(); // Hook to dispatch actions
   const [guestCounts, setGuestCounts] = useState({
-    Adults: 2,
-    Children: 1,
-    Rooms: 1,
+    Adults: adult,
+    Children: child,
+    Rooms: room,
   });
+  
   const handleCounterChange = (name, value) => {
     setGuestCounts((prevState) => ({ ...prevState, [name]: value }));
+
+    // Dispatch action to update adult, child, and room in the Redux store
+    dispatch(
+      addCurrentCriteria({
+        adult: name === "Adults" ? value : guestCounts.Adults,
+        child: name === "Children" ? value : guestCounts.Children,
+        room: name === "Rooms" ? value : guestCounts.Rooms,
+      })
+    );
   };
   return (
     <div className="searchMenu-guests px-30 lg:py-20 lg:px-0 js-form-dd js-form-counters position-relative">
