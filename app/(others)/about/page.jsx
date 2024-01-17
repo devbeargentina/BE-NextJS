@@ -27,12 +27,12 @@ const About = () => {
       <DefaultHeader />
       {/* End Header 1 */}
 
-      <section className="section-bg layout-pt-lg layout-pb-lg">
+      <section className="section-bg layout-pt-lg layout-pb-lg" style={{paddingTop:"70px", paddingBottom: "60px"}}>
         <div className="section-bg__item col-12">
           <Image
-            width={1920}
-            height={400}
-            src="/img/pages/about/1.png"
+            width={1499}
+            height={343}
+            src="/img/pages/about/1.jpg"
             alt="image"
             priority
           />
@@ -87,7 +87,7 @@ const About = () => {
       </section>
       {/* End about block section */}
 
-      <section className="pt-60">
+      {/* <section className="pt-60">
         <div className="container">
           <div className="border-bottom-light pb-40">
             <div className="row y-gap-30 justify-center text-center">
@@ -95,10 +95,10 @@ const About = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* End counter Section */}
 
-      <section className="layout-pt-lg layout-pb-lg">
+      {/* <section className="layout-pt-lg layout-pb-lg">
         <div className="container">
           <div className="row y-gap-20 justify-between items-end">
             <div className="col-auto">
@@ -110,17 +110,14 @@ const About = () => {
               </div>
             </div>
           </div>
-          {/* End .row */}
 
           <div className=" pt-40 js-section-slider">
             <div className="item_gap-x30">
               <Team1 />
             </div>
           </div>
-          {/* End  js-section-slider */}
         </div>
-        {/* End container */}
-      </section>
+      </section> */}
       {/* End team section */}
 
       <section className="section-bg layout-pt-lg layout-pb-lg">
