@@ -32,6 +32,7 @@ const About = () => {
           <Image
             width={1499}
             height={343}
+            style={{height:"auto"}}
             src="/img/pages/about/1.jpg"
             alt="image"
             priority
