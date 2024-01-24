@@ -16,11 +16,11 @@ const MainFilterSearchBox = () => {
   adult,
   child,
   room } = useSelector((state) => state.searchCriteria) || {};
-  debugger;
+  
   const dispatch = useDispatch();
   const Router = useRouter()
   const handleSearch = () => {
-    debugger;
+    
     Router.push(`/hotel-list/${locationCode}/${locationName}/${startDate}/${endDate}/${adult}/${child}/${room}`)
   }
   return (

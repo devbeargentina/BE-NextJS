@@ -1,3 +1,5 @@
+
+'use client'
 import CallToActions from "@/components/common/CallToActions";
 import Header11 from "@/components/header/header-11";
 import { hotelsData } from "@/data/hotels";
@@ -7,17 +9,39 @@ import TopHeaderFilter from "@/components/hotel-list/hotel-list/TopHeaderFilter"
 import HotelProperties from "@/components/hotel-list/hotel-list/HotelProperties";
 import Pagination from "@/components/hotel-list/common/Pagination";
 import Sidebar from "@/components/hotel-list/hotel-list/Sidebar";
+import { hotelAvailResult } from "@/features/hero/hotelSlice";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
-export const metadata = {
-  title: "Hotel List v1 || BE - Argentina - Travel & Tour React NextJS Template",
-  description: "BE - Argentina - Travel & Tour React NextJS Template",
-};
+// export const metadata = {
+//   title: "Hotel List v1 || BE - Argentina - Travel & Tour React NextJS Template",
+//   description: "BE - Argentina - Travel & Tour React NextJS Template",
+// };
 
 const index = ({params}) => {
-  debugger;
+  
+  const dispatch = useDispatch();
+
+  const { hotelList,loading } = useSelector((state) => ({ ...state.hotel }));
+  const router = useRouter();
   const id = params.id;
   const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];
-  console.log(hotel);
+  useEffect(() => {
+    const HotelAvailRQ = {
+    jpCode: "JP046300",
+    jpdCode: "string",
+    zoneCode: "string",
+    destinationZone: "string",
+    pax: 0,
+      startDate: "2024-01-18T10:44:49.292Z",
+      endDate: "2024-01-18T10:44:49.292Z"
+    };
+
+    // Dispatch the action
+    dispatch(hotelAvailResult({ HotelAvailRQ, router, undefined }));
+  }, []);
+  console.log(hotelList);
   return (
     <>
       {/* End Page Title */}

@@ -1,14 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  business:"Flight",
   locationCode: "loc-1",
   locationName: "London",
+  locationToCode: "loc-1",
+  locationToName: "London",
   cutOfDays: 2,
   stayInDays: 2,
   startDate: "01-01-2024",
   endDate: "01-15-2024",
   adult: 2,
   child: 0,
+  infant: 0,
   room: 1
 };
 

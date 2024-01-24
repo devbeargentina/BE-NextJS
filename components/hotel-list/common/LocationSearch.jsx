@@ -1,13 +1,36 @@
-// Import necessary modules and hooks
+// Import necessary modules and hooksu
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
+import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelSlice";
 
 const SearchBar = ({ locationCode, locationName }) => {
   const dispatch = useDispatch(); // Hook to dispatch actions
   const [searchValue, setSearchValue] = useState(locationName || ""); // Set default searchValue based on locationName
   const [selectedItem, setSelectedItem] = useState(null); // Set default selectedItem based on initialState
 
+  const [options, setOptions] = useState([]);
+
+  const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
+  const router = useRouter();
+  const handleSearch = async (query) => {
+    if(query.length > 2){
+
+    await dispatch(fetchHotelLocationList({ query,router,undefined }));  
+    }
+    // fetch(`${SEARCH_URI}?q=${query}+in:login&page=1&per_page=50`)
+    //   .then((resp) => resp.json())
+    //   .then(({ items }) => {
+    //     setOptions(items);
+    //     setIsLoading(false);
+    //   });
+  };
+
+  // Bypass client-side filtering by returning `true`. Results are already
+  // filtered by the search endpoint, so no need to do it again.
+  const filterBy = () => true;
   useEffect(() => {
     // Dispatch action to update locationCode and locationName in the Redux store with default values
     dispatch(
@@ -69,18 +92,63 @@ const SearchBar = ({ locationCode, locationName }) => {
         >
           <h4 className="text-15 fw-500 ls-2 lh-16">Location</h4>
           <div className="text-15 text-light-1 ls-2 lh-16">
-            <input
+            {/* <input
               autoComplete="off"
               type="search"
               placeholder="Where are you going?"
               className="js-search js-dd-focus"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-            />
+            /> */}
+            
+    <AsyncTypeahead
+      filterBy={filterBy}
+      id="async-example"
+      isLoading={loading}
+      labelKey="name"
+      minLength={3}
+      maxLength={4}
+      onSearch={(query) => {
+        // Handle search logic if needed
+        handleSearch(query);
+      }}
+      onChange={(selectedOptions) => {
+        if (selectedOptions && selectedOptions.length > 0) {
+          const selectedOption = selectedOptions[0];
+          dispatch(
+            addCurrentCriteria({
+              locationCode: selectedOption.jpdCode || "",
+              locationName: selectedOption.name || "",
+            })
+          );
+        }
+      }}
+      useCache={false}
+      onInputChange={handleSearch}
+      options={hotelLocations}
+      placeholder="Search Location..."
+      className="divAutocomplete"  // Set your custom class here
+      renderMenuItemChildren={(option) => (
+        <>
+          {/* <img
+            alt={option.login}
+            src={option.avatar_url}
+            style={{
+              height: '24px',
+              marginRight: '10px',
+              width: '24px',
+            }}
+          /> */}
+          <span>{option.name}</span>
+          {/* <span><HtmlParser text={( option.login)
+                .replace(new RegExp('(' + props.text + ')', 'gi'), ('<span class="font-weight-bold">$1</span>'))} /></span> */}
+        </>
+      )}
+    />
           </div>
         </div>
 
-        <div className="shadow-2 dropdown-menu min-width-400">
+        {/* <div className="shadow-2 dropdown-menu min-width-400">
           <div className="bg-white px-20 py-20 sm:px-0 sm:py-15 rounded-4">
             <ul className="y-gap-5 js-results">
               {locationSearchContent.map((item) => (
@@ -107,7 +175,7 @@ const SearchBar = ({ locationCode, locationName }) => {
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

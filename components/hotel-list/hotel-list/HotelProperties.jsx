@@ -6,12 +6,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const HotelProperties = () => {
+  const { hotelList,loading } = useSelector((state) => ({ ...state.hotel }));
   return (
     <>
-      {hotelsData.slice(0, 7).map((item) => (
-        <div className="col-12" key={item?.id}>
+      {hotelList.slice(0, 7).map((item) => (
+        <div className="col-12" key={item?.code}>
           <div className="border-top-light pt-30">
             <div className="row x-gap-20 y-gap-20">
               <div className="col-md-auto">
@@ -26,13 +28,13 @@ const HotelProperties = () => {
                         }}
                         navigation={true}
                       >
-                        {item?.slideImg?.map((slide, i) => (
+                        {item?.hotelInfo?.images?.map((slide, i) => (
                           <SwiperSlide key={i}>
                             <Image
                               width={250}
                               height={250}
                               className="rounded-4 col-12 js-lazy"
-                              src={slide}
+                              src={slide.url}
                               alt="image"
                             />
                           </SwiperSlide>
@@ -53,8 +55,8 @@ const HotelProperties = () => {
 
               <div className="col-md">
                 <h3 className="text-18 lh-16 fw-500">
-                  {item?.title}
-                  <br className="lg:d-none" /> {item?.location}
+                  {item?.hotelInfo?.name}
+                  <br className="lg:d-none" /> {item?.hotelInfo?.address}
                   <div className="d-inline-block ml-10">
                     <i className="icon-star text-10 text-yellow-2"></i>
                     <i className="icon-star text-10 text-yellow-2"></i>
@@ -66,7 +68,7 @@ const HotelProperties = () => {
 
                 <div className="row x-gap-10 y-gap-10 items-center pt-10">
                   <div className="col-auto">
-                    <p className="text-14">{item?.location}</p>
+                    <p className="text-14">{item?.hotelInfo?.address}</p>
                   </div>
 
                   <div className="col-auto">
@@ -87,17 +89,24 @@ const HotelProperties = () => {
                   </div>
                 </div>
 
-                <div className="text-14 lh-15 mt-20">
-                  <div className="fw-500">King Room</div>
-                  <div className="text-light-1">1 extra-large double bed</div>
-                </div>
+                {/* {item?.hotelOptions?.hotelOption?.hotelRooms?.hotelRoomList?.map((room, i) => (
+  <div className="text-14 lh-15 mt-20" key={i}>
+    <div className="fw-500">{room.name}</div>
+    <div className="text-light-1">{`${room.roomOccupancy.adults} adult${room.roomOccupancy.adults !== 1 ? 's' : ''}`}</div>
+    {room.roomOccupancy.children > 0 && (
+      <div className="text-light-1">{`${room.roomOccupancy.children} child${room.roomOccupancy.children !== 1 ? 'ren' : ''}`}</div>
+    )}
+  </div>
+))} */}
 
-                <div className="text-14 text-green-2 lh-15 mt-10">
-                  <div className="fw-500">Free cancellation</div>
-                  <div className="">
-                    You can cancel later, so lock in this great price today.
-                  </div>
-                </div>
+{item?.hotelOptions?.hotelOption?.additionalElements?.hotelOffers?.hotelOffer?.category === "GEN" && (
+  <div className="text-14 text-green-2 lh-15 mt-10">
+    <div className="fw-500">{item?.hotelOptions?.hotelOption?.additionalElements?.hotelOffers?.hotelOffer?.name}</div>
+    <div className="">
+    {item?.hotelOptions?.hotelOption?.additionalElements?.hotelOffers?.hotelOffer?.description}
+    </div>
+  </div>
+)}
 
                 <div className="row x-gap-10 y-gap-10 pt-20">
                   <div className="col-auto">
@@ -137,7 +146,7 @@ const HotelProperties = () => {
                   </div>
                   <div className="col-auto">
                     <div className="flex-center text-white fw-600 text-14 size-40 rounded-4 bg-blue-1">
-                      {item?.ratings}
+                      {item?.hotelInfo?.hotelCategory?.type.replace("est","")}
                     </div>
                   </div>
                 </div>
@@ -147,14 +156,15 @@ const HotelProperties = () => {
                     8 nights, 2 adult
                   </div>
                   <div className="text-22 lh-12 fw-600 mt-5">
-                    US${item?.price}
+                  {item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett}
+
                   </div>
                   <div className="text-14 text-light-1 mt-5">
-                    +US$828 taxes and charges
+                  US${item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett} taxes and charges
                   </div>
 
                   <Link
-                    href={`/hotel-details/${item.id}`}
+                    href={`/hotel-details/${item.code}`}
                     className="button -md -dark-1 bg-blue-1 text-white mt-24"
                   >
                     See Availability{" "}

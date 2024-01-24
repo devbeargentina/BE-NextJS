@@ -1,10 +1,14 @@
+import { useSelector } from "react-redux";
 import flightsData from "../../../data/flights";
 
 const FlightProperties = () => {
+  
+  const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
+  
   return (
     <>
-      {flightsData.map((item) => (
-        <div className="js-accordion" key={item.id}>
+      {flightList.map((item) => (
+        <div className="js-accordion" key={item.flightSegmentID}>
           <div className="py-30 px-30 bg-white rounded-4 base-tr mt-30">
             <div className="row y-gap-30 justify-between">
               <div className="col">
@@ -86,26 +90,26 @@ const FlightProperties = () => {
                   <div className="pl-30 border-left-light h-full md:d-none" />
                   <div>
                     <div className="text-right md:text-left mb-10">
-                      <div className="text-18 lh-16 fw-500">US$934</div>
+                      <div className="text-18 lh-16 fw-500">{`USD ${item.indicativePrice}`}</div>
                       <div className="text-15 lh-16 text-light-1">16 deals</div>
                     </div>
                     <div className="accordion__button">
                       <button
                         className="button -dark-1 px-30 h-50 bg-blue-1 text-white"
                         data-bs-toggle="collapse"
-                        data-bs-target={`#${item.selectId}`}
+                        data-bs-target={`#div${item.flightSegmentID}`}
                       >
-                        View Deal <div className="icon-arrow-top-right ml-15" />
+                        View Deal s <div className="icon-arrow-top-right ml-15" />
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* End .col-md-auto */}
+              {/* End  .col-md-auto */}
             </div>
-            {/* End .row */}
+            {/* End .row  */}
 
-            <div className=" collapse" id={item.selectId}>
+            <div className=" collapse" id={`div${item.flightSegmentID}`}>
               <div className="border-light rounded-4 mt-30">
                 <div className="py-20 px-30">
                   <div className="row justify-between items-center">

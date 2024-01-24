@@ -478,3 +478,27 @@ iframe#gsi_264245_505717 {
     border-bottom: 2px solid white;
 
 }
+
+.divAutocomplete input {
+    padding: 0px;
+}
+.divAutocomplete input:focus {
+    border: none;
+    box-shadow: none;
+}
+
+// .divAutocomplete .dropdown-item {
+//     padding: 0.25rem 0px;
+// }
+.divAutocomplete .rbt-menu.dropdown-menu {
+    margin: 10px -18px;
+    max-width: 300px;
+    width: 300px !important;
+    box-shadow: 0 10px 35px 0 rgba(5,16,54,.102);
+}
+.divAutocomplete .rbt-aux {
+    display: inline-block;
+    position: absolute;
+    right: -16px;
+    top: 2px;
+}

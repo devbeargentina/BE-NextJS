@@ -1,16 +1,43 @@
 
 'use client'
 
+import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InputRange from "react-input-range";
+import { useDispatch, useSelector } from "react-redux";
 
 const PirceSlider = () => {
+  const { flightList,flightAvailRQ,loading } = useSelector((state) => ({ ...state.flight }));
+  debugger;
   const [price, setPrice] = useState({
-    value: { min: 0, max: 500 },
+    value: { min: flightAvailRQ.filterParam.priceMinMax[0], max: flightAvailRQ.filterParam.priceMinMax[1] },
   });
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleOnChange = (value) => {
+    debugger
     setPrice({ value });
+    dispatch(
+      updateFlightAvailRQ({
+          ...flightAvailRQ,
+          filterParam: {
+            ...flightAvailRQ.filterParam,
+            priceMinMax: [value.min, value.max],
+            pageNumber: 0,
+          },
+      })
+    );
+    
+    dispatch(flightAvailResult({ flightAvailRQ : {
+      ...flightAvailRQ,
+      filterParam: {
+        ...flightAvailRQ.filterParam,
+        priceMinMax: [value.min, value.max],
+        pageNumber: 0,
+      },
+  }, router, undefined }));
   };
 
   return (
@@ -28,7 +55,7 @@ const PirceSlider = () => {
         <InputRange
           formatLabel={(value) => ``}
           minValue={0}
-          maxValue={2000}
+          maxValue={flightAvailRQ.filterParam.priceMinMax[1]}
           value={price.value}
           onChange={(value) => handleOnChange(value)}
         />
