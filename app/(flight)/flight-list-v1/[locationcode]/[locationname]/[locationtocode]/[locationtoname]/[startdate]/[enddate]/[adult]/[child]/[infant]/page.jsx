@@ -22,6 +22,15 @@ const index = () => {
   
   const dispatch = useDispatch();
 
+  const { locationCode,
+    locationName,
+    locationToCode,
+    locationToName,
+    startDate,
+    endDate,
+    adult,
+    child,
+    infant } = useSelector((state) => state.searchCriteria) || {};
   const { flightList,flightAvailRQ,loading, filterParam } = useSelector((state) => ({ ...state.flight }));
   const router = useRouter();
   //const id = params.id;
@@ -29,13 +38,13 @@ const index = () => {
   useEffect(() => {
     const FlightAvailRQ = {
       searchParam: {
-        destinationLocationCode: "EZE",
-        originLocationCode: "MIA",
-        journyDateTime: "2024-01-27T08:47:40.579Z",
-        journyReturnDateTime: "2024-01-29T08:47:40.579Z",
-        adult: 2,
-        child: 0,
-        infant: 0,
+        destinationLocationCode: locationCode,
+        originLocationCode: locationToCode,
+        journyDateTime: startDate,//"2024-01-27T08:47:40.579Z",
+        journyReturnDateTime: endDate,//"2024-01-29T08:47:40.579Z",
+        adult: adult,
+        child: child,
+        infant: infant,
         tripType: "ONE_WAY"
       },
   isApplySearchParam: true,

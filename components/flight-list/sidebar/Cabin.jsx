@@ -1,51 +1,85 @@
+
+import { useDispatch, useSelector } from "react-redux";
+import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { useRouter } from "next/navigation";
+
 const Cabin = () => {
-  return (
-    <>
-      <div className="row y-gap-10 items-center justify-between">
+  //const [currentPage, setCurrentPage] = useState(1);
+  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handlePageClick = (cabimClass) => {
+    debugger;
+  const updateCabin = flightAvailRQ.filterParam.cabin;
+
+  // Check if cabimClass exists in updateCabin
+  const cabimClassExists = updateCabin.includes(cabimClass.toString());
+
+  // Remove or add cabimClass based on its existence
+  const updatedCabin = cabimClassExists
+    ? updateCabin.filter((page) => page !== cabimClass.toString())
+    : [...updateCabin, cabimClass.toString()];
+
+// Dispatch the addCurrentCriteria action with the updated criteria
+dispatch(
+  updateFlightAvailRQ({
+    ...flightAvailRQ,
+    filterParam: {
+      ...flightAvailRQ.filterParam,
+      cabin: updatedCabin,
+      pageNumber: 0,
+    },
+  })
+);
+
+dispatch(
+  flightAvailResult({
+    flightAvailRQ: {
+      ...flightAvailRQ,
+      filterParam: {
+        ...flightAvailRQ.filterParam,
+        cabin: updatedCabin,
+        pageNumber: 0,
+      },
+    },
+    router,
+    undefined,
+  })
+);
+};
+  
+  const renderPage = (cabimClass, isActive = false) => {
+    debugger;
+    const className = `size-40 flex-center rounded-full cursor-pointer ${
+      isActive ? "bg-dark-1 text-white" : ""
+    }`;
+    return (
+      <div key={cabimClass} className="row y-gap-10 items-center justify-between">
         <div className="col-auto">
           <div className="form-checkbox d-flex items-center">
-            <input type="checkbox" />
+            <input type="checkbox" selected={flightAvailRQ.filterParam.cabin.includes(cabimClass)} onClick={() => handlePageClick(cabimClass)} />
             <div className="form-checkbox__mark">
               <div className="form-checkbox__icon icon-check" />
             </div>
-            <div className="text-15 ml-10">Basic Economy</div>
+            <div className="text-15 ml-10">{cabimClass}</div>
           </div>
         </div>
         <div className="col-auto">
           <div className="text-15 text-light-1">92</div>
         </div>
       </div>
-      {/* End .row */}
-      <div className="row y-gap-10 items-center justify-between">
-        <div className="col-auto">
-          <div className="form-checkbox d-flex items-center">
-            <input type="checkbox" />
-            <div className="form-checkbox__mark">
-              <div className="form-checkbox__icon icon-check" />
-            </div>
-            <div className="text-15 ml-10">Economy</div>
-          </div>
-        </div>
-        <div className="col-auto">
-          <div className="text-15 text-light-1">72</div>
-        </div>
-      </div>
-      {/* End .row */}
-      <div className="row y-gap-10 items-center justify-between">
-        <div className="col-auto">
-          <div className="form-checkbox d-flex items-center">
-            <input type="checkbox" />
-            <div className="form-checkbox__mark">
-              <div className="form-checkbox__icon icon-check" />
-            </div>
-            <div className="text-15 ml-10">Mixed</div>
-          </div>
-        </div>
-        <div className="col-auto">
-          <div className="text-15 text-light-1">62</div>
-        </div>
-      </div>
-      {/* End .row */}
+    );
+  };
+  const renderPages = () => {
+   debugger;
+    const pages = filterParam?.cabin.map((cabimClass) =>
+      renderPage(cabimClass)
+    );
+    return pages;
+  };
+  return (
+    <>
+    {renderPages()}
     </>
   );
 };

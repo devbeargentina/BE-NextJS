@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const PirceSlider = () => {
   const { flightList,flightAvailRQ,loading } = useSelector((state) => ({ ...state.flight }));
-  debugger;
+  ;
   const [price, setPrice] = useState({
     value: { min: flightAvailRQ.filterParam.priceMinMax[0], max: flightAvailRQ.filterParam.priceMinMax[1] },
   });
@@ -17,7 +17,7 @@ const PirceSlider = () => {
   const router = useRouter();
 
   const handleOnChange = (value) => {
-    debugger
+    
     setPrice({ value });
     dispatch(
       updateFlightAvailRQ({

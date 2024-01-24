@@ -34,7 +34,7 @@ const Pagination = () => {
   };
 
   const renderPage = (pageNumber, isActive = false) => {
-    debugger;
+    ;
     const className = `size-40 flex-center rounded-full cursor-pointer ${
       isActive ? "bg-dark-1 text-white" : ""
     }`;

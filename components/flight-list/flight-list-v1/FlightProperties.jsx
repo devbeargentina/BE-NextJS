@@ -2,15 +2,14 @@ import { useSelector } from "react-redux";
 import flightsData from "../../../data/flights";
 
 const FlightProperties = () => {
-  
   const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
-  
+  debugger;
   return (
     <>
       {flightList.map((item) => (
         <div className="js-accordion" key={item.flightSegmentID}>
           <div className="py-30 px-30 bg-white rounded-4 base-tr mt-30">
-            <div className="row y-gap-30 justify-between">
+            <div className="row y-gap-30 justify-between items-center">
               <div className="col">
                 <div className="row y-gap-10 items-center">
                   <div className="col-sm-auto">
@@ -23,8 +22,8 @@ const FlightProperties = () => {
                   <div className="col">
                     <div className="row x-gap-20 items-end">
                       <div className="col-auto">
-                        <div className="lh-15 fw-500">14:00</div>
-                        <div className="text-15 lh-15 text-light-1">SAW</div>
+                        <div className="lh-15 fw-500">{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour12: true }).split(' ')}</div>
+                        <div className="text-15 lh-15 text-light-1">{item.departureAirport.locationCode}</div>
                       </div>
                       <div className="col text-center">
                         <div className="flightLine">
@@ -36,18 +35,18 @@ const FlightProperties = () => {
                         </div>
                       </div>
                       <div className="col-auto">
-                        <div className="lh-15 fw-500">22:00</div>
-                        <div className="text-15 lh-15 text-light-1">STN</div>
+                        <div className="lh-15 fw-500">{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour12: true }).split(' ')}</div>
+                        <div className="text-15 lh-15 text-light-1">{item.arrivalAirport.locationCode}</div>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-auto">
                     <div className="text-15 text-light-1 px-20 md:px-0">
-                      4h 05m
+                      {item.journeyDuration}
                     </div>
                   </div>
                 </div>
-                <div className="row y-gap-10 items-center pt-30">
+                <div className="row y-gap-10 items-center pt-30" style={{display:"none"}}>
                   <div className="col-sm-auto">
                     <img
                       className="size-40"

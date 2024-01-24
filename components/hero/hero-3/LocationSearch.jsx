@@ -8,14 +8,18 @@ import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelS
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
 import { fetchLocationList } from "@/features/hero/flightSlice";
 const SEARCH_URI = 'https://api.github.com/search/users';
-const LocationSearch = ({ locationCode, locationName }) => {
+const LocationSearch = ({ locationCodea, locationNamea }) => {
   const dispatch = useDispatch(); // Hook to dispatch actions
-  const [searchValue, setSearchValue] = useState(locationName || ""); // Set default searchValue based on locationName
+  const [searchValue, setSearchValue] = useState(locationNamea || ""); // Set default searchValue based on locationName
   const [selectedItem, setSelectedItem] = useState(null); // Set default selectedItem based on initialState
 
   const [options, setOptions] = useState([]);
 
   const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { locationCode,
+  locationName,
+  locationToCode,
+  locationToName } = useSelector((state) => state.searchCriteria) || {};
   const { locationList } = useSelector((state) => ({ ...state.flight }));
   const { currentTab } = useSelector((state) => state.hero) || {};
   const router = useRouter();
@@ -115,6 +119,12 @@ const LocationSearch = ({ locationCode, locationName }) => {
       labelKey="name"
       minLength={3}
       maxLength={4}
+      defaultSelected={[
+        {
+          code: locationCode,
+          name: locationName,
+        },
+      ]}
       onSearch={(query) => {
         // Handle search logic if needed
         handleSearch(query);
@@ -175,6 +185,12 @@ const LocationSearch = ({ locationCode, locationName }) => {
       labelKey="name"
       minLength={3}
       maxLength={4}
+      defaultSelected={[
+        {
+          code: locationToCode,
+          name: locationToName,
+        },
+      ]}
       onSearch={(query) => {
         // Handle search logic if needed
         handleSearch(query);

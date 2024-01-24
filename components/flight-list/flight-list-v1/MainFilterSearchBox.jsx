@@ -1,9 +1,31 @@
-import DateSearch from "../common/DateSearch";
-import GuestSearch from "../common/GuestSearch";
-import LocationSearch from "../common/LocationSearch";
+import { useDispatch, useSelector } from "react-redux";
+import DateSearch from "@/components/hero/DateSearch";
+// import GuestSearch from "../common/GuestSearch";
+// import LocationSearch from "../common/LocationSearch";
 import FilterSelect from "../flight-list-v1/FilterSelect";
+import LocationSearch from "@/components/hero/hero-3/LocationSearch";
+import { useRouter } from "next/navigation";
+import FlightGuestSearch from "@/components/hero/hero-3/FlightGuestSearch";
 
 const MainFilterSearchBox = () => {
+  const { tabs, currentTab } = useSelector((state) => state.hero) || {};
+  const { locationCode,
+  locationName,
+  locationToCode,
+  locationToName,
+  cutOfDays,
+  stayInDays,
+  startDate,
+  endDate,
+  adult,
+  child,
+  infant } = useSelector((state) => state.searchCriteria) || {};
+  
+  const dispatch = useDispatch();
+  const Router = useRouter()
+  const handleSearch = () => {
+     Router.push(`/flight-list-v1/${locationCode}/${locationName}/${locationToCode}/${locationToName}/${startDate}/${endDate}/${adult}/${child}/${infant}`)
+  }
   return (
     <>
       <div className="row y-gap-20 items-center">
@@ -13,33 +35,29 @@ const MainFilterSearchBox = () => {
 
       <div className="mainSearch -col-5 border-light rounded-4 pr-20 py-20 lg:px-20 lg:pt-5 lg:pb-20 mt-15">
         <div className="button-grid items-center">
-          <LocationSearch />
+            <LocationSearch locationCode={locationCode} locationName={locationName} />
+          {/* <LocationSearch /> */}
           {/* End Location Flying From */}
 
-          <LocationSearch />
+          {/* <LocationSearch /> */}
           {/* End Location Flying To */}
 
           <div className="searchMenu-date px-30 lg:py-20 lg:px-0 js-form-dd js-calendar">
             <div>
-              <h4 className="text-15 fw-500 ls-2 lh-16">Depart</h4>
-              <DateSearch />
-            </div>
-          </div>
-          {/* End Depart */}
-
-          <div className="searchMenu-date px-30 lg:py-20 lg:px-0 js-form-dd js-calendar">
-            <div>
-              <h4 className="text-15 fw-500 ls-2 lh-16">Return</h4>
-              <DateSearch />
+                <h4 className="text-15 fw-500 ls-2 lh-16">
+                  Check in - Check out
+                </h4>
+                <DateSearch cutOfDays={cutOfDays} stayInDays={stayInDays} />
             </div>
           </div>
           {/* End Return */}
 
-          <GuestSearch />
+          <FlightGuestSearch adult={adult} child={child} infant={infant} />
           {/* End guest */}
 
           <div className="button-item">
-            <button className="mainSearch__submit button -blue-1 py-15 px-35 h-60 col-12 rounded-4 bg-dark-3 text-white">
+            <button className="mainSearch__submit button -blue-1 py-15 px-35 h-60 col-12 rounded-4 bg-dark-3 text-white"
+                onClick={() => handleSearch()}>
               <i className="icon-search text-20 mr-10" />
               Search
             </button>
