@@ -23,7 +23,7 @@ const FlightFilterSearchWidget = () => {
   const dispatch = useDispatch();
   const Router = useRouter()
   const handleSearch = () => {
-     Router.push(`/flight-list-v1/${locationCode}/${locationName}/${locationToCode}/${locationToName}/${startDate}/${endDate}/${adult}/${child}/${infant}`)
+     Router.push(`/flight-list-v1/${locationCode}/${locationName}/${locationToCode}/${locationToName}/${'2024-04-04'}/${'2024-04-05'}/${adult}/${child}/${infant}`)
   }
   return (
       <div className="tabs__content js-tabs-content">

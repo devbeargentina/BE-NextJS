@@ -68,7 +68,7 @@ const index = () => {
   },
   isApplySortParam: true
     };
-debugger;
+
     // Dispatch the action
     dispatch(flightAvailResult({ flightAvailRQ, router, undefined }));
   }, []);

@@ -8,16 +8,16 @@ import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
 const PirceSlider = () => {
-  const { flightList,flightAvailRQ,loading } = useSelector((state) => ({ ...state.flight }));
-  ;
+  const { flightList,flightAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.flight }));
+  
   const [price, setPrice] = useState({
-    value: { min: flightAvailRQ.filterParam.priceMinMax[0], max: flightAvailRQ.filterParam.priceMinMax[1] },
+    value: { min: filterParam.priceMinMax[0], max: filterParam.priceMinMax[1] },
   });
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleOnChange = (value) => {
-    
+    debugger
     setPrice({ value });
     dispatch(
       updateFlightAvailRQ({
@@ -55,7 +55,7 @@ const PirceSlider = () => {
         <InputRange
           formatLabel={(value) => ``}
           minValue={0}
-          maxValue={flightAvailRQ.filterParam.priceMinMax[1]}
+          maxValue={filterParam.priceMinMax[1]}
           value={price.value}
           onChange={(value) => handleOnChange(value)}
         />

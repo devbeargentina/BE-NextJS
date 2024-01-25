@@ -3,7 +3,7 @@ import flightsData from "../../../data/flights";
 
 const FlightProperties = () => {
   const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
-  debugger;
+  
   return (
     <>
       {flightList.map((item) => (
@@ -22,7 +22,7 @@ const FlightProperties = () => {
                   <div className="col">
                     <div className="row x-gap-20 items-end">
                       <div className="col-auto">
-                        <div className="lh-15 fw-500">{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour12: true }).split(' ')}</div>
+                        <div className="lh-15 fw-500">{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
                         <div className="text-15 lh-15 text-light-1">{item.departureAirport.locationCode}</div>
                       </div>
                       <div className="col text-center">
@@ -31,11 +31,11 @@ const FlightProperties = () => {
                           <div />
                         </div>
                         <div className="text-15 lh-15 text-light-1 mt-10">
-                          Nonstop
+                          {`${item.stopQuantity === "0" ? "Nonstop" : item.stopQuantity + " Stops"} `}
                         </div>
                       </div>
                       <div className="col-auto">
-                        <div className="lh-15 fw-500">{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour12: true }).split(' ')}</div>
+                        <div className="lh-15 fw-500">{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
                         <div className="text-15 lh-15 text-light-1">{item.arrivalAirport.locationCode}</div>
                       </div>
                     </div>
@@ -90,7 +90,7 @@ const FlightProperties = () => {
                   <div>
                     <div className="text-right md:text-left mb-10">
                       <div className="text-18 lh-16 fw-500">{`USD ${item.indicativePrice}`}</div>
-                      <div className="text-15 lh-16 text-light-1">16 deals</div>
+                      <div className="text-15 lh-16 text-light-1">{`${item.passengerFareInfoList.length} deals`}</div>
                     </div>
                     <div className="accordion__button">
                       <button
@@ -98,7 +98,7 @@ const FlightProperties = () => {
                         data-bs-toggle="collapse"
                         data-bs-target={`#div${item.flightSegmentID}`}
                       >
-                        View Deal s <div className="icon-arrow-top-right ml-15" />
+                        View Deal s
                       </button>
                     </div>
                   </div>
@@ -118,10 +118,11 @@ const FlightProperties = () => {
                       </div>
                     </div>
                     <div className="col-auto">
-                      <div className="text-14 text-light-1">4h 05m</div>
+                      <div className="text-14 text-light-1">{item.journeyDuration}</div>
                     </div>
                   </div>
                 </div>
+                {item.passengerFareInfoList.map((fareItem)=>(
                 <div className="py-30 px-30 border-top-light">
                   <div className="row y-gap-10 justify-between">
                     <div className="col-auto">
@@ -130,7 +131,7 @@ const FlightProperties = () => {
                           <img src="/img/flights/1.png" alt="image" />
                         </div>
                         <div className="text-14 text-light-1">
-                          Pegasus Airlines 1169
+                          {`${item.airlineName}(${item.airlineCode}) - ${item.flightNumber}`}
                         </div>
                       </div>
                       <div className="relative z-0">
@@ -141,11 +142,11 @@ const FlightProperties = () => {
                           </div>
                           <div className="row">
                             <div className="col-auto">
-                              <div className="lh-14 fw-500">8:25 am</div>
+                              <div className="lh-14 fw-500">{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
                             </div>
                             <div className="col-auto">
                               <div className="lh-14 fw-500">
-                                Istanbul Sabiha Gokcen (SAW)
+                          {`${item.departureAirport.locationName} ${item.departureAirport.city.locationName} ${item.departureAirport.country.locationName} - (${item.departureAirport.locationCode})`}
                               </div>
                             </div>
                           </div>
@@ -154,7 +155,7 @@ const FlightProperties = () => {
                           <div className="w-28 d-flex justify-center mr-15">
                             <img src="/img/flights/plane.svg" alt="image" />
                           </div>
-                          <div className="text-14 text-light-1">4h 05m</div>
+                          <div className="text-14 text-light-1">{item.journeyDuration}</div>
                         </div>
                         <div className="d-flex items-center mt-15">
                           <div className="w-28 d-flex justify-center mr-15">
@@ -162,11 +163,11 @@ const FlightProperties = () => {
                           </div>
                           <div className="row">
                             <div className="col-auto">
-                              <div className="lh-14 fw-500">9:30 am</div>
+                              <div className="lh-14 fw-500">{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
                             </div>
                             <div className="col-auto">
                               <div className="lh-14 fw-500">
-                                London Stansted (STN)
+                          {`${item.arrivalAirport.locationName} ${item.arrivalAirport.city.locationName} ${item.arrivalAirport.country.locationName} - (${item.arrivalAirport.locationCode})`}
                               </div>
                             </div>
                           </div>
@@ -174,7 +175,7 @@ const FlightProperties = () => {
                       </div>
                     </div>
                     <div className="col-auto text-right md:text-left">
-                      <div className="text-14 text-light-1">Economy</div>
+                      <div className="text-14 text-light-1">{`${fareItem.cabin} - ${fareItem.cabinClassCode}`}</div>
                       <div className="text-14 mt-15 md:mt-5">
                         Airbus A320neo (Narrow-body jet)
                         <br />
@@ -182,9 +183,15 @@ const FlightProperties = () => {
                         <br />
                         USB outlet
                       </div>
+                      <button
+                        className="button -dark-1 px-30 h-40 bg-blue-1 text-white float-end"
+                      >
+                        {fareItem.pricingInfo.totalFare.currencyCode + " " + fareItem.pricingInfo.totalFare.amount} <div className="icon-arrow-top-right ml-15" />
+                      </button>
                     </div>
                   </div>
                 </div>
+                ))}
               </div>
               <div className="border-light rounded-4 mt-20">
                 <div className="py-20 px-30">

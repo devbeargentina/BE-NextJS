@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { DateObject } from "react-multi-date-picker";
 
 const initialState = {
   business:"Flight",
@@ -8,8 +9,8 @@ const initialState = {
   locationToName: "London",
   cutOfDays: 2,
   stayInDays: 2,
-  startDate: "01-01-2024",
-  endDate: "01-15-2024",
+  startDate: new DateObject(),
+  endDate: new DateObject(),
   adult: 2,
   child: 0,
   infant: 0,

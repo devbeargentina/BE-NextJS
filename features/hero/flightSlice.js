@@ -20,7 +20,7 @@ export const flightAvailResult = createAsyncThunk(
   async ({ flightAvailRQ, navigate, toast }, { rejectWithValue }) => {
     try {
       console.log(JSON.stringify(flightAvailRQ));
-      ;
+      
       const response = await API.post(`api/flight/flightAvailResult`,  flightAvailRQ );
       return response.data;
     } catch (err) {
@@ -98,7 +98,7 @@ const flightSlice = createSlice({
       isApplySearchParam: true,
       filterParam: {
         cabin: [],
-        priceMinMax: [0, 1000000],
+        priceMinMax: [0, 1000],
         stops: [],
         pageNumber: 0,
         pageSize: 10
@@ -109,6 +109,13 @@ const flightSlice = createSlice({
         sortType: "string"
       },
       isApplySortParam: true
+    },
+    filterParam: {
+      cabin: [],
+      priceMinMax: [0, 1000],
+      stops: [],
+      pageNumber: 0,
+      pageSize: 10
     },
     locationList: [],
     flightList: [],
@@ -158,6 +165,7 @@ const flightSlice = createSlice({
       state.loading = false;
       state.flightList = action.payload.result?.flightList;
       state.filterParam = action.payload.result?.filterCriteria;
+      //state.flightAvailRQ.filterParam = action.payload.result?.filterCriteria; // Corrected assignment
       state.totalPages = action.payload.result?.totalPages;
       state.totalFlights = action.payload.result?.totalFlights;
     });

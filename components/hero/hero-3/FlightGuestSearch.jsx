@@ -8,7 +8,7 @@ import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";  // Ad
 const counters = [
   { name: "Adults", defaultValue: 2 },
   { name: "Children", defaultValue: 0 },
-  { name: "Infant", defaultValue: 1 },
+  { name: "Infant", defaultValue: 0 },
 ];
 
 const Counter = ({ name, defaultValue, onCounterChange }) => {
@@ -18,10 +18,19 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
     onCounterChange(name, count + 1);
   };
   const decrementCount = () => {
+    
+    if(name === "Adults"){
+      if (count > 1) {
+        setCount(count - 1);
+        onCounterChange(name, count - 1);
+      }
+    }
+    else{
     if (count > 0) {
       setCount(count - 1);
       onCounterChange(name, count - 1);
     }
+  }
   };
 
   return (

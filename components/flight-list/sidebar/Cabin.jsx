@@ -9,7 +9,7 @@ const Cabin = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (cabimClass) => {
-    debugger;
+    
   const updateCabin = flightAvailRQ.filterParam.cabin;
 
   // Check if cabimClass exists in updateCabin
@@ -49,7 +49,7 @@ dispatch(
 };
   
   const renderPage = (cabimClass, isActive = false) => {
-    debugger;
+    
     const className = `size-40 flex-center rounded-full cursor-pointer ${
       isActive ? "bg-dark-1 text-white" : ""
     }`;
@@ -71,7 +71,7 @@ dispatch(
     );
   };
   const renderPages = () => {
-   debugger;
+   
     const pages = filterParam?.cabin.map((cabimClass) =>
       renderPage(cabimClass)
     );

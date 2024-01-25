@@ -4,9 +4,10 @@
 import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const DateSearch = ({cutOfDays,stayInDays}) => {
+const DateSearch = ({cutOfDayss,stayInDayss}) => {
+  const { cutOfDays, stayInDays, startDate, endDate } = useSelector((state) => state.searchCriteria) || {};
   const dispatch = useDispatch(); // Hook to dispatch actions
   // const [dates, setDates] = useState([
   //   new DateObject({ year: 2023, month: 1, day: 22 }),
@@ -14,8 +15,8 @@ const DateSearch = ({cutOfDays,stayInDays}) => {
   //   1597994736000, //unix time in milliseconds (August 21 2020)
   // ]);
   const [dates, setDates] = useState([
-    new DateObject().add((cutOfDays), "day"),
-    new DateObject().add((cutOfDays+stayInDays), "day"),
+    new DateObject(startDate).add((cutOfDays), "day"),
+    new DateObject(endDate).add((cutOfDays+stayInDays), "day"),
   ]);
 
   // Dispatch action to update startDate and endDate in the Redux store
