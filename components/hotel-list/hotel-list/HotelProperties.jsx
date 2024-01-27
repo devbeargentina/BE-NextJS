@@ -58,11 +58,11 @@ const HotelProperties = () => {
                   </div>
                   {/* End image */}
 
-                  <div className="cardImage__wishlist">
+                  {/* <div className="cardImage__wishlist">
                     <button className="button -blue-1 bg-white size-30 rounded-full shadow-2">
                       <i className="icon-heart text-12"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* End .col */}
@@ -158,29 +158,29 @@ const HotelProperties = () => {
 
               <div className="col-md-auto text-right md:text-left">
                 <div className="row x-gap-10 y-gap-10 justify-end items-center md:justify-start">
-                  <div className="col-auto">
+                  {/* <div className="col-auto">
                     <div className="text-14 lh-14 fw-500">Exceptional</div>
                     <div className="text-14 lh-14 text-light-1">
                       3,014 reviews
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-auto">
                     <div className="flex-center text-white fw-600 text-14 size-40 rounded-4 bg-blue-1">
-                      {item?.hotelInfo?.hotelCategory?.type.replace("est","")}
+                      {item?.hotelCategory?.type.replace("est","")}
                     </div>
                   </div>
                 </div>
 
                 <div className="">
                   <div className="text-14 text-light-1 mt-50 md:mt-20">
-                    8 nights, 2 adult
+                    8 nights
                   </div>
                   <div className="text-22 lh-12 fw-600 mt-5">
                   {item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett}
 
                   </div>
                   <div className="text-14 text-light-1 mt-5">
-                  US${item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett} taxes and charges
+                  {item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett} taxes and charges
                   </div>
 
                   <Link

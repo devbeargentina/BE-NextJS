@@ -61,7 +61,7 @@ useEffect(() => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <Link href="/" className="header-logo mr-20">
-                  <img src="/img/general/logo-light.svg" alt="logo icon" />
+                <img src="/img/general/SkySun.png" alt="logo icon" />
                   <img src="/img/general/SkySun.png" alt="logo icon" />
                 </Link>
                 {/* End logo */}

@@ -23,23 +23,24 @@ const Sidebar = () => {
       </div>
       {/* End search box */}
 
-      <div className="sidebar__item">
+      {/* <div className="sidebar__item">
         <h5 className="text-18 fw-500 mb-10">Deals</h5>
         <div className="sidebar-checkbox">
           <div className="row y-gap-5 items-center">
             <DealsFilter />
           </div>
         </div>
-      </div>
+      </div> */}
       {/* End deals filter */}
 
-      <div className="sidebar__item">
+      {/* <div className="sidebar__item">
         <h5 className="text-18 fw-500 mb-10">Popular Filters</h5>
         <div className="sidebar-checkbox">
           <PopularFilters />
         </div>
-        {/* End Sidebar-checkbox */}
-      </div>
+        
+      </div> */}
+      {/* End Sidebar-checkbox */}
       {/* End popular filter */}
 
       <div className="sidebar__item pb-30">
@@ -69,29 +70,30 @@ const Sidebar = () => {
       </div>
       {/* End rating filter */}
 
-      <div className="sidebar__item">
+      {/* <div className="sidebar__item">
         <h5 className="text-18 fw-500 mb-10">Guest Rating</h5>
         <div className="sidebar-checkbox">
           <GuestRatingFilters />
         </div>
-      </div>
+      </div> */}
       {/* End Guest Rating */}
 
-      <div className="sidebar__item">
+      {/* <div className="sidebar__item">
         <h5 className="text-18 fw-500 mb-10">Style</h5>
         <div className="sidebar-checkbox">
           <StyleFilter />
         </div>
-      </div>
+      </div> */}
       {/* End style filter */}
-
+{/* 
       <div className="sidebar__item">
         <h5 className="text-18 fw-500 mb-10">Neighborhood</h5>
         <div className="sidebar-checkbox">
           <NeighborhoddFilter />
         </div>
-        {/* End Sidebar-checkbox */}
-      </div>
+        
+      </div> */}
+      {/* End Sidebar-checkbox */}
       {/* End Aminities filter */}
     </>
   );

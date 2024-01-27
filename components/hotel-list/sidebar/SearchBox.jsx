@@ -12,7 +12,7 @@ const SearchBox = () => {
       <div className="single-field relative d-flex items-center py-10">
         <input
           className="pl-50 border-light text-dark-1 h-50 rounded-8"
-          type="email"
+          type="text"
           placeholder="e.g. Best Western"
           required
         />
