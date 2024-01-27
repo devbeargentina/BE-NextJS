@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDispatch } from "react-redux";
 
-const DateSearch = ({cutOfDays,stayInDays}) => {
+const DateSearch = ({cutOfDays,stayInDays,startDate,endDate}) => {
   const dispatch = useDispatch(); // Hook to dispatch actions
   // const [dates, setDates] = useState([
   //   new DateObject({ year: 2023, month: 1, day: 22 }),
@@ -14,16 +14,16 @@ const DateSearch = ({cutOfDays,stayInDays}) => {
   //   1597994736000, //unix time in milliseconds (August 21 2020)
   // ]);
   const [dates, setDates] = useState([
-    new DateObject().add((cutOfDays), "day"),
-    new DateObject().add((cutOfDays+stayInDays), "day"),
+    (startDate? new DateObject(startDate) :new DateObject().add((cutOfDays), "day")),
+    (endDate ? new DateObject(endDate) : new DateObject().add((cutOfDays+stayInDays), "day")),
   ]);
 
   // Dispatch action to update startDate and endDate in the Redux store
   const updateSearchCriteria = (startDate, endDate) => {
     dispatch(
       addCurrentCriteria({
-        startDate: startDate.format("MM-DD-YYYY"), // Modify the format as needed
-        endDate: endDate.format("MM-DD-YYYY"),     // Modify the format as needed
+        startDate: startDate.format("YYYY-MM-DD"), // Modify the format as needed
+        endDate: endDate.format("YYYY-MM-DD"),     // Modify the format as needed
       })
     );
   };

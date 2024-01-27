@@ -22,20 +22,51 @@ import { useRouter } from "next/navigation";
 const index = ({params}) => {
   
   const dispatch = useDispatch();
-
-  const { hotelList,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { locationCode,
+    locationName,
+    startDate,
+    endDate,
+    adult,
+    child,
+    rooms } = useSelector((state) => state.searchCriteria) || {};
+  const { hotelList,hotelAvailRQ,loading } = useSelector((state) => ({ ...state.hotel }));
   const router = useRouter();
-  const id = params.id;
-  const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];
+  // const id = params.id;
+  // const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];
+  
   useEffect(() => {
     const HotelAvailRQ = {
-    jpCode: "JP046300",
-    jpdCode: "string",
-    zoneCode: "string",
-    destinationZone: "string",
-    pax: 0,
-      startDate: "2024-01-18T10:44:49.292Z",
-      endDate: "2024-01-18T10:44:49.292Z"
+      searchParam: {
+        startDate: params.startdate,
+        endDate: params.enddate,
+        cityJPDCode: params.locationcode,
+        pax: [
+          {
+            age: 25
+          }
+        ]
+      },
+      isApplySearchParam: true,
+      filterParam: {
+        amenities: [
+          ""
+        ],
+        priceMinMax: [
+          0,1000
+        ],
+       hotelName: "string",
+        starRating: [
+          "string"
+        ],
+        pageNumber: 0,
+        pageSize: 10
+      },
+      isApplyFilterParam: false,
+      sortParam: {
+        "sortBy": "string",
+        "sortType": "string"
+      },
+      isApplySortParam: false
     };
 
     // Dispatch the action
@@ -60,7 +91,7 @@ const index = ({params}) => {
                 <h1 className="text-30 fw-600">{`Find Your Dream Luxury Hotel`}</h1>
               </div>
               {/* End text-center */}
-              <MainFilterSearchBox />
+              <MainFilterSearchBox params={params}/>
             </div>
             {/* End col-12 */}
           </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelSlice";
+import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
 
 const SearchBar = ({ locationCode, locationName }) => {
   const dispatch = useDispatch(); // Hook to dispatch actions
@@ -15,17 +16,11 @@ const SearchBar = ({ locationCode, locationName }) => {
 
   const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
   const router = useRouter();
+  debugger;
   const handleSearch = async (query) => {
     if(query.length > 2){
-
-    await dispatch(fetchHotelLocationList({ query,router,undefined }));  
-    }
-    // fetch(`${SEARCH_URI}?q=${query}+in:login&page=1&per_page=50`)
-    //   .then((resp) => resp.json())
-    //   .then(({ items }) => {
-    //     setOptions(items);
-    //     setIsLoading(false);
-    //   });
+            await dispatch(fetchHotelLocationList({ query,router,undefined }));  
+      }
   };
 
   // Bypass client-side filtering by returning `true`. Results are already
@@ -108,6 +103,12 @@ const SearchBar = ({ locationCode, locationName }) => {
       labelKey="name"
       minLength={3}
       maxLength={4}
+      defaultSelected={[
+        {
+          code: locationCode,
+          name: locationName,
+        },
+      ]}
       onSearch={(query) => {
         // Handle search logic if needed
         handleSearch(query);

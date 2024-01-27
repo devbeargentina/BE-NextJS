@@ -91,7 +91,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   const handleOptionClick = (item) => {
     setSearchValue(item.name);
     setSelectedItem(item);
-
+debugger;
     // Dispatch action to update locationCode and locationName in the Redux store
     dispatch(
       addCurrentCriteria({
@@ -134,7 +134,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
           const selectedOption = selectedOptions[0];
           dispatch(
             addCurrentCriteria({
-              locationCode: selectedOption.code || "",
+              locationCode: currentTab === FLIGHT_TAB_NAME ? (selectedOption.code) : selectedOption.jpdCode || "",
               locationName: selectedOption.name || "",
             })
           );

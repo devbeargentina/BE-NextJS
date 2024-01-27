@@ -1,10 +1,13 @@
+import { useSelector } from "react-redux";
 const TopHeaderFilter = () => {
+  const { hotelList,filterParam,loading, totalHotels } = useSelector((state) => ({ ...state.hotel }));
+ 
   return (
     <>
       <div className="row y-gap-10 items-center justify-between">
         <div className="col-auto">
           <div className="text-18">
-            <span className="fw-500">3,269 properties</span> in Europe
+            <span className="fw-500">{totalHotels} Hotel(s) Found</span>
           </div>
         </div>
         {/* End .col */}

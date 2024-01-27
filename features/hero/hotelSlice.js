@@ -16,11 +16,11 @@ export const fetchHotelLocationList = createAsyncThunk(
 );
 
 export const hotelAvailResult = createAsyncThunk(
-  "hotel/hotelAvailResult",
+  "hotel/hotelsbycity",
   async ({ HotelAvailRQ, navigate, toast }, { rejectWithValue }) => {
     try {
       
-      const response = await API.post(`api/hotel/hotelAvailResult`,  HotelAvailRQ );
+      const response = await API.post(`api/hotel/hotelsbycity`,  HotelAvailRQ );
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -83,17 +83,65 @@ export const completeReservation = createAsyncThunk(
 const hotelSlice = createSlice({
   name: "hotel",
   initialState: {
-    hotelLocations: [],
+    hotelAvailRQ: {
+      searchParam: {
+        startDate: "2024-05-01",
+        endDate: "2024-05-05",
+        cityJPDCode: "JPD053294",
+        pax: [
+          {
+            age: 25
+          }
+        ]
+      },
+      isApplySearchParam: true,
+      filterParam: {
+        amenities: [],
+        priceMinMax: [
+          0,1000
+        ],
+       hotelName: "string",
+        starRating: [],
+        pageNumber: 0,
+        pageSize: 10
+      },
+      isApplyFilterParam: true,
+      sortParam: {
+        sortBy: "rewr",
+        sortType: "string"
+      },
+      isApplySortParam: true
+    },
+    filterParam: {
+      amenities: [],
+        priceMinMax: [
+          0,1000
+        ],
+       hotelName: "string",
+        starRating: [],
+        pageNumber: 0,
+        pageSize: 10
+    },
+    locationList: [],
     hotelList: [],
     hotelDetails: null,
     cart: [],
     reservationStatus: null,
     error: "",
+    totalHotels:0,
+    totalPages:0,
     loading: false,
   },
   reducers: {
     clearError: (state) => {
       state.error = "";
+    },
+    updateHotelAvailRQ: (state, action) => {
+      // Merge the payload with the existing FlightAvailRQ
+      state.hotelAvailRQ = {
+        ...state.hotelAvailRQ,
+        ...action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -118,7 +166,10 @@ const hotelSlice = createSlice({
     builder.addCase(hotelAvailResult.fulfilled, (state, action) => {
       
       state.loading = false;
-      state.hotelList = action.payload.result;
+      state.hotelList = action.payload.result.hotelList;
+      state.filterParam = action.payload.result?.filterCriteria;
+      state.totalPages = action.payload.result?.totalPages;
+      state.totalHotels = action.payload.result?.totalHotel;
     });
     builder.addCase(hotelAvailResult.rejected, (state, action) => {
       
