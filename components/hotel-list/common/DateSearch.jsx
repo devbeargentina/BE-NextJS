@@ -22,8 +22,8 @@ const DateSearch = ({cutOfDays,stayInDays,startDate,endDate}) => {
   const updateSearchCriteria = (startDate, endDate) => {
     dispatch(
       addCurrentCriteria({
-        startDate: startDate.format("YYYY-MM-DD"), // Modify the format as needed
-        endDate: endDate.format("YYYY-MM-DD"),     // Modify the format as needed
+        startDate: startDate?.format("YYYY-MM-DD"), // Modify the format as needed
+        endDate: endDate?.format("YYYY-MM-DD"),     // Modify the format as needed
       })
     );
   };

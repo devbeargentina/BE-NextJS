@@ -28,7 +28,7 @@ const MainFilterSearchBox = () => {
   const Router = useRouter()
   const handleSearch = () => {
     
-    Router.push(`/hotel-list/${locationCode}/${locationName}/${startDate}/${endDate}/${adult}/${child}/${room}`)
+    Router.push(`/hotel-list/${locationCode}/${locationName}/${startDate.format("YYYY-MM-DD")}/${endDate.format("YYYY-MM-DD")}/${adult}/${child}/${room}`)
   }
   return (
     <>
