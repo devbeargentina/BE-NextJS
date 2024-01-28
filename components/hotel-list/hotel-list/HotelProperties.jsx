@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 
 const HotelProperties = () => {
-  const { hotelList,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList,loading,totalNights } = useSelector((state) => ({ ...state.hotel }));
   return (
     <>
       {hotelList.map((item) => (
@@ -173,7 +173,7 @@ const HotelProperties = () => {
 
                 <div className="">
                   <div className="text-14 text-light-1 mt-50 md:mt-20">
-                    8 nights
+                    {totalNights} night(s)
                   </div>
                   <div className="text-22 lh-12 fw-600 mt-5">
                   {item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett}

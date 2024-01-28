@@ -170,6 +170,7 @@ const hotelSlice = createSlice({
       state.filterParam = action.payload.result?.filterCriteria;
       state.totalPages = action.payload.result?.totalPages;
       state.totalHotels = action.payload.result?.totalHotel;
+      state.totalNights = action.payload.result?.nights;
     });
     builder.addCase(hotelAvailResult.rejected, (state, action) => {
       
