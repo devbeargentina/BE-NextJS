@@ -9,6 +9,7 @@ const RatingsFilter = () => {
 
   const handleRatingClick = (rating) => {
     setActiveRating(rating === activeRating ? null : rating);
+    alert(activeRating);
   };
 
   return (

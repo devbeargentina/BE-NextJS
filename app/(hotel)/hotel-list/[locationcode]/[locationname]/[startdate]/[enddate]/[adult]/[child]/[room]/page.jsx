@@ -35,7 +35,7 @@ const index = ({params}) => {
   // const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];
   
   useEffect(() => {
-    const HotelAvailRQ = {
+    const hotelAvailRQ = {
       searchParam: {
         startDate: params.startdate,
         endDate: params.enddate,
@@ -66,7 +66,7 @@ const index = ({params}) => {
     };
 
     // Dispatch the action
-    dispatch(hotelAvailResult({ HotelAvailRQ, router, undefined }));
+    dispatch(hotelAvailResult({ hotelAvailRQ, router, undefined }));
   }, []);
   console.log(hotelList);
   return (
@@ -95,7 +95,7 @@ const index = ({params}) => {
       </section>
       {/* Top SearchBanner */}
       
-      { !loading &&
+      { true &&
         
 
             <section className="layout-pt-md layout-pb-lg">

@@ -17,10 +17,10 @@ export const fetchHotelLocationList = createAsyncThunk(
 
 export const hotelAvailResult = createAsyncThunk(
   "hotel/hotelsbycity",
-  async ({ HotelAvailRQ, navigate, toast }, { rejectWithValue }) => {
+  
+  async ({ hotelAvailRQ, navigate, toast }, { rejectWithValue }) => {
     try {
-      
-      const response = await API.post(`api/hotel/hotelsbycity`,  HotelAvailRQ );
+      const response = await API.post(`api/hotel/hotelsbycity`,  hotelAvailRQ );
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -100,7 +100,7 @@ const hotelSlice = createSlice({
         priceMinMax: [
           0,1000
         ],
-       hotelName: "string",
+       hotelName: "",
         starRating: [],
         pageNumber: 0,
         pageSize: 10
@@ -186,6 +186,6 @@ const hotelSlice = createSlice({
   },
 });
 
-export const { clearError } = hotelSlice.actions;
+export const { clearError, updateHotelAvailRQ } = hotelSlice.actions;
 
 export default hotelSlice.reducer;

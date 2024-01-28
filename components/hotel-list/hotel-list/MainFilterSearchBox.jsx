@@ -23,7 +23,6 @@ const MainFilterSearchBox = ({params}) => {
     Router.push(`/hotel-list/${locationCode}/${locationName}/${startDate.format("YYYY-MM-DD")}/${endDate.format("YYYY-MM-DD")}/${adult}/${child}/${room}`)
   }
   const locationname = decodeURIComponent(params.locationname);
-  debugger;
   return (
     <>
       <div className="mainSearch -col-3-big bg-white px-10 py-10 lg:px-20 lg:pt-5 lg:pb-20 rounded-4 mt-30">

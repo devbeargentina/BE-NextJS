@@ -16,7 +16,6 @@ const SearchBar = ({ locationCode, locationName }) => {
 
   const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
   const router = useRouter();
-  debugger;
   const handleSearch = async (query) => {
     if(query.length > 2){
             await dispatch(fetchHotelLocationList({ query,router,undefined }));  

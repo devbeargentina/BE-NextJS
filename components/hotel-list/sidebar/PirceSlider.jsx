@@ -15,9 +15,7 @@ const PirceSlider = () => {
   });
   const dispatch = useDispatch();
   const router = useRouter();
-
   const handleOnChange = (value) => {
-    
     setPrice({ value });
     dispatch(
       updateHotelAvailRQ({
