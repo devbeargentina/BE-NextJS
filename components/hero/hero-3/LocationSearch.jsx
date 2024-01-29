@@ -91,6 +91,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   const handleOptionClick = (item) => {
     setSearchValue(item.name);
     setSelectedItem(item);
+
     // Dispatch action to update locationCode and locationName in the Redux store
     dispatch(
       addCurrentCriteria({

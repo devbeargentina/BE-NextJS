@@ -15,16 +15,15 @@ const DateSearch = ({cutOfDayss,stayInDayss}) => {
   //   1597994736000, //unix time in milliseconds (August 21 2020)
   // ]);
   const [dates, setDates] = useState([
-    new DateObject(startDate).add((cutOfDays), "day"),
-    new DateObject(endDate).add((cutOfDays+stayInDays), "day"),
+    new DateObject(startDate),//.add((cutOfDays), "day"),
+    new DateObject(endDate)//.add((cutOfDays+stayInDays), "day"),
   ]);
-
   // Dispatch action to update startDate and endDate in the Redux store
   const updateSearchCriteria = (startDate, endDate) => {
     dispatch(
       addCurrentCriteria({
-        startDate: startDate?.format("YYYY-MM-DD"), // Modify the format as needed
-        endDate: endDate?.format("YYYY-MM-DD"),     // Modify the format as needed
+        startDate: startDate,//.format("MM-DD-YYYY"), // Modify the format as needed
+        endDate: endDate//.format("MM-DD-YYYY"),     // Modify the format as needed
       })
     );
   };
