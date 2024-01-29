@@ -23,7 +23,10 @@ const FlightFilterSearchWidget = () => {
   const dispatch = useDispatch();
   const Router = useRouter()
   const handleSearch = () => {
-     Router.push(`/flight-list-v1/${locationCode}/${locationName}/${locationToCode}/${locationToName}/${'2024-04-04'}/${'2024-04-05'}/${adult}/${child}/${infant}`)
+    const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
+    const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
+
+     Router.push(`/flight-list-v1/${locationCode}/${locationName}/${locationToCode}/${locationToName}/${formattedStartDate}/${formattedEndDate}/${adult}/${child}/${infant}`)
   }
   return (
       <div className="tabs__content js-tabs-content">
@@ -36,7 +39,7 @@ const FlightFilterSearchWidget = () => {
             <div className="searchMenu-date px-30 lg:py-20 lg:px-0 js-form-dd js-calendar">
               <div>
                 <h4 className="text-15 fw-500 ls-2 lh-16">
-                  Check in - Check out
+                  Depart - Return
                 </h4>
                 <DateSearch cutOfDays={cutOfDays} stayInDays={stayInDays} />
               </div>

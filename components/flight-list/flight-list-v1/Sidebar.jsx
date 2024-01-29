@@ -5,10 +5,14 @@ import DepartingFrom from "../sidebar/DepartingFrom";
 import PirceSlider from "../sidebar/PirceSlider";
 import ArrivingAt from "../sidebar/ArrivingAt";
 import Cabin from "../sidebar/Cabin";
+import SkeletonFilter from "@/components/common/skeletons/Skeleton";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+  const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
   return (
     <>
+    {true? <>
       <div className="sidebar__item -no-border">
         <h5 className="text-18 fw-500 mb-10">Stops</h5>
         <div className="sidebar-checkbox">
@@ -71,6 +75,7 @@ const Sidebar = () => {
         {/* End Sidebar-checkbox */}
       </div>
       {/* End Port filter */}
+      </>:<SkeletonFilter /> }
     </>
   );
 };

@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 
 const TopHeaderFilter = () => {
   const { flightList,filterParam,loading, totalFlights } = useSelector((state) => ({ ...state.flight }));
-  return (
+  return !loading && flightList !== undefined ? (
     <>
       <div className="row y-gap-10 items-center justify-between">
         <div className="col-auto">
           <div className="text-18">
-            <span className="fw-500">{flightList.totalFlights} properties</span> in Europe
+            <span className="fw-500">{filterParam?.totalFlights} properties</span> in {`${flightList[0]?.departureAirport.locationName} ${flightList[0]?.departureAirport.city.locationName} ${flightList[0]?.departureAirport.country.locationName} - (${flightList[0]?.departureAirport.locationCode})`}
           </div>
         </div>
         {/* End .col */}
@@ -40,7 +40,7 @@ const TopHeaderFilter = () => {
       </div>
       {/* End .row */}
     </>
-  );
+  ):(<></>);
 };
 
 export default TopHeaderFilter;

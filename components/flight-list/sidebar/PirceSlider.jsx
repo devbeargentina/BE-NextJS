@@ -11,13 +11,12 @@ const PirceSlider = () => {
   const { flightList,flightAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.flight }));
   
   const [price, setPrice] = useState({
-    value: { min: filterParam.priceMinMax[0], max: filterParam.priceMinMax[1] },
+    value: { min: filterParam?.priceMinMax[0], max: filterParam?.priceMinMax[1] },
   });
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleOnChange = (value) => {
-    debugger
     setPrice({ value });
     dispatch(
       updateFlightAvailRQ({
@@ -55,7 +54,7 @@ const PirceSlider = () => {
         <InputRange
           formatLabel={(value) => ``}
           minValue={0}
-          maxValue={filterParam.priceMinMax[1]}
+          maxValue={filterParam?.priceMinMax[1]}
           value={price.value}
           onChange={(value) => handleOnChange(value)}
         />

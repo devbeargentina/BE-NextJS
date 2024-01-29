@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import RatingFilter from "./RatingFilter";
+import PirceSlider from "@/components/flight-list/sidebar/PirceSlider";
 
 const DropdownSelelctBar = () => {
   const [priceValue, setPriceValue] = useState("Price");
@@ -72,6 +73,7 @@ const DropdownSelelctBar = () => {
             {/* End dropdown__button */}
 
             <div className="toggle-element -dropdown js-click-dropdown dropdown-menu">
+            <PirceSlider />
               <div className="text-15 y-gap-15 js-dropdown-list">
                 {dropdown.options.map((item, index) => (
                   <div key={index}>
@@ -94,73 +96,6 @@ const DropdownSelelctBar = () => {
       ))}
 
       <RatingFilter />
-
-      {/* End  ratings */}
-
-      <div className="col-auto">
-        <div className="relative ">
-          <button
-            className="d-flex items-center px-15 py-5 lh-16 text-14 rounded-100 border-light"
-            data-bs-toggle="dropdown"
-            data-bs-auto-close="outside"
-            aria-expanded="false"
-            data-bs-offset="0,10"
-          >
-            {selectedValues.length === 0
-              ? "Neighborhood"
-              : selectedValues.join(", ")}
-            <i className="icon icon-chevron-sm-down text-7 ml-15" />
-          </button>
-          {/* End dropdown__button */}
-
-          <div className="dropRating dropdown-menu">
-            <div className="px-20 py-20 rounded-4 bg-white border-light">
-              <h5 className="text-15 fw-500 mb-15">Neighborhood</h5>
-              <div className="sidebar-checkbox">
-                {data.map((item) => (
-                  <div
-                    key={item.value}
-                    className="row y-gap-10 items-center justify-between"
-                  >
-                    <div className="col-auto">
-                      <div className="form-checkbox d-flex items-center">
-                        <input
-                          type="checkbox"
-                          name={item.value}
-                          checked={selectedValues.includes(item.value)}
-                          onChange={(e) => {
-                            const { checked, name } = e.target;
-                            setSelectedValues((prevValues) =>
-                              checked
-                                ? [...prevValues, name]
-                                : prevValues.filter((value) => value !== name)
-                            );
-                          }}
-                        />
-                        <div className="form-checkbox__mark">
-                          <div className="form-checkbox__icon icon-check" />
-                        </div>
-                        <div className="text-15 ml-10">{item.label}</div>
-                      </div>
-                    </div>
-                    {/* End .col */}
-                    <div className="col-auto">
-                      <div className="text-15 text-light-1">92</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* End sidebar-checkbox */}
-              <button className="d-block text-14 fw-500 underline text-blue-1 mt-15">
-                Show all 30
-              </button>
-            </div>
-          </div>
-          {/* End dropdown-menu */}
-        </div>
-        {/* End relative */}
-      </div>
-      {/* End .col-auto */}
     </>
   );
 };

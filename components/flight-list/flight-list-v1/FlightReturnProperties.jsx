@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import flightsData from "../../../data/flights";
 import Skeleton from "@/components/common/skeletons/Skeleton";
 
-const FlightProperties = () => {
+const FlightReturnProperties = () => {
   const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
   // {loading ? <Skeleton /> : ""}
   return (
@@ -11,7 +11,7 @@ const FlightProperties = () => {
         <div className="js-accordion" key={item.flightSegmentID}>
           <div className="py-30 px-30 bg-white rounded-4 base-tr mt-30">
             <div className="row y-gap-30 justify-between items-center">
-              <div className="col">
+              <div className="col-auto">
                 <div className="row y-gap-10 items-center">
                   <div className="col-sm-auto">
                     <img
@@ -85,9 +85,8 @@ const FlightProperties = () => {
               </div>
               {/* End .col */}
 
-              <div className="col-md-auto">
+              <div className="col-auto">
                 <div className="d-flex items-center h-full">
-                  <div className="pl-30 border-left-light h-full md:d-none" />
                   <div>
                     <div className="text-right md:text-left mb-10">
                       <div className="text-18 lh-16 fw-500">{`USD ${item.indicativePrice}`}</div>
@@ -285,4 +284,4 @@ const FlightProperties = () => {
   );
 };
 
-export default FlightProperties;
+export default FlightReturnProperties;

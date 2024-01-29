@@ -3,10 +3,10 @@ import { DateObject } from "react-multi-date-picker";
 
 const initialState = {
   business:"Flight",
-  locationCode: "loc-1",
-  locationName: "London",
-  locationToCode: "loc-1",
-  locationToName: "London",
+  locationCode: "",
+  locationName: "",
+  locationToCode: "",
+  locationToName: "",
   cutOfDays: 2,
   stayInDays: 2,
   startDate: new DateObject(),
