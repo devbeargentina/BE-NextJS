@@ -24,8 +24,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.x'
+      - name: Debug Node.js version
+        run: node --version
       - name: Install dependencies
         run: yarn install --prefer-offline
+      - name: Debug installed Node.js version
+        run: node --version
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
