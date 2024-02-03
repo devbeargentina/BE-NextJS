@@ -124,36 +124,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End Available Rooms */}
 
-      <section className="pt-40" id="reviews">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h3 className="text-22 fw-500">Guest reviews</h3>
-            </div>
-          </div>
-          {/* End .row */}
-
-          <ReviewProgress />
-          {/* End review with progress */}
-
-          <div className="pt-40 d-none">
-            <DetailsReview />
-            {/* End review with details */}
-          </div>
-
-          <div className="row pt-30 d-none">
-            <div className="col-auto">
-              <a href="#" className="button -md -outline-blue-1 text-blue-1">
-                Show all 116 reviews{" "}
-                <div className="icon-arrow-top-right ml-15"></div>
-              </a>
-            </div>
-          </div>
-          {/* End .row */}
-        </div>
-        {/* End .container */}
-        {/* End container */}
-      </section>
+      {/* Start Review section */}
       {/* End Review section */}
 
       <section className="pt-40 d-none">
@@ -198,7 +169,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End facilites section */}
 
-      <section className="pt-40">
+      {/* <section className="pt-40">
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -228,7 +199,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* End health &  safety measures section */}
 
       <section className="pt-40 d-none">

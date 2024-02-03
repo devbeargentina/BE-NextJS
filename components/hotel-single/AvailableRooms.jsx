@@ -12,7 +12,7 @@ const AvailableRooms = ({ hotel }) => {
                 <div>Room Type</div>
                 <div>Benefits</div>
                 <div>Sleeps</div>
-                <div>Price for 5 nights</div>
+                <div>Price</div>
                 <div>Select Rooms</div>
                 <div />
               </div>
@@ -116,7 +116,7 @@ const AvailableRooms = ({ hotel }) => {
                   </div>
                   {/* End romm Grid horizontal content */}
 
-                  <div className="roomGrid__content">
+                  {/* <div className="roomGrid__content">
                     <div>
                       <div className="text-15 fw-500 mb-10">
                         Your price includes:
@@ -167,10 +167,10 @@ const AvailableRooms = ({ hotel }) => {
                         </select>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   {/* End romm Grid horizontal content */}
 
-                  <div className="roomGrid__content">
+                  {/* <div className="roomGrid__content">
                     <div>
                       <div className="text-15 fw-500 mb-10">
                         Your price includes:
@@ -221,13 +221,13 @@ const AvailableRooms = ({ hotel }) => {
                         </select>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   {/* End romm Grid horizontal content */}
                 </div>
                 {/* End price features */}
 
                 <div>
-                  <div className="text-14 lh-1">3 rooms for</div>
+                  <div className="text-14 lh-1">1 rooms for</div>
                   <div className="text-22 fw-500 lh-17 mt-5">
                     US${hotel?.price}
                   </div>
