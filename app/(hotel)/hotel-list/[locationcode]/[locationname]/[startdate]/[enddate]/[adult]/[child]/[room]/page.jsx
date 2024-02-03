@@ -68,7 +68,10 @@ const index = ({params}) => {
     // Dispatch the action
     dispatch(hotelAvailResult({ hotelAvailRQ, router, undefined }));
   }, []);
-  console.log(hotelList);
+  //console.log(hotelList);
+  if(hotelList){
+    sessionStorage.setItem("HotelListRS",JSON.stringify(hotelList));
+  }
   return (
     <>
       {/* End Page Title */}

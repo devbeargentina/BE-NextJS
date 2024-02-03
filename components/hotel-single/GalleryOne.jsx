@@ -23,7 +23,7 @@ export default function GalleryOne({hotel}) {
             <div className="col-auto">
               <div className="row x-gap-20  items-center">
                 <div className="col-auto">
-                  <h1 className="text-30 sm:text-25 fw-600">{hotel?.title}</h1>
+                  <h1 className="text-30 sm:text-25 fw-600">{hotel?.hotelName}</h1>
                 </div>
                 {/* End .col */}
                 <div className="col-auto">
@@ -40,7 +40,7 @@ export default function GalleryOne({hotel}) {
                 <div className="col-auto">
                   <div className="d-flex items-center text-15 text-light-1">
                     <i className="icon-location-2 text-16 mr-5" />
-                    {hotel?.location}
+                    {hotel?.address.address}
                   </div>
                 </div>
                 <div className="col-auto">
@@ -62,7 +62,7 @@ export default function GalleryOne({hotel}) {
                   <div className="text-14">
                     From{" "}
                     <span className="text-22 text-dark-1 fw-500">
-                      US${hotel?.price}
+                      US${hotel?.indicativePrice}
                     </span>
                   </div>
                 </div>
