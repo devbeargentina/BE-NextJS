@@ -20,7 +20,6 @@ export const flightAvailResult = createAsyncThunk(
   async ({ flightAvailRQ, navigate, toast }, { rejectWithValue }) => {
     try {
       console.log(JSON.stringify(flightAvailRQ));
-      debugger;
       const response = await API.post(`api/flight/flightAvailResult`,  flightAvailRQ );
       return response.data;
     } catch (err) {
