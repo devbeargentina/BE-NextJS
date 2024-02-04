@@ -3,28 +3,29 @@ import DateSearch from "@/components/hero/DateSearch";
 // import GuestSearch from "../common/GuestSearch";
 // import LocationSearch from "../common/LocationSearch";
 import FilterSelect from "../flight-list-v1/FilterSelect";
-import LocationSearch from "@/components/hero/hero-3/LocationSearch";
+import LocationSearch from "@/components/hero/hero-3/FlightLocationSearch";
 import { useRouter } from "next/navigation";
 import FlightGuestSearch from "@/components/hero/hero-3/FlightGuestSearch";
 
 const MainFilterSearchBox = () => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
-  const { locationCode,
-  locationName,
-  locationToCode,
-  locationToName,
-  cutOfDays,
+  const { cutOfDays,
   stayInDays,
   startDate,
   endDate,
   adult,
   child,
   infant } = useSelector((state) => state.searchCriteria) || {};
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { destinationLocationCode,
+  destinationLocationName,
+  originLocationCode,
+  originLocationName } = flightAvailRQ.searchParam;
   
   const dispatch = useDispatch();
   const Router = useRouter()
   const handleSearch = () => {
-     Router.push(`/flight-list-v1/${locationCode}/${locationName}/${locationToCode}/${locationToName}/${startDate}/${endDate}/${adult}/${child}/${infant}`)
+     Router.push(`/flight-list-v1/${destinationLocationCode}/${destinationLocationName}/${originLocationCode}/${originLocationName}/${startDate}/${endDate}/${adult}/${child}/${infant}`)
   }
   return (
     <>
@@ -35,7 +36,7 @@ const MainFilterSearchBox = () => {
 
       <div className="mainSearch -col-5 border-light rounded-4 pr-20 py-20 lg:px-20 lg:pt-5 lg:pb-20 mt-15">
         <div className="button-grid items-center">
-            <LocationSearch locationCode={locationCode} locationName={locationName} />
+            <LocationSearch locationCode={destinationLocationCode} locationName={destinationLocationName} />
           {/* <LocationSearch /> */}
           {/* End Location Flying From */}
 

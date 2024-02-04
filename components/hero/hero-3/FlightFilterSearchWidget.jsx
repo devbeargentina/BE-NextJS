@@ -2,23 +2,24 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import DateSearch from "../DateSearch";
-import LocationSearch from "./LocationSearch";
+import LocationSearch from "./FlightLocationSearch";
 import { useRouter } from "next/navigation";
 import FlightGuestSearch from "./FlightGuestSearch";
 
 const FlightFilterSearchWidget = () => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
-  const { locationCode,
-  locationName,
-  locationToCode,
-  locationToName,
-  cutOfDays,
+  const { cutOfDays,
   stayInDays,
   startDate,
   endDate,
   adult,
   child,
   infant } = useSelector((state) => state.searchCriteria) || {};
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { destinationLocationCode,
+  destinationLocationName,
+  originLocationCode,
+  originLocationName } = flightAvailRQ.searchParam;
   
   const dispatch = useDispatch();
   const Router = useRouter()
@@ -26,13 +27,13 @@ const FlightFilterSearchWidget = () => {
     const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
     const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
 
-     Router.push(`/flight-list-v1/${locationCode}/${locationName}/${locationToCode}/${locationToName}/${formattedStartDate}/${formattedEndDate}/${adult}/${child}/${infant}`)
+     Router.push(`/flight-list-v1/${destinationLocationCode}/${destinationLocationName}/${originLocationCode}/${originLocationName}/${formattedStartDate}/${formattedEndDate}/${adult}/${child}/${infant}`)
   }
   return (
       <div className="tabs__content js-tabs-content">
         <div className="mainSearch bg-white pr-20 py-20 lg:px-20 lg:pt-5 lg:pb-20 rounded-4">
           <div className="button-grid-flex items-center">
-            <LocationSearch locationCode={locationCode} locationName={locationName} />
+            <LocationSearch locationCode={destinationLocationCode} locationName={destinationLocationName} />
             {/* <LocationSearch locationCode={locationCode} locationName={locationName} /> */}
             {/* End Location */}
 

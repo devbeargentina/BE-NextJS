@@ -6,21 +6,14 @@ import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelSlice";
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
-import { fetchLocationList } from "@/features/hero/flightSlice";
-const SEARCH_URI = 'https://api.github.com/search/users';
+import { fetchLocationList, updateFlightAvailRQ } from "@/features/hero/flightSlice";
 const LocationSearch = ({ locationCodea, locationNamea }) => {
   const dispatch = useDispatch(); // Hook to dispatch actions
-  const [searchValue, setSearchValue] = useState(locationNamea || ""); // Set default searchValue based on locationName
-  const [selectedItem, setSelectedItem] = useState(null); // Set default selectedItem based on initialState
-
-  const [options, setOptions] = useState([]);
-
-  const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
-  const { locationCode,
-  locationName,
-  locationToCode,
-  locationToName } = useSelector((state) => state.searchCriteria) || {};
-  const { locationList } = useSelector((state) => ({ ...state.flight }));
+  const { locationList, flightAvailRQ, loading } = useSelector((state) => ({ ...state.flight }));
+  const { destinationLocationCode,
+  destinationLocationName,
+  originLocationCode,
+  originLocationName } = flightAvailRQ.searchParam;
   const { currentTab } = useSelector((state) => state.hero) || {};
   const router = useRouter();
   const handleSearch = async (query) => {
@@ -51,55 +44,27 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   };
   const filterBy = () => true;
   useEffect(() => {
-    // Dispatch action to update locationCode and locationName in the Redux store with default values
+    // Dispatch action to update destinationLocationCode and destinationLocationName in the Redux store with default values
     dispatch(
       addCurrentCriteria({
-        locationCode: locationCode || "", // Modify the format as needed
-        locationName: locationName || "",
+        locationCode: destinationLocationCode || "", // Modify the format as needed
+        locationName: destinationLocationName || "",
       })
     );
   }, []); // Run this effect only once when the component mounts
 
-  const locationSearchContent = [
-    {
-      id: 1,
-      name: "London",
-      address: "Greater London, United Kingdom",
-    },
-    {
-      id: 2,
-      name: "New York",
-      address: "New York State, United States",
-    },
-    {
-      id: 3,
-      name: "Paris",
-      address: "France",
-    },
-    {
-      id: 4,
-      name: "Madrid",
-      address: "Spain",
-    },
-    {
-      id: 5,
-      name: "Santorini",
-      address: "Greece",
-    },
-  ];
+  // const handleOptionClick = (item) => {
+  //   setSearchValue(item.name);
+  //   setSelectedItem(item);
 
-  const handleOptionClick = (item) => {
-    setSearchValue(item.name);
-    setSelectedItem(item);
-
-    // Dispatch action to update locationCode and locationName in the Redux store
-    dispatch(
-      addCurrentCriteria({
-        locationCode: `loc-${item.id}`, // Modify the format as needed
-        locationName: item.name,
-      })
-    );
-  };
+  //   // Dispatch action to update destinationLocationCode and destinationLocationName in the Redux store
+  //   dispatch(
+  //     addCurrentCriteria({
+  //       locationCode: `loc-${item.id}`, // Modify the format as needed
+  //       locationName: item.name,
+  //     })
+  //   );
+  // };
 
   return (
     <>
@@ -121,8 +86,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       maxLength={4}
       defaultSelected={[
         {
-          code: locationCode,
-          name: locationName,
+          code: destinationLocationCode,
+          name: destinationLocationName,
         },
       ]}
       onSearch={(query) => {
@@ -132,17 +97,21 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       onChange={(selectedOptions) => {
         if (selectedOptions && selectedOptions.length > 0) {
           const selectedOption = selectedOptions[0];
-          dispatch(
-            addCurrentCriteria({
-              locationCode: selectedOption.code || "",
-              locationName: selectedOption.name || "",
-            })
-          );
+    dispatch(
+      updateFlightAvailRQ({
+          ...flightAvailRQ,
+          searchParam: {
+            ...flightAvailRQ.searchParam,
+            destinationLocationCode: selectedOption.code || "",
+            destinationLocationName: selectedOption.name || "",
+          },
+      })
+    );
         }
       }}
       useCache={false}
       onInputChange={handleSearch}
-      options={currentTab === FLIGHT_TAB_NAME ? locationList : hotelLocations}
+      options={locationList}
       placeholder="Search Location..."
       className="divAutocomplete"  // Set your custom class here
       renderMenuItemChildren={(option) => (
@@ -187,8 +156,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       maxLength={4}
       defaultSelected={[
         {
-          code: locationToCode,
-          name: locationToName,
+          code: originLocationCode,
+          name: originLocationName,
         },
       ]}
       onSearch={(query) => {
@@ -199,16 +168,20 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
         if (selectedOptions && selectedOptions.length > 0) {
           const selectedOption = selectedOptions[0];
           dispatch(
-            addCurrentCriteria({
-              locationToCode: selectedOption.code || "",
-              locationToName: selectedOption.name || "",
+            updateFlightAvailRQ({
+                ...flightAvailRQ,
+                searchParam: {
+                  ...flightAvailRQ.searchParam,
+                  originLocationCode: selectedOption.code || "",
+                  originLocationName: selectedOption.name || "",
+                },
             })
           );
         }
       }}
       useCache={false}
       onInputChange={handleSearch}
-      options={currentTab === FLIGHT_TAB_NAME ? locationList : hotelLocations}
+      options={locationList}
       placeholder="Search Location To..."
       className="divAutocomplete"  // Set your custom class here
       renderMenuItemChildren={(option) => (

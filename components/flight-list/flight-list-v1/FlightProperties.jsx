@@ -1,13 +1,39 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import flightsData from "../../../data/flights";
 import Skeleton from "@/components/common/skeletons/Skeleton";
+// import { useRouter } from "next/router";
+import { flightExtraCharges, updateFlightCart, updateSelectedFlight } from "@/features/hero/flightSlice";
+import { useRouter } from "next/navigation";
 
 const FlightProperties = () => {
-  const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
+  const dispatch = useDispatch();
+  const router = useRouter();
+  
+  const { flightList, flightAvailRQ,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
   // {loading ? <Skeleton /> : ""}
+  console.log(JSON.stringify(flightList));
+  const updateCart = (rqCreateBooking, fareItemindex, index)=>{
+debugger;
+//# Select the single flight object
+const selectedFlight = flightList[index];
+
+//# Modify the passengerFareInfoList for the selected flight
+const modifiedPassengerFareInfo = selectedFlight.passengerFareInfoList[fareItemindex];
+const modifiedFlight = {
+    ...selectedFlight,
+    passengerFareInfoList: [modifiedPassengerFareInfo]
+};
+
+dispatch(updateSelectedFlight(modifiedFlight));
+    
+    dispatch(flightExtraCharges({ flightExtraChargesRQ : {
+      requestXML: rqCreateBooking,
+      tripType: "ONE_WAY",
+  }, router, undefined }));
+  }
   return (
     <>
-      {flightList?.map((item) => (
+      {flightList?.map((item,index) => (
         <div className="js-accordion" key={item.flightSegmentID}>
           <div className="py-30 px-30 bg-white rounded-4 base-tr mt-30">
             <div className="row y-gap-30 justify-between items-center">
@@ -23,10 +49,14 @@ const FlightProperties = () => {
                   <div className="col">
                     <div className="row x-gap-20 items-end">
                       <div className="col-auto">
-                        <div className="lh-15 fw-500">{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
-                        <div className="text-15 lh-15 text-light-1">{item.arrivalAirport.locationCode}</div>
+                        <div className="lh-15 fw-500">{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
+                        <div className="text-15 lh-15 text-light-1">{item.departureAirport.locationCode}</div>
                       </div>
                       <div className="col text-center">
+{flightAvailRQ.searchParam.tripType !== "ONE_WAY" ? (
+                      <div className="text-15 lh-15 text-light-1 mb-10">
+                        {item.journeyDuration}
+                      </div>):(<></>)}
                         <div className="flightLine">
                           <div />
                           <div />
@@ -36,16 +66,17 @@ const FlightProperties = () => {
                         </div>
                       </div>
                       <div className="col-auto">
-                        <div className="lh-15 fw-500">{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
-                        <div className="text-15 lh-15 text-light-1">{item.departureAirport.locationCode}</div>
+                        <div className="lh-15 fw-500">{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
+                        <div className="text-15 lh-15 text-light-1">{item.arrivalAirport.locationCode}</div>
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-auto">
+                  
+{flightAvailRQ.searchParam.tripType === "ONE_WAY" ? (<div className="col-md-auto">
                     <div className="text-15 text-light-1 px-20 md:px-0">
                       {item.journeyDuration}
                     </div>
-                  </div>
+                  </div>):(<></>)}
                 </div>
                 <div className="row y-gap-10 items-center pt-30" style={{display:"none"}}>
                   <div className="col-sm-auto">
@@ -123,11 +154,11 @@ const FlightProperties = () => {
                       </div>
                     </div>
                     <div className="col-auto">
-                      <div className="text-14 text-light-1">{item.journeyDuration}</div>
+                      <div className="text-14 text-light-1">{item.airlineCode + item.flightNumber}</div>
                     </div>
                   </div>
                 </div>
-                {item.passengerFareInfoList.map((fareItem)=>(
+                {item.passengerFareInfoList.map((fareItem, fareItemindex)=>(
                 <div className="py-30 px-30 border-top-light">
                   <div className="row y-gap-10 justify-between">
                     <div className="col-auto">
@@ -145,9 +176,9 @@ const FlightProperties = () => {
                           <div className="w-28 d-flex justify-center mr-15">
                             <div className="size-10 border-light rounded-full bg-white" />
                           </div>
-                          <div className="row">
+                          <div className="row d-flex justify-center items-center ">
                             <div className="col-auto">
-                              <div className="lh-14 fw-500">{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
+                              <div className="lh-14 fw-500 text-center">{new Date(item.departureDateTimeUTC).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric',})}<br />{new Date(item.departureDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
                             </div>
                             <div className="col-auto">
                               <div className="lh-14 fw-500">
@@ -166,9 +197,9 @@ const FlightProperties = () => {
                           <div className="w-28 d-flex justify-center mr-15">
                             <div className="size-10 border-light rounded-full bg-border" />
                           </div>
-                          <div className="row">
+                          <div className="row d-flex justify-center items-center">
                             <div className="col-auto">
-                              <div className="lh-14 fw-500">{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
+                              <div className="lh-14 fw-500 text-center">{new Date(item.arrivalDateTimeUTC).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric',})}<br />{new Date(item.arrivalDateTimeUTC).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false }).split(' ')}</div>
                             </div>
                             <div className="col-auto">
                               <div className="lh-14 fw-500">
@@ -179,21 +210,40 @@ const FlightProperties = () => {
                         </div>
                       </div>
                     </div>
+                    {flightAvailRQ.searchParam.tripType === "ONE_WAY" ? (
                     <div className="col-auto text-right md:text-left">
                       <div className="text-14 text-light-1">{`${fareItem.cabin} - ${fareItem.cabinClassCode}`}</div>
                       <div className="text-14 mt-15 md:mt-5">
-                        Airbus A320neo (Narrow-body jet)
+                        {`Fare Baggage: ${fareItem.fareBaggageMaxAllowedPieces} ${fareItem.fareBaggageAllowanceType}(${fareItem.fareBaggageWeight} ${fareItem.fareBaggageUnitOfMeasureCode})`}
                         <br />
-                        Wi-Fi available
+                        {`${fareItem.fareGroupName} - ${fareItem.fareReferenceName} (${fareItem.fareReferenceCode})`}
                         <br />
-                        USB outlet
+                        {`Seat Availability : ${0}`}
                       </div>
                       <button
                         className="button -dark-1 px-30 h-40 bg-blue-1 text-white float-end"
                       >
                         {fareItem.pricingInfo.totalFare.currencyCode + " " + fareItem.pricingInfo.totalFare.amount} <div className="icon-arrow-top-right ml-15" />
                       </button>
+                    </div>):(<>
+                  <div className="col-auto text-left md:text-left">
+                    <div className="text-14 mt-15 md:mt-5">
+                      {`Fare Baggage: ${fareItem.fareBaggageMaxAllowedPieces} ${fareItem.fareBaggageAllowanceType}(${fareItem.fareBaggageWeight} ${fareItem.fareBaggageUnitOfMeasureCode})`}
+                      <br />
+                      {`${fareItem.fareGroupName} - ${fareItem.fareReferenceName} (${fareItem.fareReferenceCode})`}
+                      <br />
+                      {`Seat Availability : ${0}`}
                     </div>
+                  </div>
+                  <div className="col-auto text-right md:text-left">
+                    <div className="text-14 mt-15 md:mt-5 text-light-1">{`${fareItem.cabin} - ${fareItem.cabinClassCode}`}</div>
+                    <button
+                      className="button -dark-1 px-30 h-40 bg-blue-1 text-white float-end"
+                      onClick={()=> updateCart(fareItem.rqCreateBooking, fareItemindex, index)}
+                    >
+                      {fareItem.pricingInfo.totalFare.currencyCode + " " + fareItem.pricingInfo.totalFare.amount} <div className="icon-arrow-top-right ml-15" />
+                    </button>
+                  </div></>)}
                   </div>
                 </div>
                 ))}

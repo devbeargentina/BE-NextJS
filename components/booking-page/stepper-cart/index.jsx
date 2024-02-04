@@ -6,12 +6,15 @@ import CustomerInfo from "../CustomerInfo";
 import PaymentInfo from "../PaymentInfo";
 import OrderSubmittedInfo from "../OrderSubmittedInfo";
 import FlightTravellerInfo from "../FlightTravellerInfo";
+import { useRouter } from "next/navigation";
 
 const Index = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
+  const router = useRouter();
   const steps = [
     {
       title: "Personal Details",
+      route: "/cart-page",
       stepNo: "1",
       stepBar: (
         <>
@@ -24,6 +27,7 @@ const Index = () => {
     },
     {
       title: "Payment Details",
+      route: "/payment-page",
       stepNo: "2",
       stepBar: (
         <>
@@ -36,6 +40,7 @@ const Index = () => {
     },
     {
       title: "Final Step",
+      route: "/booking-confirm-page",
       stepNo: "3",
       stepBar: "",
       content: <OrderSubmittedInfo />,
@@ -67,7 +72,7 @@ const Index = () => {
             <div className="col-auto">
               <div
                 className="d-flex items-center cursor-pointer transition"
-                onClick={() => setCurrentStep(index)}
+                onClick={() => router.push(step.route)}
               >
                 <div
                   className={
@@ -100,31 +105,6 @@ const Index = () => {
 
       <div className="row">{renderStep()}</div>
       {/* End main content */}
-
-      <div className="row x-gap-20 y-gap-20 pt-20">
-        <div className="col-auto">
-          <button
-            className="BPI button h-60 px-24 -blue-1 bg-light-2"
-            disabled={currentStep === 0}
-            onClick={previousStep}
-          >
-            Previous
-          </button>
-        </div>
-        {/* End prvious btn */}
-
-        <div className="col-auto">
-          <button
-            className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
-            disabled={currentStep === steps.length - 1}
-            onClick={nextStep}
-          >
-            Next <div className="icon-arrow-top-right ml-15" />
-          </button>
-        </div>
-        {/* End next btn */}
-      </div>
-      {/* End stepper button */}
     </>
   );
 };

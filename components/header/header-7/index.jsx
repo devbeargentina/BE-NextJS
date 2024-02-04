@@ -29,7 +29,7 @@ const Header1 = () => {
   return (
     <>
       {" "}
-      <header className={`header bg-white ${navbar ? "is-sticky" : ""}`}>
+      <header className={`header shadow-4 bg-white ${navbar ? "is-sticky" : ""}`}>
         <div className="header__container px-30 sm:px-20">
           <div className="row justify-between items-center">
             <div className="col-auto">

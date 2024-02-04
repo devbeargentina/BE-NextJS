@@ -53,7 +53,7 @@ const PirceSlider = () => {
       <div className="px-5">
         <InputRange
           formatLabel={(value) => ``}
-          minValue={0}
+          minValue={filterParam?.priceMinMax[0]}
           maxValue={filterParam?.priceMinMax[1]}
           value={price.value}
           onChange={(value) => handleOnChange(value)}

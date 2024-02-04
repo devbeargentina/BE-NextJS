@@ -1,7 +1,7 @@
 import CallToActions from "@/components/common/CallToActions";
 import Header11 from "@/components/header/header-3";
 import DefaultFooter from "@/components/footer/default";
-import StepperBooking from "@/components/booking-page/stepper-booking";
+import StepperBooking from "@/components/booking-page/stepper-payment";
 
 export const metadata = {
   title: "Hotel Booking Page || BE - Argentina - Travel & Tour React NextJS Template",
