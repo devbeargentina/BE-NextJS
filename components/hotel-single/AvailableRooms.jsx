@@ -1,7 +1,13 @@
 import Image from "next/image";
+import { useState } from "react";
 
 const AvailableRooms = ({ hotel }) => {
-  debugger;
+
+  const handleBooking = (ratePlanCode) => {
+    // Your booking logic goes here
+    console.log(`Booking room with rate plan code: ${ratePlanCode}`);
+    // Add additional booking logic as needed
+  };
   return (
     <>
 
@@ -16,7 +22,7 @@ const AvailableRooms = ({ hotel }) => {
                 <div>Benefits</div>
                 <div>Sleeps</div>
                 <div>Price</div>
-                <div>Select Rooms</div>
+                {/* <div>Select Rooms</div> */}
                 <div />
               </div>
               {/* End .roomGrid__header */}
@@ -34,7 +40,7 @@ const AvailableRooms = ({ hotel }) => {
                   </div>
                   {/* End image */}
                   <div className="y-gap-5 mt-20">
-                    <div className="d-flex items-center">
+                    {/* <div className="d-flex items-center">
                       <i className="icon-no-smoke text-20 mr-10" />
                       <div className="text-15">Non-smoking rooms</div>
                     </div>
@@ -49,15 +55,15 @@ const AvailableRooms = ({ hotel }) => {
                     <div className="d-flex items-center">
                       <i className="icon-kitchen text-20 mr-10" />
                       <div className="text-15">Kitchen</div>
-                    </div>
+                    </div> */}
                   </div>
                   {/* End room features */}
-                  <a
+                  {/* <a
                     href="#"
                     className="d-block text-15 fw-500 underline text-blue-1 mt-15"
                   >
                     Show Room Information
-                  </a>
+                  </a> */}
                 </div>
                 {/* End roomgrid inner */}
 
@@ -72,7 +78,7 @@ const AvailableRooms = ({ hotel }) => {
                           <i className="icon-check text-12 mr-10" />
                           <div className="text-15">Pay at the hotel</div>
                         </div>
-                        <div className="d-flex items-center text-green-2">
+                        {/* <div className="d-flex items-center text-green-2">
                           <i className="icon-check text-12 mr-10" />
                           <div className="text-15">
                             Pay nothing until March 30, 2022
@@ -83,27 +89,28 @@ const AvailableRooms = ({ hotel }) => {
                           <div className="text-15">
                             Free cancellation before April 1, 2022
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
 
                     <div>
                       <div className="d-flex items-center text-light-1">
-                        <div className="icon-man text-24" />
-                        <div className="icon-man text-24" />
+                        {Array(item.hotelRooms.hotelRoomList[0].roomOccupancy.adults).fill().map((_, starIndex) => (
+                          <div className="icon-man text-24" />
+                        ))}
                       </div>
                     </div>
 
                     <div>
                       <div className="text-18 lh-15 fw-500">
-                        US${hotel?.price}
+                        {item?.prices.price.currency} {item?.prices.price.totalFixAmounts.gross}
                       </div>
                       <div className="text-14 lh-18 text-light-1">
                         Includes taxes and charges
                       </div>
                     </div>
 
-                    <div>
+                    {/* <div>
                       <div className="dropdown js-dropdown js-price-1-active">
                         <select className="form-select dropdown__button d-flex items-center rounded-4 border-light px-15 h-50 text-14">
                           <option value="1" defaultValue>
@@ -115,7 +122,7 @@ const AvailableRooms = ({ hotel }) => {
                           <option value="5"> 5 (US$ 3,120)</option>
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   {/* End romm Grid horizontal content */}
 
@@ -230,13 +237,14 @@ const AvailableRooms = ({ hotel }) => {
                 {/* End price features */}
 
                 <div>
-                  <div className="text-14 lh-1">1 rooms for</div>
+                  {/* <div className="text-14 lh-1">1 rooms for</div> */}
                   <div className="text-22 fw-500 lh-17 mt-5">
-                    US${hotel?.price}
+                  {item?.prices.price.currency} {item?.prices.price.totalFixAmounts.gross}
                   </div>
                   <a
                     href="#"
                     className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10"
+                    onClick={() => handleBooking(item.ratePlanCode)}
                   >
                     Reserve <div className="icon-arrow-top-right ml-15" />
                   </a>

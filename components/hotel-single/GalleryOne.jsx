@@ -27,11 +27,33 @@ export default function GalleryOne({hotel}) {
                 </div>
                 {/* End .col */}
                 <div className="col-auto">
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
+                  {hotel?.hotelCategory.type === '5est' ? (
+                      <React.Fragment>
+                        {Array(5).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : hotel?.hotelCategory.type === '4est' ? (
+                      <React.Fragment>
+                        {Array(4).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : hotel?.hotelCategory.type === '3est' ? (
+                      <React.Fragment>
+                        {Array(3).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : hotel?.hotelCategory.type === '2est' ? (
+                      <React.Fragment>
+                        {Array(2).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : (
+                      <i className="icon-star text-10 text-yellow-2"></i>
+                  )}
                 </div>
               </div>
               {/* End .row */}
@@ -62,7 +84,7 @@ export default function GalleryOne({hotel}) {
                   <div className="text-14">
                     From{" "}
                     <span className="text-22 text-dark-1 fw-500">
-                      US${hotel?.indicativePrice}
+                      {hotel?.currency} {hotel?.indicativePrice}
                     </span>
                   </div>
                 </div>
