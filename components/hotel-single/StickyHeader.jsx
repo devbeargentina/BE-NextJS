@@ -32,7 +32,7 @@ const StickyHeader = ({ hotel }) => {
                 <div className="col-auto">
                   <a href="#rooms">Rooms</a>
                 </div>
-                <div className="col-auto">
+                {/* <div className="col-auto">
                   <a href="#reviews">Reviews</a>
                 </div>
                 <div className="col-auto">
@@ -40,7 +40,7 @@ const StickyHeader = ({ hotel }) => {
                 </div>
                 <div className="col-auto">
                   <a href="#faq">Faq</a>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* End .col */}
@@ -51,7 +51,7 @@ const StickyHeader = ({ hotel }) => {
                   <div className="text-14">
                     From{" "}
                     <span className="text-22 text-dark-1 fw-500">
-                      US${hotel?.price}
+                      {hotel?.currency} {hotel?.indicativePrice}
                     </span>
                   </div>
                 </div>

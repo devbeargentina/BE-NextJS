@@ -1,4 +1,4 @@
-const RatingTag = () => {
+const RatingTag = ({hotel}) => {
   return (
     <>
       <div className="px-24 py-20 rounded-4 bg-green-1">
@@ -11,9 +11,9 @@ const RatingTag = () => {
 
           <div className="col-auto">
             <h4 className="text-18 lh-15 fw-500">
-              This property is in high demand!
+              This property is 5 star rated.
             </h4>
-            <div className="text-15 lh-15">7 travelers have booked today.</div>
+            {/* <div className="text-15 lh-15">7 travelers have booked today.</div> */}
           </div>
         </div>
       </div>

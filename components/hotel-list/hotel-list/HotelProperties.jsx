@@ -176,11 +176,11 @@ const HotelProperties = () => {
                     {totalNights} night(s)
                   </div>
                   <div className="text-22 lh-12 fw-600 mt-5">
-                  {item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett}
+                  {item?.currency} {item?.indicativePrice}
 
                   </div>
                   <div className="text-14 text-light-1 mt-5">
-                  {item?.hotelOptions?.hotelOption?.prices?.price?.currency} ${item?.hotelOptions?.hotelOption?.prices?.price?.totalFixAmounts?.nett} taxes and charges
+                  {item?.currency} {item?.indicativePrice} taxes and charges
                   </div>
 
                   <Link

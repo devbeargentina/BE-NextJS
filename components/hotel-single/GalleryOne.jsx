@@ -23,15 +23,37 @@ export default function GalleryOne({hotel}) {
             <div className="col-auto">
               <div className="row x-gap-20  items-center">
                 <div className="col-auto">
-                  <h1 className="text-30 sm:text-25 fw-600">{hotel?.title}</h1>
+                  <h1 className="text-30 sm:text-25 fw-600">{hotel?.hotelName}</h1>
                 </div>
                 {/* End .col */}
                 <div className="col-auto">
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
-                  <i className="icon-star text-10 text-yellow-1" />
+                  {hotel?.hotelCategory.type === '5est' ? (
+                      <React.Fragment>
+                        {Array(5).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : hotel?.hotelCategory.type === '4est' ? (
+                      <React.Fragment>
+                        {Array(4).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : hotel?.hotelCategory.type === '3est' ? (
+                      <React.Fragment>
+                        {Array(3).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : hotel?.hotelCategory.type === '2est' ? (
+                      <React.Fragment>
+                        {Array(2).fill().map((_, starIndex) => (
+                          <i key={starIndex} className="icon-star text-10 text-yellow-2"></i>
+                        ))}
+                      </React.Fragment>
+                    ) : (
+                      <i className="icon-star text-10 text-yellow-2"></i>
+                  )}
                 </div>
               </div>
               {/* End .row */}
@@ -40,7 +62,7 @@ export default function GalleryOne({hotel}) {
                 <div className="col-auto">
                   <div className="d-flex items-center text-15 text-light-1">
                     <i className="icon-location-2 text-16 mr-5" />
-                    {hotel?.location}
+                    {hotel?.address.address}
                   </div>
                 </div>
                 <div className="col-auto">
@@ -62,7 +84,7 @@ export default function GalleryOne({hotel}) {
                   <div className="text-14">
                     From{" "}
                     <span className="text-22 text-dark-1 fw-500">
-                      US${hotel?.price}
+                      {hotel?.currency} {hotel?.indicativePrice}
                     </span>
                   </div>
                 </div>
