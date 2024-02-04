@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 
-const DateSearch = ({cutOfDayss,stayInDayss}) => {
+const PassportDate = ({cutOfDayss,stayInDayss}) => {
   const { cutOfDays, stayInDays, startDate, endDate } = useSelector((state) => state.searchCriteria) || {};
   const { locationList, flightAvailRQ, loading } = useSelector((state) => ({ ...state.flight }));
   const dispatch = useDispatch(); // Hook to dispatch actions
@@ -53,7 +53,7 @@ const DateSearch = ({cutOfDayss,stayInDayss}) => {
         }}
         minDate={new DateObject()}
         maxDate={new DateObject().add(6, "month")}
-        numberOfMonths={2}
+        numberOfMonths={1}
         offsetY={10}
         range
         rangeHover
@@ -63,4 +63,4 @@ const DateSearch = ({cutOfDayss,stayInDayss}) => {
   );
 };
 
-export default DateSearch;
+export default PassportDate;

@@ -1,9 +1,9 @@
 
 'use client'
-import { flightAvailResult } from "@/features/hero/flightSlice";
+import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import CallToActions from "@/components/common/CallToActions";
 import Header11 from "@/components/header/header-3";
 import DefaultFooter from "@/components/footer/default";
@@ -20,26 +20,37 @@ import FlightReturnProperties from "@/components/flight-list/flight-list-v1/Flig
 //   description: "BE - Argentina - Travel & Tour React NextJS Template",
 // };
 
-const index = () => {
+const index = ({ params }) => {
   
   const dispatch = useDispatch();
-
-  const { locationCode,
-    locationName,
-    locationToCode,
-    locationToName,
-    startDate,
-    endDate,
-    adult,
-    child,
-    infant } = useSelector((state) => state.searchCriteria) || {};
   const { flightList,flightAvailRQ,loading, filterParam } = useSelector((state) => ({ ...state.flight }));
   const router = useRouter();
-  //const id = params.id;
+  console.log(params);
+  const { destinationLocationCode,
+  destinationLocationName,
+  originLocationCode,
+  originLocationName } = flightAvailRQ.searchParam;
   //const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];
   useEffect(() => {
+    console.log(params);
+    if(destinationLocationCode && destinationLocationName && originLocationCode && originLocationName){
     // Dispatch the action
     dispatch(flightAvailResult({ flightAvailRQ, router, undefined }));
+    }
+    else{
+    dispatch(
+      updateFlightAvailRQ({
+          ...flightAvailRQ,
+          searchParam: {
+            ...flightAvailRQ.searchParam,
+            originLocationCode: params.locationcode || "",
+            originLocationName: params.locationname || "",
+            destinationLocationCode: params.locationtocode || "",
+            destinationLocationName: params.locationtoname || "",
+          },
+      })
+    );
+    }
   }, []);
   console.log(flightList);
   return (
