@@ -16,16 +16,36 @@ const DateSearch = ({cutOfDayss,stayInDayss}) => {
   //   "December 09 2020",
   //   1597994736000, //unix time in milliseconds (August 21 2020)
   // ]);
+  
+  const [date, setDate] = useState(new DateObject(startDate));
   const [dates, setDates] = useState([
     new DateObject(startDate),//.add((cutOfDays), "day"),
     new DateObject(endDate)//.add((cutOfDays+stayInDays), "day"),
   ]);
   // Dispatch action to update startDate and endDate in the Redux store
-  const updateSearchCriteria = (startDate, endDate) => {
+  const updateSearchCriteria = (newDates) => {
+    if(flightAvailRQ.searchParam.tripType === "ONE_WAY"){
+      setDate(newDates);
+      dispatch(
+        addCurrentCriteria({
+          startDate: newDates,//.format("dd-mm-yyyy"), // Modify the format as needed
+        })
+      );
+      dispatch(
+        updateFlightAvailRQ({
+            ...flightAvailRQ,
+            searchParam: {
+              ...flightAvailRQ.searchParam,
+              startDate: new Date(newDates).toISOString(),
+            },
+        })
+      );}
+    else{
+      setDates(newDates);
     dispatch(
       addCurrentCriteria({
-        startDate: startDate,//.format("dd-mm-yyyy"), // Modify the format as needed
-        endDate: endDate//.format("dd-mm-yyyy"),     // Modify the format as needed
+        startDate: newDates[0],//.format("dd-mm-yyyy"), // Modify the format as needed
+        endDate: newDates[1]//.format("dd-mm-yyyy"),     // Modify the format as needed
       })
     );
     dispatch(
@@ -33,30 +53,32 @@ const DateSearch = ({cutOfDayss,stayInDayss}) => {
           ...flightAvailRQ,
           searchParam: {
             ...flightAvailRQ.searchParam,
-            startDate: new Date(startDate).toISOString(),
-            endDate: new Date(endDate).toISOString(),
+            startDate: new Date(newDates[0]).toISOString(),
+            endDate: new Date(newDates[1]).toISOString(),
           },
       })
     );
+    }
   };
-
+var single = single;
+var range = range;
   return (
     <div className="text-15 text-light-1 ls-2 lh-16 custom_dual_datepicker">
       <DatePicker
         inputClass="custom_input-picker"
         containerClassName="custom_container-picker"
-        value={dates}
+        value={flightAvailRQ.searchParam.tripType === "ONE_WAY" ? date :dates}
         onChange={(newDates) => {
-          setDates(newDates);
           // Update the Redux store when the dates change
-          updateSearchCriteria(newDates[0], newDates[1]);
+          updateSearchCriteria(newDates);
         }}
         minDate={new DateObject()}
         maxDate={new DateObject().add(6, "month")}
-        numberOfMonths={2}
+        numberOfMonths={flightAvailRQ.searchParam.tripType === "ONE_WAY" ? 1 : 2}
         offsetY={10}
-        range
-        rangeHover
+        range= {flightAvailRQ.searchParam.tripType !== "ONE_WAY"}
+        single= {flightAvailRQ.searchParam.tripType === "ONE_WAY"}
+        rangeHover= {flightAvailRQ.searchParam.tripType !== "ONE_WAY"}
         format="MMMM DD"
       />
     </div>

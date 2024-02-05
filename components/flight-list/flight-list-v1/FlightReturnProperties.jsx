@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import flightsData from "../../../data/flights";
 import Skeleton from "@/components/common/skeletons/Skeleton";
 
-const FlightReturnProperties = () => {
-  const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
+const FlightReturnProperties = (props) => {
   // {loading ? <Skeleton /> : ""}
   return (
     <>
-    {flightList?.map((item) => (
-      <div className="js-accordion" key={item.flightSegmentID}>
+    {props.returnFlightList?.map((item,index) => (
+      <div className="js-accordion" key={`${item.flightSegmentID}${index}`}>
         <div className="py-30 px-30 bg-white rounded-4 base-tr mt-30">
           <div className="row y-gap-30 justify-between items-center">
             <div className="col">
@@ -16,7 +15,7 @@ const FlightReturnProperties = () => {
                 <div className="col-sm-auto">
                   <img
                     className="size-40"
-                    src="/img/flightIcons/1.png"
+                    src="/img/flights/HolidayAir.svg"
                     alt="image"
                   />
                 </div>
@@ -136,7 +135,7 @@ day: 'numeric'
                   <div className="col-auto">
                     <div className="d-flex items-center mb-15">
                       <div className="w-28 d-flex justify-center mr-15">
-                        <img src="/img/flights/1.png" alt="image" />
+                        <img src="/img/flights/HolidayAir.svg" alt="image" />
                       </div>
                       <div className="text-14 text-light-1">
                         {`${item.airlineName}(${item.airlineCode}) - ${item.flightNumber}`}
@@ -221,7 +220,7 @@ day: 'numeric'
                   <div className="col-auto">
                     <div className="d-flex items-center mb-15">
                       <div className="w-28 d-flex justify-center mr-15">
-                        <img src="/img/flights/1.png" alt="image" />
+                        <img src="/img/flights/HolidayAir.svg" alt="image" />
                       </div>
                       <div className="text-14 text-light-1">
                         Pegasus Airlines 1169

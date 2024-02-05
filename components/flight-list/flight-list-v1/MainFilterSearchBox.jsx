@@ -10,17 +10,17 @@ import FlightGuestSearch from "@/components/hero/hero-3/FlightGuestSearch";
 const MainFilterSearchBox = () => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
   const { cutOfDays,
-  stayInDays,
-  startDate,
-  endDate,
-  adult,
-  child,
-  infant } = useSelector((state) => state.searchCriteria) || {};
+  stayInDays, } = useSelector((state) => state.searchCriteria) || {};
   const { flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
   const { destinationLocationCode,
   destinationLocationName,
   originLocationCode,
-  originLocationName } = flightAvailRQ.searchParam;
+  originLocationName,
+  adult,
+  child,
+  infant,
+  startDate,
+  endDate } = flightAvailRQ.searchParam;
   
   const dispatch = useDispatch();
   const Router = useRouter()
@@ -46,7 +46,7 @@ const MainFilterSearchBox = () => {
           <div className="searchMenu-date px-30 lg:py-20 lg:px-0 js-form-dd js-calendar">
             <div>
                 <h4 className="text-15 fw-500 ls-2 lh-16">
-                  Check in - Check out
+                  {`${flightAvailRQ.searchParam.tripType === "ONE_WAY" ? "Depart" : "Depart - Return"}`}
                 </h4>
                 <DateSearch cutOfDays={cutOfDays} stayInDays={stayInDays} />
             </div>

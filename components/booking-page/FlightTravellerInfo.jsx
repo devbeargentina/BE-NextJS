@@ -119,7 +119,6 @@ const intialStateContact = {
     };
     
     const handleSubmit = async (e) => {
-      debugger;
       if (validateInput() && validateContactInput()) {
         try {
           await Promise.all(passengerData.map((passenger) =>

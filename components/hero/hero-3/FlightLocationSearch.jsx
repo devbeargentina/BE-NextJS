@@ -6,10 +6,10 @@ import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelSlice";
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
-import { fetchLocationList, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { fetchLocationList, fetchLocationToList, updateFlightAvailRQ } from "@/features/hero/flightSlice";
 const LocationSearch = ({ locationCodea, locationNamea }) => {
   const dispatch = useDispatch(); // Hook to dispatch actions
-  const { locationList, flightAvailRQ, loading } = useSelector((state) => ({ ...state.flight }));
+  const { locationList, locationToList, flightAvailRQ, loading } = useSelector((state) => ({ ...state.flight }));
   const { destinationLocationCode,
   destinationLocationName,
   originLocationCode,
@@ -29,13 +29,26 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
               }
     }
   };
+  const handleSearch1 = async (query) => {
+    if(query.length > 2){
+      if(currentTab === HOTEL_TAB_NAME){
+    await dispatch(fetchHotelLocationList({ query,router,undefined }));  
+      }
+      else if(currentTab === FLIGHT_TAB_NAME){
+        await dispatch(fetchLocationToList({ query,router,undefined }));  
+          }
+          else{
+            await dispatch(fetchHotelLocationList({ query,router,undefined }));  
+              }
+    }
+  };
   const handleSearchLocatioTo = async (query) => {
     if(query.length > 2){
       if(currentTab === HOTEL_TAB_NAME){
     await dispatch(fetchHotelLocationList({ query,router,undefined }));  
       }
       else if(currentTab === FLIGHT_TAB_NAME){
-        await dispatch(fetchLocationList({ query,router,undefined }));  
+        await dispatch(fetchLocationToList({ query,router,undefined }));  
           }
           else{
             await dispatch(fetchHotelLocationList({ query,router,undefined }));  
@@ -51,7 +64,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
         locationName: destinationLocationName || "",
       })
     );
-  }, []); // Run this effect only once when the component mounts
+  }, [dispatch]); // Run this effect only once when the component mounts
 
   // const handleOptionClick = (item) => {
   //   setSearchValue(item.name);
@@ -80,7 +93,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
     <AsyncTypeahead
       filterBy={filterBy}
       id="async-example"
-      isLoading={loading}
+      // isLoading={loading}
       labelKey="name"
       minLength={3}
       maxLength={4}
@@ -112,7 +125,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       useCache={false}
       onInputChange={handleSearch}
       options={locationList}
-      placeholder="Search Location..."
+      placeholder="Search Location"
       className="divAutocomplete"  // Set your custom class here
       renderMenuItemChildren={(option) => (
         <>
@@ -150,7 +163,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
     <AsyncTypeahead
       filterBy={filterBy}
       id="location-to"
-      isLoading={loading}
+      // isLoading={loading}
       labelKey="name"
       minLength={3}
       maxLength={4}
@@ -162,7 +175,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       ]}
       onSearch={(query) => {
         // Handle search logic if needed
-        handleSearch(query);
+        handleSearch1(query);
       }}
       onChange={(selectedOptions) => {
         if (selectedOptions && selectedOptions.length > 0) {
@@ -180,9 +193,9 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
         }
       }}
       useCache={false}
-      onInputChange={handleSearch}
-      options={locationList}
-      placeholder="Search Location To..."
+      onInputChange={handleSearch1}
+      options={locationToList}
+      placeholder="Search Location To"
       className="divAutocomplete"  // Set your custom class here
       renderMenuItemChildren={(option) => (
         <>

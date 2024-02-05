@@ -7,36 +7,60 @@ import { useState } from "react";
 import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
-const PirceSlider = () => {
-  const { flightList,flightAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.flight }));
-  
+const PirceSlider = (props) => {
+  const { flightList,flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
   const [price, setPrice] = useState({
-    value: { min: filterParam?.priceMinMax[0], max: filterParam?.priceMinMax[1] },
+    value: { min: props.filterParam?.priceMinMax[0], max: props.filterParam?.priceMinMax[1] },
   });
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleOnChange = (value) => {
     setPrice({ value });
-    dispatch(
-      updateFlightAvailRQ({
+    if(props.type === "return")
+    {
+      dispatch(
+        updateFlightAvailRQ({
+            ...flightAvailRQ,
+            filterParam: {
+              ...flightAvailRQ.filterParam,
+              returnPriceMinMax: [value.min, value.max],
+              returnPageNumber: 0,
+            },
+        })
+      );
+      
+      dispatch(flightAvailResult({ flightAvailRQ : {
+        ...flightAvailRQ,
+        filterParam: {
+          ...flightAvailRQ.filterParam,
+          returnPriceMinMax: [value.min, value.max],
+          returnPageNumber: 0,
+        },
+    }, router, undefined }));
+  }
+    else
+    {
+        dispatch(
+          updateFlightAvailRQ({
+              ...flightAvailRQ,
+              filterParam: {
+                ...flightAvailRQ.filterParam,
+                priceMinMax: [value.min, value.max],
+                pageNumber: 0,
+              },
+          })
+        );
+        
+        dispatch(flightAvailResult({ flightAvailRQ : {
           ...flightAvailRQ,
           filterParam: {
             ...flightAvailRQ.filterParam,
             priceMinMax: [value.min, value.max],
             pageNumber: 0,
           },
-      })
-    );
-    
-    dispatch(flightAvailResult({ flightAvailRQ : {
-      ...flightAvailRQ,
-      filterParam: {
-        ...flightAvailRQ.filterParam,
-        priceMinMax: [value.min, value.max],
-        pageNumber: 0,
-      },
-  }, router, undefined }));
+      }, router, undefined }));
+    }
   };
 
   return (
@@ -53,8 +77,8 @@ const PirceSlider = () => {
       <div className="px-5">
         <InputRange
           formatLabel={(value) => ``}
-          minValue={filterParam?.priceMinMax[0]}
-          maxValue={filterParam?.priceMinMax[1]}
+          minValue={props.filterParam?.priceMinMax[0]}
+          maxValue={props.filterParam?.priceMinMax[1]}
           value={price.value}
           onChange={(value) => handleOnChange(value)}
         />

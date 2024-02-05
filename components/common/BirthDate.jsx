@@ -16,7 +16,7 @@ const DateSearch = ({name, dates, isSingle=false ,onChange, rest}) => {
     locale: "en",
     mapDays: null,
     onChange: (newDates) => {
-      debugger;
+      
       const fakeEvent = { target: { name: name, value: newDates.length > 1 ? newDates[0]:newDates } };
       onChange(fakeEvent);
     },

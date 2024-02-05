@@ -66,7 +66,7 @@ const BookingDetailsFlight = () => {
                     <div className="col-auto">
                       <div className="d-flex items-center mb-15">
                         <div className="w-28 d-flex justify-center mr-15">
-                          <img src="/img/flights/1.png" alt="image" />
+                          <img src="/img/flights/HolidayAir.svg" alt="image" />
                         </div>
                         <div className="text-14 text-light-1">
                           Pegasus Airlines 1169

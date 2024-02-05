@@ -16,6 +16,18 @@ export const fetchLocationList = createAsyncThunk(
   }
 );
 
+export const fetchLocationToList = createAsyncThunk(
+  "flight/fetchLocationToList",
+  async ({ query, navigate, toast }, { rejectWithValue }) => {
+    try {
+      const response = await API.get(`api/flight/fetchLocationList?searchQuery=${query}`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const flightAvailResult = createAsyncThunk(
   "flight/flightAvailResult",
   async ({ flightAvailRQ, navigate, toast }, { rejectWithValue }) => {
@@ -115,12 +127,12 @@ const flightSlice = createSlice({
       isApplySearchParam: true,
       filterParam: {
         cabin: [],
-        priceMinMax: [0, 1000],
+        priceMinMax: [0, 100000],
         stops: [],
         pageNumber: 0,
         pageSize: 10,
         returnCabin: [],
-        returnPriceMinMax: [0, 1000],
+        returnPriceMinMax: [0, 100000],
         returnStops: [],
         returnPageNumber: 0,
         returnPageSize: 10
@@ -136,14 +148,14 @@ const flightSlice = createSlice({
     },
     filterParam: {
       cabin: [],
-      priceMinMax: [0, 1000],
+      priceMinMax: [0, 100000],
       stops: [],
       pageNumber: 0,
       pageSize: 10
     },
     returnFilterParam: {
       cabin: [],
-      priceMinMax: [0, 1000],
+      priceMinMax: [0, 100000],
       stops: [],
       pageNumber: 0,
       pageSize: 10
@@ -212,8 +224,7 @@ const flightSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchLocationList.pending, (state) => {
       
-      state.locationList = [],
-      state.loading = true;
+      state.loading = false;
     });
     builder.addCase(fetchLocationList.fulfilled, (state, action) => {
       
@@ -222,7 +233,20 @@ const flightSlice = createSlice({
     });
     builder.addCase(fetchLocationList.rejected, (state, action) => {
       
-      state.locationList = [],
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+    builder.addCase(fetchLocationToList.pending, (state) => {
+      
+      state.loading = false;
+    });
+    builder.addCase(fetchLocationToList.fulfilled, (state, action) => {
+      
+      state.loading = false;
+      state.locationToList = action.payload.result;
+    });
+    builder.addCase(fetchLocationToList.rejected, (state, action) => {
+      
       state.loading = false;
       state.error = action.payload.message;
     });
@@ -231,7 +255,7 @@ const flightSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(flightAvailResult.fulfilled, (state, action) => {
-      debugger;
+      
       state.loading = false;
       state.flightList = action.payload.result?.flightList;
       state.filterParam = action.payload.result?.filterCriteria;
@@ -254,7 +278,7 @@ const flightSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(flightExtraCharges.fulfilled, (state, action) => {
-      debugger;
+      
       state.loading = false;
       state.extraCHARGES = action.payload.result
     });

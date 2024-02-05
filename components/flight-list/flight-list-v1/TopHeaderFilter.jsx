@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 
-const TopHeaderFilter = () => {
-  const { flightList,filterParam,loading, totalFlights } = useSelector((state) => ({ ...state.flight }));
-  return !loading && flightList !== undefined ? (
+const TopHeaderFilter = (props) => {
+  // const { flightList,filterParam,loading, totalFlights } = useSelector((state) => ({ ...state.flight }));
+  return !props.loading && props.flightList !== undefined ? (
     <>
       <div className="row y-gap-10 items-center justify-between">
         <div className="col-auto">
           <div className="text-18">
-            <span className="fw-500">{totalFlights} properties</span> in {`${flightList[0]?.departureAirport.locationName} ${flightList[0]?.departureAirport.city.locationName} ${flightList[0]?.departureAirport.country.locationName} - (${flightList[0]?.departureAirport.locationCode})`}
+            <span className="fw-500">{props.totalFlights} properties</span> - {`${props.flightList[0]?.departureAirport.locationName} `}
           </div>
         </div>
         {/* End .col */}

@@ -1,16 +1,29 @@
 
 'use client'
 
+import { updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const FilterSelect = () => {
-  const [returnValue, setReturnValue] = useState("Return");
+  
+  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handlePageClick = (value) => {
+    dispatch(
+      updateFlightAvailRQ({
+        ...flightAvailRQ,
+        searchParam: {
+          ...flightAvailRQ.searchParam,
+          tripType: value,
+        },
+      })
+    );
+    };
   const [economyValue, setEconomyValue] = useState("Economy");
   const [bagsValue, setBagsValue] = useState("0 Bags");
-
-  const handleReturnValueChange = (value) => {
-    setReturnValue(value);
-  };
 
   const handleEconomyValueChange = (value) => {
     setEconomyValue(value);
@@ -22,21 +35,18 @@ const FilterSelect = () => {
 
   const dropdownOptions = [
     {
-      title: "Return",
-      value: returnValue,
+      title: "Trip Type",
+      value: flightAvailRQ.searchParam.tripType,
       list: [
-        { label: "Animation" },
-        { label: "Design" },
-        { label: "Illustration" },
-        { label: "Lifestyle" },
-        { label: "Business" },
+        { label: "ONE_WAY" },
+        { label: "ROUND_TRIP" },
       ],
-      onChange: handleReturnValueChange,
+      onChange: handlePageClick,
     },
     {
-      title: "Economy",
+      title: "Business Class",
       value: economyValue,
-      list: [{ label: "Economy" }, { label: "Middle" }, { label: "Business" }],
+      list: [{ label: "Economy" }, { label: "Business" }],
       onChange: handleEconomyValueChange,
     },
     {

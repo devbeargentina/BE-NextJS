@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
 import { useRouter } from "next/navigation";
 
-const Pagination = () => {
+const Pagination = (props) => {
   //const [currentPage, setCurrentPage] = useState(1);
   const { totalPages, flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
   const dispatch = useDispatch();
@@ -50,11 +50,11 @@ const Pagination = () => {
   const renderPages = () => {
     //const totalPages = totalPages; // Change this to the actual total number of pages
     const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 1; i <= props.totalPages; i++) {
       pageNumbers.push(i);
     }
     const pages = pageNumbers.map((pageNumber) =>
-      renderPage(pageNumber, pageNumber === (flightAvailRQ.filterParam.pageNumber + 1))
+      renderPage(pageNumber, pageNumber === (props.filterParam.pageNumber + 1))
     );
     return pages;
   };
