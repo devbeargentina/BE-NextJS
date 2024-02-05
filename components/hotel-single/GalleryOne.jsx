@@ -90,7 +90,8 @@ export default function GalleryOne({hotel}) {
                 </div>
                 <div className="col-auto">
                   <Link
-                    href="/booking-page"
+                    //href="/booking-page"
+                    href="#rooms"
                     className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
                   >
                     Select Room <div className="icon-arrow-top-right ml-15" />
@@ -104,54 +105,38 @@ export default function GalleryOne({hotel}) {
 
           <Gallery>
             <div className="galleryGrid -type-1 pt-30">
-              <div className="galleryGrid__item relative d-flex">
-                <Item
-                  original={hotel?.img}
-                  thumbnail={hotel?.img}
-                  width={660}
-                  height={660}
-                >
-                  {({ ref, open }) => (
-                    <img
-                      src={hotel?.img}
-                      ref={ref}
-                      onClick={open}
-                      alt="image"
-                      role="button"
-                      className="rounded-4"
-                    />
-                  )}
-                </Item>
-                <div className="absolute px-20 py-20 col-12 d-flex justify-end">
-                  <button className="button -blue-1 size-40 rounded-full flex-center bg-white text-dark-1">
-                    <i className="icon-heart text-16" />
-                  </button>
-                </div>
-              </div>
-              {/* End .galleryGrid__item */}
+              {hotel.images.map((item) => (
 
+                  <div className="galleryGrid__item">
+                    <Item
+                      original={item?.fileName}
+                      thumbnail={item?.fileName}
+                      width={660}
+                      height={660}
+                    >
+                      {({ ref, open }) => (
+                        <img
+                          src={item?.fileName}
+                          ref={ref}
+                          onClick={open}
+                          alt="image"
+                          role="button"
+                          className="rounded-4"
+                          onError={(e) => {
+                            e.target.src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqttQPU5LFQgFKhRczOnjd8_9blH69mSr3sw9bsVQj41fh9tCvF1X0Bk7Y3g&s"; // Replace with the URL of your default image
+                          }}
+                        />
+                      )}
+                    </Item>
+                    {/* <div className="absolute px-20 py-20 col-12 d-flex justify-end">
+                      <button className="button -blue-1 size-40 rounded-full flex-center bg-white text-dark-1">
+                        <i className="icon-heart text-16" />
+                      </button>
+                    </div> */}
+                  </div>
+              ))}
+              
               <div className="galleryGrid__item">
-                <Item
-                  original="/img/gallery/1/2.png"
-                  thumbnail="/img/gallery/1/2.png"
-                  width={450}
-                  height={375}
-                >
-                  {({ ref, open }) => (
-                    <img
-                      ref={ref}
-                      onClick={open}
-                      src="/img/gallery/1/2.png"
-                      alt="image"
-                      className="rounded-4"
-                      role="button"
-                    />
-                  )}
-                </Item>
-              </div>
-              {/* End .galleryGrid__item */}
-
-              <div className="galleryGrid__item relative d-flex">
                 <img
                   src="/img/gallery/1/3.png"
                   alt="image"
