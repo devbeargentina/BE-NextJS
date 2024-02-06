@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import createAPI from "./api";
 import { DateObject } from "react-multi-date-picker";
 
-const API = createAPI("https://localhost:5700");
+const API = createAPI(process.env.NEXT_PUBLIC_FLIGHTAPIENDPOINT);
 // Async Thunk for Fetching Hotel Location List
 export const fetchLocationList = createAsyncThunk(
   "flight/fetchLocationList",
