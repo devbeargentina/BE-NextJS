@@ -25,7 +25,7 @@ jobs:
           node-version: '18.x' # Use Node.js version 18.x
       - name: Install Dependencies and Build
         run: |
-          npm install # Or yarn install, depending on your project setup
+          npm install --force
           npm run build # Or the command to build your project
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
