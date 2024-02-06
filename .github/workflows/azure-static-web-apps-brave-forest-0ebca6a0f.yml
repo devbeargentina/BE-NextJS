@@ -19,12 +19,15 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Use Node.js 18.x
+      - name: Use Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
-      - name: Build And Deploy
-        id: builddeploy
+          node-version: '18.x' # Use Node.js version 18.x
+      - name: Install Dependencies and Build
+        run: |
+          npm install # Or yarn install, depending on your project setup
+          npm run build # Or the command to build your project
+      - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BRAVE_FOREST_0EBCA6A0F }}
@@ -33,7 +36,6 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
           output_location: ".next" # Built app content directory - optional
           ###### End of Repository/B uild Configurations ######
 
