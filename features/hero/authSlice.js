@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import createAPI from "./api";
-
-const API = createAPI("https://argentinaauthapi.azurewebsites.net/");
+console.log("...",process.env.NODE_ENV)
+const API = createAPI(process.env.FLIGHT_API_ENDPOINT);
 export const registerUser = createAsyncThunk(
   "auth/Register",
   async ({ registerData, navigate, toast }, { rejectWithValue }) => {
