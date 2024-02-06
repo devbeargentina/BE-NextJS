@@ -1,3 +1,5 @@
+'use client'
+
 import { hotelAvailResult, updateHotelAvailRQ } from "@/features/hero/hotelSlice";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
