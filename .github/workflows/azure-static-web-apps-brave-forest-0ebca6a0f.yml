@@ -18,14 +18,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use Node.js 18.x
+      - name: Use Node.js v16.20.2
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: '16.20.2'
+
+      - name: Use Yarn v1.22.15
+        run: npm install -g yarn@1.22.15
 
       - name: Install dependencies
         run: |
-          yarn install --force
+          yarn install
 
       - name: Build
         run: |
