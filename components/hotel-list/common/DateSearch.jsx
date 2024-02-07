@@ -4,7 +4,7 @@
 import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const DateSearch = ({cutOfDays,stayInDays,startDate,endDate}) => {
   const { hotelCriteria } = useSelector((state) => state.searchCriteria);

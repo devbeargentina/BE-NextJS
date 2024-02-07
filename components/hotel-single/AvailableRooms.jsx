@@ -28,7 +28,7 @@ const AvailableRooms = ({ hotel }) => {
       <div className="border-light rounded-4 px-30 py-30 sm:px-20 sm:py-20">
         <div className="row y-gap-20">
           <div className="col-12">
-            <h3 className="text-18 fw-500 mb-15">{item.hotelRooms.hotelRoomList[0].name}</h3>
+            <h3 className="text-18 fw-500 mb-15">{item?.hotelRooms?.hotelRoomList[0].name}</h3>
             <div className="roomGrid">
               <div className="roomGrid__header">
                 <div>Room Type</div>
@@ -108,7 +108,7 @@ const AvailableRooms = ({ hotel }) => {
 
                     <div>
                       <div className="d-flex items-center text-light-1">
-                        {Array(item.hotelRooms.hotelRoomList[0].roomOccupancy.adults).fill().map((_, starIndex) => (
+                        {Array(item?.hotelRooms?.hotelRoomList[0].roomOccupancy.adults).fill().map((_, starIndex) => (
                           <div className="icon-man text-24" />
                         ))}
                       </div>
