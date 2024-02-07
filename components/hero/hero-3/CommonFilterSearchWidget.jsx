@@ -2,7 +2,6 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { addCurrentTab } from "../../../features/hero/findPlaceSlice";
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
 import DateSearch from "../DateSearch";
 import GuestSearch from "./GuestSearch";
 import LocationSearch from "./LocationSearch";

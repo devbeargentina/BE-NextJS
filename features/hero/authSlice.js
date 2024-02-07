@@ -203,7 +203,7 @@ const userSlice = createSlice({
         state.isUserLoggedIn = true;
         state.user = action.payload.data.result.user;
         // Call the getUser async thunk to fetch user data
-        const userResponse = getUser(); // Make sure to dispatch the async thunk
+        // const userResponse = getUser(); // Make sure to dispatch the async thunk
         // if (userResponse.payload) {
         //   // If the user response is successful, update the state accordingly
         //   const user = userResponse.payload;
@@ -240,7 +240,7 @@ const userSlice = createSlice({
         state.user = action.payload.data.user;
         //state.user = action.payload;
         // Call the getUser async thunk to fetch user data
-        const userResponse = getUser(); // Make sure to dispatch the async thunk
+        // const userResponse = getUser(); // Make sure to dispatch the async thunk
         // if (userResponse.payload) {
         //   // If the user response is successful, update the state accordingly
         //   const user = userResponse.payload;

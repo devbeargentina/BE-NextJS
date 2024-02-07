@@ -2,8 +2,8 @@
 'use client'
 
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";  // Adjust the path accordingly
+import { useDispatch, useSelector } from "react-redux";
+import { updateFlightAvailRQ, updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";  // Adjust the path accordingly
 
 const counters = [
   { name: "Adults", defaultValue: 1 },
@@ -74,6 +74,7 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
 };
 
 const FlightGuestSearch = ({adult, child, infant}) => {
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
   const dispatch = useDispatch(); // Hook to dispatch actions
   const [guestCounts, setGuestCounts] = useState({
     Adults: adult,
@@ -86,10 +87,14 @@ const FlightGuestSearch = ({adult, child, infant}) => {
 
     // Dispatch action to update adult, child, and room in the Redux store
     dispatch(
-      addCurrentCriteria({
-        adult: name === "Adults" ? value : guestCounts.Adults,
-        child: name === "Children" ? value : guestCounts.Children,
-        infant: name === "Infant" ? value : guestCounts.Infant,
+      updateFlightAvailRQ({
+          ...flightAvailRQ,
+          searchParam: {
+            ...flightAvailRQ.searchParam,
+            adult: name === "Adults" ? value : guestCounts.Adults,
+            child: name === "Children" ? value : guestCounts.Children,
+            infant: name === "Infant" ? value : guestCounts.Infant,
+          },
       })
     );
   };

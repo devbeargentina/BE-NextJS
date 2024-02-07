@@ -11,7 +11,7 @@ const MainFilterSearchBox = () => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
   const { cutOfDays,
   stayInDays, } = useSelector((state) => state.searchCriteria) || {};
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
   const { destinationLocationCode,
   destinationLocationName,
   originLocationCode,

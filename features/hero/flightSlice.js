@@ -111,41 +111,6 @@ export const completeReservation = createAsyncThunk(
 const flightSlice = createSlice({
   name: "flight",
   initialState: {
-    flightAvailRQ: {
-      searchParam: {
-        originLocationCode: "",
-        originLocationName: "",
-        destinationLocationCode: "",
-        destinationLocationName: "",
-        startDate: new Date(new DateObject()).toISOString(),
-        endDate: new Date(new DateObject()).toISOString(),
-        adult: 1,
-        child: 0,
-        infant: 0,
-        tripType: "ROUND_TRIP"//"ONE_WAY"
-      },
-      isApplySearchParam: true,
-      filterParam: {
-        cabin: [],
-        priceMinMax: [0, 100000],
-        stops: [],
-        pageNumber: 0,
-        pageSize: 10,
-        returnCabin: [],
-        returnPriceMinMax: [0, 100000],
-        returnStops: [],
-        returnPageNumber: 0,
-        returnPageSize: 10
-      },
-      isApplyFilterParam: true,
-      sortParam: {
-        sortBy: "rewr",
-        sortType: "string",
-        returnSortBy: "rewr",
-        returnSortType: "string"
-      },
-      isApplySortParam: true
-    },
     filterParam: {
       cabin: [],
       priceMinMax: [0, 100000],
@@ -179,13 +144,6 @@ const flightSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = "";
-    },
-    updateFlightAvailRQ: (state, action) => {
-      // Merge the payload with the existing FlightAvailRQ
-      state.flightAvailRQ = {
-        ...state.flightAvailRQ,
-        ...action.payload,
-      };
     },
     updateFlightCart: (state, action) => {
       // Assuming the payload contains information about the flight cart
@@ -297,6 +255,6 @@ const flightSlice = createSlice({
   },
 });
 
-export const { clearError, updateFlightAvailRQ, updateFlightCart, updateSelectedFlight, updateSelectedReturnFlight } = flightSlice.actions;
+export const { clearError, updateFlightCart, updateSelectedFlight, updateSelectedReturnFlight } = flightSlice.actions;
 
 export default flightSlice.reducer;

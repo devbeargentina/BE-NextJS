@@ -47,9 +47,11 @@ const handleLogout = async () => {
 };
 useEffect(() => {
   
+  if(localStorage.getItem("userToken")){
   if (!user.firstname) {
     dispatch(getUser());
   }
+}
 }, [dispatch]);
   const logOut = () => {
     

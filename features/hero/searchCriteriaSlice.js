@@ -3,32 +3,75 @@ import { DateObject } from "react-multi-date-picker";
 
 const initialState = {
   business:"Flight",
-  locationCode: "",
-  locationName: "",
-  locationToCode: "",
-  locationToName: "",
-  cutOfDays: 2,
-  stayInDays: 2,
-  startDate: new DateObject(),
-  endDate: new DateObject(),
-  adult: 2,
-  child: 0,
-  infant: 0,
-  room: 1
+  hotelCriteria:{
+      locationCode: "",
+      locationName: "",
+      locationToCode: "",
+      locationToName: "",
+      cutOfDays: 2,
+      stayInDays: 2,
+      startDate: new Date(new DateObject()).toISOString(),
+      endDate: new Date(new DateObject()).toISOString(),
+      adult: 2,
+      child: 0,
+      room: 1
+    },    
+  flightAvailRQ: {
+    searchParam: {
+      originLocationCode: "",
+      originLocationName: "",
+      destinationLocationCode: "",
+      destinationLocationName: "",
+      startDate: new Date(new DateObject()).toISOString(),
+      endDate: new Date(new DateObject()).toISOString(),
+      adult: 1,
+      child: 0,
+      infant: 0,
+      tripType: "ROUND_TRIP"//"ONE_WAY"
+    },
+    isApplySearchParam: true,
+    filterParam: {
+      cabin: [],
+      priceMinMax: [0, 100000],
+      stops: [],
+      pageNumber: 0,
+      pageSize: 10,
+      returnCabin: [],
+      returnPriceMinMax: [0, 100000],
+      returnStops: [],
+      returnPageNumber: 0,
+      returnPageSize: 10
+    },
+    isApplyFilterParam: true,
+    sortParam: {
+      sortBy: "rewr",
+      sortType: "string",
+      returnSortBy: "rewr",
+      returnSortType: "string"
+    },
+    isApplySortParam: true
+  },
 };
 
 export const searchCriteriaSlice = createSlice({
   name: "searchCriteria",
   initialState,
   reducers: {
-    addCurrentCriteria: (state, { payload }) => {
-      return {
-        ...state,
-        ...payload,
+    updateHotelCriteria: (state, action) => {
+      state.hotelCriteria = {
+        ...state.hotelCriteria,
+        ...action.payload,
+      };
+    },    
+    updateFlightAvailRQ: (state, action) => {
+      // Merge the payload with the existing FlightAvailRQ
+      state.flightAvailRQ = {
+        ...state.flightAvailRQ,
+        ...action.payload,
       };
     },
   },
 });
 
-export const { addCurrentCriteria } = searchCriteriaSlice.actions;
+export const { updateFlightAvailRQ, updateHotelCriteria } = searchCriteriaSlice.actions;
 export default searchCriteriaSlice.reducer;

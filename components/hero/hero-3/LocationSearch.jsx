@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
+import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelSlice";
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
@@ -16,6 +16,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   const [options, setOptions] = useState([]);
 
   const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
   const { locationCode,
   locationName,
   locationToCode,
@@ -53,7 +54,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   useEffect(() => {
     // Dispatch action to update locationCode and locationName in the Redux store with default values
     dispatch(
-      addCurrentCriteria({
+      updateHotelCriteria({
+        ...hotelCriteria,
         locationCode: locationCode || "", // Modify the format as needed
         locationName: locationName || "",
       })
@@ -94,7 +96,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
 
     // Dispatch action to update locationCode and locationName in the Redux store
     dispatch(
-      addCurrentCriteria({
+      updateHotelCriteria({
+        ...hotelCriteria,
         locationCode: `loc-${item.id}`, // Modify the format as needed
         locationName: item.name,
       })
@@ -133,7 +136,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
         if (selectedOptions && selectedOptions.length > 0) {
           const selectedOption = selectedOptions[0];
           dispatch(
-            addCurrentCriteria({
+            updateHotelCriteria({
+              ...hotelCriteria,
               locationCode: currentTab === FLIGHT_TAB_NAME ? (selectedOption.code) : selectedOption.jpdCode || "",
               locationName: selectedOption.name || "",
             })
@@ -199,7 +203,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
         if (selectedOptions && selectedOptions.length > 0) {
           const selectedOption = selectedOptions[0];
           dispatch(
-            addCurrentCriteria({
+            updateHotelCriteria({
+              ...hotelCriteria,
               locationToCode: selectedOption.code || "",
               locationToName: selectedOption.name || "",
             })

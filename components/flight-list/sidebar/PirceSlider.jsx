@@ -1,14 +1,16 @@
 
 'use client'
 
-import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { flightAvailResult } from "@/features/hero/flightSlice";
+import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
 const PirceSlider = (props) => {
-  const { flightList,flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightList } = useSelector((state) => ({ ...state.flight }));
   const [price, setPrice] = useState({
     value: { min: props.filterParam?.priceMinMax[0], max: props.filterParam?.priceMinMax[1] },
   });

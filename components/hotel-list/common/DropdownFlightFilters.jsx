@@ -4,11 +4,13 @@
 import { useState } from "react";
 import RatingFilter from "./RatingFilter";
 import PirceSlider from "@/components/flight-list/sidebar/PirceSlider";
-import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { flightAvailResult } from "@/features/hero/flightSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 
 const DropdownFlightFilters = (props) => {
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
   const [priceValue, setPriceValue] = useState("Price");
   const [amenitiesValue, setAmenitiesValue] = useState("Cabin Class");
   const [styleValue, setStyleValue] = useState("Stops");
@@ -57,13 +59,11 @@ const DropdownFlightFilters = (props) => {
     { label: "Kensington and Chelsea", value: "kensington_and_chelsea" },
     { label: "Oxford Street", value: "oxford_street" },
   ];
-  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { totalPages,filterParam } = useSelector((state) => ({ ...state.flight }));
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (cabimClass) => {
 
-    // Dispatch the addCurrentCriteria action with the updated criteria
-    debugger;
     if(props.type === "return")
     {
       const updateCabin = flightAvailRQ.filterParam.returnStops;
@@ -133,8 +133,6 @@ const DropdownFlightFilters = (props) => {
 
     const handleCabinClick = (cabimClass) => {
     
-    // Dispatch the addCurrentCriteria action with the updated criteria
-    debugger;
     if(props.type === "return")
     {
     

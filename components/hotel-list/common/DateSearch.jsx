@@ -1,12 +1,13 @@
 
 'use client'
 
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
+import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDispatch } from "react-redux";
 
 const DateSearch = ({cutOfDays,stayInDays,startDate,endDate}) => {
+  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
   const dispatch = useDispatch(); // Hook to dispatch actions
   // const [dates, setDates] = useState([
   //   new DateObject({ year: 2023, month: 1, day: 22 }),
@@ -21,7 +22,8 @@ const DateSearch = ({cutOfDays,stayInDays,startDate,endDate}) => {
   // Dispatch action to update startDate and endDate in the Redux store
   const updateSearchCriteria = (startDate, endDate) => {
     dispatch(
-      addCurrentCriteria({
+      updateHotelCriteria({
+        ...hotelCriteria,
         startDate: startDate?.format("YYYY-MM-DD"), // Modify the format as needed
         endDate: endDate?.format("YYYY-MM-DD"),     // Modify the format as needed
       })

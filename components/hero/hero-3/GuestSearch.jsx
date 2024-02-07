@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";  // Adjust the path accordingly
+import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";  // Adjust the path accordingly
 
 const counters = [
   { name: "Adults", defaultValue: 2 },
@@ -65,6 +65,7 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
 };
 
 const GuestSearch = ({adult, child, room}) => {
+  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
   const dispatch = useDispatch(); // Hook to dispatch actions
   const [guestCounts, setGuestCounts] = useState({
     Adults: adult,
@@ -77,7 +78,8 @@ const GuestSearch = ({adult, child, room}) => {
 
     // Dispatch action to update adult, child, and room in the Redux store
     dispatch(
-      addCurrentCriteria({
+      updateHotelCriteria({
+        ...hotelCriteria,
         adult: name === "Adults" ? value : guestCounts.Adults,
         child: name === "Children" ? value : guestCounts.Children,
         room: name === "Rooms" ? value : guestCounts.Rooms,

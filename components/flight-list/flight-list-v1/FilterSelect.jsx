@@ -1,14 +1,14 @@
 
 'use client'
 
-import { updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const FilterSelect = () => {
   
-  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (value) => {

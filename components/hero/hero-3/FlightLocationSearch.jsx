@@ -2,14 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
+import {  updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelSlice";
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
-import { fetchLocationList, fetchLocationToList, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { fetchLocationList, fetchLocationToList } from "@/features/hero/flightSlice";
 const LocationSearch = ({ locationCodea, locationNamea }) => {
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
   const dispatch = useDispatch(); // Hook to dispatch actions
-  const { locationList, locationToList, flightAvailRQ, loading } = useSelector((state) => ({ ...state.flight }));
+  const { locationList, locationToList, loading } = useSelector((state) => ({ ...state.flight }));
   const { destinationLocationCode,
   destinationLocationName,
   originLocationCode,
@@ -56,15 +57,15 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
     }
   };
   const filterBy = () => true;
-  useEffect(() => {
-    // Dispatch action to update destinationLocationCode and destinationLocationName in the Redux store with default values
-    dispatch(
-      addCurrentCriteria({
-        locationCode: destinationLocationCode || "", // Modify the format as needed
-        locationName: destinationLocationName || "",
-      })
-    );
-  }, [dispatch]); // Run this effect only once when the component mounts
+  // useEffect(() => {
+  //   // Dispatch action to update destinationLocationCode and destinationLocationName in the Redux store with default values
+  //   dispatch(
+  //     addCurrentCriteria({
+  //       locationCode: destinationLocationCode || "", // Modify the format as needed
+  //       locationName: destinationLocationName || "",
+  //     })
+  //   );
+  // }, [dispatch]); // Run this effect only once when the component mounts
 
   // const handleOptionClick = (item) => {
   //   setSearchValue(item.name);

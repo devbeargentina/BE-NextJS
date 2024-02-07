@@ -1,15 +1,14 @@
 
 'use client'
 
-import { updateFlightAvailRQ } from "@/features/hero/flightSlice";
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
+import { updateHotelCriteria, updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 
 const PassportDate = ({cutOfDayss,stayInDayss}) => {
-  const { cutOfDays, stayInDays, startDate, endDate } = useSelector((state) => state.searchCriteria) || {};
-  const { locationList, flightAvailRQ, loading } = useSelector((state) => ({ ...state.flight }));
+  const { locationList, loading } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ, hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
   const dispatch = useDispatch(); // Hook to dispatch actions
   // const [dates, setDates] = useState([
   //   new DateObject({ year: 2023, month: 1, day: 22 }),
@@ -17,13 +16,14 @@ const PassportDate = ({cutOfDayss,stayInDayss}) => {
   //   1597994736000, //unix time in milliseconds (August 21 2020)
   // ]);
   const [dates, setDates] = useState([
-    new DateObject(startDate),//.add((cutOfDays), "day"),
-    new DateObject(endDate)//.add((cutOfDays+stayInDays), "day"),
+    new DateObject(hotelCriteria.startDate),//.add((cutOfDays), "day"),
+    new DateObject(hotelCriteria.endDate)//.add((cutOfDays+stayInDays), "day"),
   ]);
   // Dispatch action to update startDate and endDate in the Redux store
   const updateSearchCriteria = (startDate, endDate) => {
     dispatch(
-      addCurrentCriteria({
+      updateHotelCriteria({
+        ...hotelCriteria,
         startDate: startDate,//.format("dd-mm-yyyy"), // Modify the format as needed
         endDate: endDate//.format("dd-mm-yyyy"),     // Modify the format as needed
       })

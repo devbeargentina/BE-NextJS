@@ -1,6 +1,6 @@
 
 'use client'
-import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { flightAvailResult } from "@/features/hero/flightSlice";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,6 +15,7 @@ import Sidebar from "@/components/flight-list/flight-list-v1/Sidebar";
 import FlightReturnProperties from "@/components/flight-list/flight-list-v1/FlightReturnProperties";
 import { DateObject } from "react-multi-date-picker";
 import DropdownFlightFilters from "@/components/hotel-list/common/DropdownFlightFilters";
+import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 
 // export const metadata = {
 //   title: "Flight List v1 || BE - Argentina - Travel & Tour React NextJS Template",
@@ -24,7 +25,8 @@ import DropdownFlightFilters from "@/components/hotel-list/common/DropdownFlight
 const index = ({ params }) => {
   
   const dispatch = useDispatch();
-  const { flightList, returnFlightList, filterParam, returnFilterParam,flightAvailRQ,loading, totalFlights, totalReturnFlights, totalPages, totalRetutrnPages } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightList, returnFlightList, filterParam, returnFilterParam,loading, totalFlights, totalReturnFlights, totalPages, totalRetutrnPages } = useSelector((state) => ({ ...state.flight }));
   const router = useRouter();
   console.log(params);
   const { destinationLocationCode,

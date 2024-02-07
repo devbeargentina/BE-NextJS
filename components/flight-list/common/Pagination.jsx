@@ -2,17 +2,18 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { flightAvailResult } from "@/features/hero/flightSlice";
 import { useRouter } from "next/navigation";
+import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 
 const Pagination = (props) => {
   //const [currentPage, setCurrentPage] = useState(1);
-  const { totalPages, flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { totalPages } = useSelector((state) => ({ ...state.flight }));
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (pageNumber) => {
     //setCurrentPage(pageNumber);
-    // Dispatch the addCurrentCriteria action with the updated criteria
     dispatch(
       updateFlightAvailRQ({
           ...flightAvailRQ,

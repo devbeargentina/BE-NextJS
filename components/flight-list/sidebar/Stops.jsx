@@ -1,11 +1,13 @@
 
 import { useDispatch, useSelector } from "react-redux";
-import { flightAvailResult, updateFlightAvailRQ } from "@/features/hero/flightSlice";
+import { flightAvailResult } from "@/features/hero/flightSlice";
 import { useRouter } from "next/navigation";
+import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 
 const Stops = () => {
   //const [currentPage, setCurrentPage] = useState(1);
-  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { totalPages,filterParam } = useSelector((state) => ({ ...state.flight }));
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (cabimClass) => {
@@ -15,7 +17,6 @@ const Stops = () => {
         ? updateCabin.filter((page) => page !== cabimClass.toString())
         : [...updateCabin, cabimClass.toString()];
 
-    // Dispatch the addCurrentCriteria action with the updated criteria
     dispatch(
       updateFlightAvailRQ({
         ...flightAvailRQ,

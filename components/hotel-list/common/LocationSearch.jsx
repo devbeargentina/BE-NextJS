@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { addCurrentCriteria } from "@/features/hero/searchCriteriaSlice";
+import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelSlice";
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
 
 const SearchBar = ({ locationCode, locationName }) => {
+  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
   const dispatch = useDispatch(); // Hook to dispatch actions
   const [searchValue, setSearchValue] = useState(locationName || ""); // Set default searchValue based on locationName
   const [selectedItem, setSelectedItem] = useState(null); // Set default selectedItem based on initialState
@@ -28,7 +29,8 @@ const SearchBar = ({ locationCode, locationName }) => {
   useEffect(() => {
     // Dispatch action to update locationCode and locationName in the Redux store with default values
     dispatch(
-      addCurrentCriteria({
+      updateHotelCriteria({
+        ...hotelCriteria,
         locationCode: locationCode || "", // Modify the format as needed
         locationName: locationName || "",
       })
@@ -69,7 +71,8 @@ const SearchBar = ({ locationCode, locationName }) => {
 
     // Dispatch action to update locationCode and locationName in the Redux store
     dispatch(
-      addCurrentCriteria({
+      updateHotelCriteria({
+        ...hotelCriteria,
         locationCode: `loc-${item.id}`, // Modify the format as needed
         locationName: item.name,
       })
@@ -116,7 +119,8 @@ const SearchBar = ({ locationCode, locationName }) => {
         if (selectedOptions && selectedOptions.length > 0) {
           const selectedOption = selectedOptions[0];
           dispatch(
-            addCurrentCriteria({
+            updateHotelCriteria({
+              ...hotelCriteria,
               locationCode: selectedOption.jpdCode || "",
               locationName: selectedOption.name || "",
             })
