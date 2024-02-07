@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 const TopHeaderFilter = (props) => {
-  // const { flightList,filterParam,loading, totalFlights } = useSelector((state) => ({ ...state.flight }));
+  // const { flightList,filterParam,loading, totalFlights } = useSelector((state) => state.flight);
   return !props.loading && props.flightList !== undefined ? (
     <>
       <div className="row y-gap-10 items-center justify-between">

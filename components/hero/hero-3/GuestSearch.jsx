@@ -2,7 +2,7 @@
 'use client'
 
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";  // Adjust the path accordingly
 
 const counters = [
@@ -65,7 +65,7 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
 };
 
 const GuestSearch = ({adult, child, room}) => {
-  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { hotelCriteria } = useSelector((state) => state.searchCriteria);
   const dispatch = useDispatch(); // Hook to dispatch actions
   const [guestCounts, setGuestCounts] = useState({
     Adults: adult,

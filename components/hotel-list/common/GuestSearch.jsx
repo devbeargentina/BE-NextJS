@@ -13,7 +13,7 @@ const counters = [
 
 const Counter = ({ name, defaultValue, onCounterChange }) => {
   
-  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { hotelCriteria } = useSelector((state) => state.searchCriteria);
   const [count, setCount] = useState(defaultValue);
   const incrementCount = () => {
     setCount(count + 1);

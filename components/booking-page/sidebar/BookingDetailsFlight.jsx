@@ -2,13 +2,13 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 
 const BookingDetailsFlight = () => {
-  const { selectedFlight, selectedReturnFlight } = useSelector((state) => ({ ...state.flight }));
+  const { selectedFlight, selectedReturnFlight } = useSelector((state) => state.flight);
   console.log("selectedFlight :",JSON.stringify(selectedFlight))
   console.log(selectedReturnFlight)
   return (
     <>
     
-    <div className="" id={`div${selectedFlight?.flightSegmentID}`}>
+    <div className="" id={`div${selectedFlight?.flightSegmentID}`}  key={`${selectedFlight?.flightSegmentID}`}>
               <div className="border-light rounded-4">
                 <div className="py-20 px-30">
                   <div className="row justify-between items-center">

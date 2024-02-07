@@ -7,8 +7,8 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 
 const PassportDate = ({cutOfDayss,stayInDayss}) => {
-  const { locationList, loading } = useSelector((state) => ({ ...state.flight }));
-  const { flightAvailRQ, hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { locationList, loading } = useSelector((state) => state.flight);
+  const { flightAvailRQ, hotelCriteria } = useSelector((state) => state.searchCriteria);
   const dispatch = useDispatch(); // Hook to dispatch actions
   // const [dates, setDates] = useState([
   //   new DateObject({ year: 2023, month: 1, day: 22 }),

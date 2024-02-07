@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const FilterSelect = () => {
   
-  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { totalPages,filterParam, flightAvailRQ } = useSelector((state) => state.searchCriteria);
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (value) => {

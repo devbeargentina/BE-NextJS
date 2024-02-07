@@ -112,7 +112,7 @@ const FlightReturnProperties = (props) => {
           {/* End .row  */}
 
           <div className=" collapse" id={`div${item.flightSegmentID}`}>
-            <div className="border-light rounded-4 mt-30">
+            <div className="border-light rounded-4 mt-30"  key={`${item.flightSegmentID}${index}`}>
               <div className="py-20 px-30">
                 <div className="row justify-between items-center">
                   <div className="col-auto">

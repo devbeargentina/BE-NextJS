@@ -8,9 +8,9 @@ import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelS
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
 import { fetchLocationList, fetchLocationToList } from "@/features/hero/flightSlice";
 const LocationSearch = ({ locationCodea, locationNamea }) => {
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
   const dispatch = useDispatch(); // Hook to dispatch actions
-  const { locationList, locationToList, loading } = useSelector((state) => ({ ...state.flight }));
+  const { locationList, locationToList, loading } = useSelector((state) => state.flight);
   const { destinationLocationCode,
   destinationLocationName,
   originLocationCode,
@@ -18,7 +18,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   const { currentTab } = useSelector((state) => state.hero) || {};
   const router = useRouter();
   const handleSearch = async (query) => {
-    if(query.length > 2){
+    if(query.length > 2){setLoadingFrom(true);
       if(currentTab === HOTEL_TAB_NAME){
     await dispatch(fetchHotelLocationList({ query,router,undefined }));  
       }
@@ -27,11 +27,12 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
           }
           else{
             await dispatch(fetchHotelLocationList({ query,router,undefined }));  
-              }
+              }setLoadingFrom(false);
     }
   };
   const handleSearch1 = async (query) => {
     if(query.length > 2){
+      setLoadingTo(true);
       if(currentTab === HOTEL_TAB_NAME){
     await dispatch(fetchHotelLocationList({ query,router,undefined }));  
       }
@@ -41,6 +42,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
           else{
             await dispatch(fetchHotelLocationList({ query,router,undefined }));  
               }
+              setLoadingTo(false);
     }
   };
   const handleSearchLocatioTo = async (query) => {
@@ -56,6 +58,23 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
               }
     }
   };
+  const handleSwapLocation = () => { 
+    debugger;   
+    dispatch(
+      updateFlightAvailRQ({
+          ...flightAvailRQ,
+          searchParam: {
+            ...flightAvailRQ.searchParam,
+            destinationLocationCode: flightAvailRQ.searchParam.originLocationCode,
+            destinationLocationName: flightAvailRQ.searchParam.originLocationName,
+            originLocationCode: flightAvailRQ.searchParam.destinationLocationCode,
+            originLocationName: flightAvailRQ.searchParam.destinationLocationName,
+          },
+      })
+    );
+    
+    setKey((prevKey) => prevKey + 1);
+  }
   const filterBy = () => true;
   // useEffect(() => {
   //   // Dispatch action to update destinationLocationCode and destinationLocationName in the Redux store with default values
@@ -79,7 +98,9 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   //     })
   //   );
   // };
-
+  const [key, setKey] = useState(0);
+  const [loadingFrom, setLoadingFrom] = useState(false);
+  const [loadingTo, setLoadingTo] = useState(false);
   return (
     <>
       <div className="searchMenu-loc px-30 lg:py-20 lg:px-0 js-form-dd js-liverSearch">
@@ -93,15 +114,16 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
     
     <AsyncTypeahead
       filterBy={filterBy}
+      key={key} // Force re-render when key changes
       id="async-example"
-      // isLoading={loading}
+      isLoading={loadingFrom}
       labelKey="name"
       minLength={3}
       maxLength={4}
       defaultSelected={[
         {
-          code: destinationLocationCode,
-          name: destinationLocationName,
+          code: flightAvailRQ.searchParam.destinationLocationCode,
+          name: flightAvailRQ.searchParam.destinationLocationName,
         },
       ]}
       onSearch={(query) => {
@@ -152,6 +174,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       </div>
       
       {currentTab === FLIGHT_TAB_NAME ? (
+        <><button class="location-switch border button -blue-1 bg-white size-30 rounded-full shadow-2" onClick={()=>handleSwapLocation()}><i class="icon-up-down text-12" style={{rotate: "90deg"}}></i></button>
       <div className="searchMenu-loc locationto px-30 lg:py-20 lg:px-0 js-form-dd js-liverSearch">
         <div
           data-bs-toggle="dropdown"
@@ -162,16 +185,17 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
           <div className="text-15 text-light-1 ls-2 lh-16">
     
     <AsyncTypeahead
+        key={key} // Force re-render when key changes
       filterBy={filterBy}
       id="location-to"
-      // isLoading={loading}
+      isLoading={loadingTo}
       labelKey="name"
       minLength={3}
       maxLength={4}
       defaultSelected={[
         {
-          code: originLocationCode,
-          name: originLocationName,
+          code: flightAvailRQ.searchParam.originLocationCode,
+          name: flightAvailRQ.searchParam.originLocationName,
         },
       ]}
       onSearch={(query) => {
@@ -219,7 +243,7 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
   
           </div>
         </div>
-      </div>
+      </div></>
   ):(<></>)}
     </>
   );

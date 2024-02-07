@@ -9,8 +9,8 @@ const FlightProperties = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria}));
-  const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
+  const { flightList,filterParam,loading } = useSelector((state) => state.flight);
   // {loading ? <Skeleton /> : ""}
   debugger;
   console.log(JSON.stringify(flightList));

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 const HotelFilterSearchWidget = () => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
+  const { hotelCriteria } = useSelector((state) => state.searchCriteria);
   const { locationCode,
   locationName,
   cutOfDays,
@@ -16,7 +17,7 @@ const HotelFilterSearchWidget = () => {
   endDate,
   adult,
   child,
-  room } = useSelector((state) => state.searchCriteria) || {};
+  room } = hotelCriteria;
   
   const dispatch = useDispatch();
   const Router = useRouter()

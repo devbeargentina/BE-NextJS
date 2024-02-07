@@ -15,13 +15,13 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
 
   const [options, setOptions] = useState([]);
 
-  const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
-  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { hotelLocations,loading } = useSelector((state) => state.hotel);
+  const { hotelCriteria } = useSelector((state) => state.searchCriteria);
   const { locationCode,
   locationName,
   locationToCode,
   locationToName } = useSelector((state) => state.searchCriteria) || {};
-  const { locationList } = useSelector((state) => ({ ...state.flight }));
+  const { locationList } = useSelector((state) => state.flight);
   const { currentTab } = useSelector((state) => state.hero) || {};
   const router = useRouter();
   const handleSearch = async (query) => {
@@ -124,8 +124,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       maxLength={4}
       defaultSelected={[
         {
-          code: locationCode,
-          name: locationName,
+          code: hotelCriteria.locationCode,
+          name: hotelCriteria.locationName,
         },
       ]}
       onSearch={(query) => {
@@ -191,8 +191,8 @@ const LocationSearch = ({ locationCodea, locationNamea }) => {
       maxLength={4}
       defaultSelected={[
         {
-          code: locationToCode,
-          name: locationToName,
+          code: hotelCriteria.locationToCode,
+          name: hotelCriteria.locationToName,
         },
       ]}
       onSearch={(query) => {

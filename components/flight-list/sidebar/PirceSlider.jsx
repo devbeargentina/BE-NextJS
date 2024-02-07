@@ -9,8 +9,8 @@ import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
 const PirceSlider = (props) => {
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
-  const { flightList } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
+  const { flightList } = useSelector((state) => state.flight);
   const [price, setPrice] = useState({
     value: { min: props.filterParam?.priceMinMax[0], max: props.filterParam?.priceMinMax[1] },
   });

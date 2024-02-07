@@ -7,7 +7,7 @@ import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
 const AmenitiesFilter = () => {
-  const { hotelList, hotelAvailRQ, filterParam, loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList, hotelAvailRQ, filterParam, loading } = useSelector((state) => state.hotel);
   // const amenities = [
   //   { name: "Breakfast Included", count: 92 },
   //   { name: "Romantic", count: 45 },
