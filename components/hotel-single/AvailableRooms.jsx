@@ -1,11 +1,25 @@
 import Image from "next/image";
-import { useState } from "react";
+import { hotelAvailResult, updateHotelAvailRQ ,updateSelectedHotel} from "@/features/hero/hotelSlice";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import InputRange from "react-input-range";
+import { useDispatch, useSelector } from "react-redux";
 
 const AvailableRooms = ({ hotel }) => {
-
+  const { hotelList,hotelAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.hotel }));
+  const dispatch = useDispatch();
+  const router = useRouter();
   const handleBooking = (ratePlanCode) => {
     // Your booking logic goes here
     console.log(`Booking room with rate plan code: ${ratePlanCode}`);
+    const modifiedHotel = {
+      selectedHotel:hotel,
+      selectedRoomTypeCode:ratePlanCode,
+   };
+
+    dispatch(updateSelectedHotel(modifiedHotel));    
+    debugger;
+    router.push('/cart-page');
     // Add additional booking logic as needed
   };
   return (

@@ -125,6 +125,8 @@ const hotelSlice = createSlice({
     locationList: [],
     hotelList: [],
     hotelDetails: null,
+    selectedHotel:null,
+    selectedRoomTypeCode:null,
     cart: [],
     reservationStatus: null,
     error: "",
@@ -142,6 +144,17 @@ const hotelSlice = createSlice({
         ...state.hotelAvailRQ,
         ...action.payload,
       };
+    },
+    updateSelectedHotel: (state, action) => {
+      // Assuming the payload contains information about the flight cart
+      const cartPayload = action.payload;
+    
+      // Update the state.cart with the payload
+      state.selectedHotel = cartPayload;
+      state.selectedRoomTypeCode = cartPayload.selectedRoomTypeCode;
+      // If you need to merge the payload with an existing array in state.cart, use a spread operator
+      // For example, if cartPayload is an array of items to add to the cart
+      // state.cart = [...state.cart, ...cartPayload];
     },
   },
   extraReducers: (builder) => {
@@ -187,6 +200,6 @@ const hotelSlice = createSlice({
   },
 });
 
-export const { clearError, updateHotelAvailRQ } = hotelSlice.actions;
+export const { clearError, updateHotelAvailRQ, updateSelectedHotel } = hotelSlice.actions;
 
 export default hotelSlice.reducer;
