@@ -64,7 +64,6 @@ export const searchCriteriaSlice = createSlice({
       };
     },    
     updateFlightAvailRQ: (state, action) => {
-      debugger;   
       // Merge the payload with the existing FlightAvailRQ
       state.flightAvailRQ = {
         ...state.flightAvailRQ,

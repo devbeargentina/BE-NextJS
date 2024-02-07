@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 const PricingSummary = () => {
   const { selectedHotel,selectedRoomTypeCode } = useSelector((state) => ({ ...state.hotel }));
   const hotelinfo = selectedHotel.selectedHotel.hotelOptions.hotelOption.find(x=>x.ratePlanCode == selectedRoomTypeCode);
-debugger;
   return (
     <div className="px-30 py-30 border-light rounded-4 mt-30">
       <div className="text-20 fw-500 mb-20">Your price summary</div>

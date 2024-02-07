@@ -18,7 +18,6 @@ const AvailableRooms = ({ hotel }) => {
    };
 
     dispatch(updateSelectedHotel(modifiedHotel));    
-    debugger;
     router.push('/cart-page');
     // Add additional booking logic as needed
   };

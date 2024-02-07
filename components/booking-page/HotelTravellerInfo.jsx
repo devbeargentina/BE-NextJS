@@ -55,7 +55,6 @@ const intialStateContact = {
     const { firstname, lastname, email, gender, birthdate, phonenumber, socialsecuritynumber } = passengerData;
     const dispatch = useDispatch();
     const router = useRouter();
-    debugger;
     useEffect(() => {
       error && toast.error(error);
     }, [error]);
