@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const Pagination = () => {
   //const [currentPage, setCurrentPage] = useState(1);
-  const { totalPages, hotelAvailRQ } = useSelector((state) => ({ ...state.hotel }));
+  const { totalPages, hotelAvailRQ } = useSelector((state) => state.hotel);
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (pageNumber) => {

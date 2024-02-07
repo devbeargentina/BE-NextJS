@@ -29,7 +29,7 @@ const index = ({params}) => {
     adult,
     child,
     rooms } = useSelector((state) => state.searchCriteria) || {};
-  const { hotelList,hotelAvailRQ,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList,hotelAvailRQ,loading } = useSelector((state) => state.hotel);
   const router = useRouter();
   // const id = params.id;
   // const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];

@@ -14,7 +14,7 @@ const ForgotPassword = () => {
   const [validation, setValidation] = useState({
     email: true,
   });
-  const { loading, error } = useSelector((state) => ({ ...state.auth }));
+  const { loading, error } = useSelector((state) => state.user);
   const { email } = loginRQ;
   const dispatch = useDispatch();
   const router = useRouter();

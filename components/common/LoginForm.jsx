@@ -16,7 +16,7 @@ const LoginForm = () => {
     username: true,
     password: true,
   });
-  const { loading, error } = useSelector((state) => ({ ...state.auth }));
+  const { loading, error } = useSelector((state) => state.user);
   const { username, password } = loginRQ;
   const dispatch = useDispatch();
   const router = useRouter();

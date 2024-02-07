@@ -21,7 +21,7 @@ const SignUpForm = () => {
     password: true,
     confirmPassword: true,
   });
-  const { loading, error } = useSelector((state) => ({ ...state.auth }));
+  const { loading, error } = useSelector((state) => state.user);
   const { email, firstname, lastname, password, confirmPassword } = registerData;
   const dispatch = useDispatch();
   const router = useRouter();

@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 
 const HotelProperties = () => {
-  const { hotelList,loading,totalNights } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList,loading,totalNights } = useSelector((state) => state.hotel);
   return (
     <>
       {hotelList.map((item) => (

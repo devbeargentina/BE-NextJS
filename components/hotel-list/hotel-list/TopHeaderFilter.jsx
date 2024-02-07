@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 const TopHeaderFilter = () => {
-  const { hotelList,filterParam,loading, totalHotels } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList,filterParam,loading, totalHotels } = useSelector((state) => state.hotel);
  
   return (
     <>

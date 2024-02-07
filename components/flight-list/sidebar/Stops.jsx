@@ -6,8 +6,8 @@ import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 
 const Stops = () => {
   //const [currentPage, setCurrentPage] = useState(1);
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
-  const { totalPages,filterParam } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
+  const { totalPages,filterParam } = useSelector((state) => state.flight);
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (cabimClass) => {

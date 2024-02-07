@@ -8,7 +8,7 @@ import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
 const PirceSlider = () => {
-  const { hotelList,hotelAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList,hotelAvailRQ, filterParam,loading } = useSelector((state) => state.hotel);
   
   const [price, setPrice] = useState({
     value: { min: filterParam.priceMinMax[0], max: filterParam.priceMinMax[1] },

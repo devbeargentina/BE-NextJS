@@ -5,10 +5,11 @@ import DateSearch from "../DateSearch";
 import LocationSearch from "./FlightLocationSearch";
 import { useRouter } from "next/navigation";
 import FlightGuestSearch from "./FlightGuestSearch";
+import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 
 const FlightFilterSearchWidget = () => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
   const { destinationLocationCode,
   destinationLocationName,
   originLocationCode,
@@ -17,7 +18,8 @@ const FlightFilterSearchWidget = () => {
   child,
   infant,
   startDate,
-  endDate } = flightAvailRQ.searchParam;
+  endDate,
+tripType } = flightAvailRQ.searchParam;
   
   const dispatch = useDispatch();
   const Router = useRouter()
@@ -27,9 +29,53 @@ const FlightFilterSearchWidget = () => {
 
      Router.push(`/flight-list-v1/${destinationLocationCode}/${destinationLocationName}/${originLocationCode}/${originLocationName}/${formattedStartDate}/${formattedEndDate}/${adult}/${child}/${infant}`)
   }
+  
+  const handleTriptypeChange = (value) => {
+    dispatch(
+      updateFlightAvailRQ({
+          ...flightAvailRQ,
+          searchParam: {
+            ...flightAvailRQ.searchParam,
+            tripType:value,
+          },
+      })
+    );
+  };
   return (
       <div className="tabs__content js-tabs-content">
-        <div className="mainSearch bg-white pr-20 py-20 lg:px-20 lg:pt-5 lg:pb-20 rounded-4">
+        <div className="mainSearch mainSearchHome bg-white pr-20 py-20 lg:px-20 lg:pt-5 lg:pb-20 rounded-4"> <div className="px-30 text-14">
+            <div className="col-auto">
+              <div className="form-radio">
+                <div className="radio d-flex items-center mr-20">
+                  <input 
+                    type="radio" 
+                    name="rating" 
+                    value="one-way" 
+                    checked={tripType === "ONE_WAY"} 
+                    onChange={() => handleTriptypeChange("ONE_WAY")}  // assuming you're using state to manage tripType
+                  />
+                  <div className="radio__mark">
+                    <div className="radio__icon" />
+                  </div>
+                  <div className="ml-10">{"One Way"}</div>
+                </div>
+                <div className="radio d-flex items-center">
+                  <input 
+                    type="radio" 
+                    name="rating" 
+                    value="round-trip" 
+                    checked={tripType !== "ONE_WAY"} 
+                    onChange={() => handleTriptypeChange("ROUND_TRIP")}  // assuming you're using state to manage tripType
+                  />
+                  <div className="radio__mark">
+                    <div className="radio__icon" />
+                  </div>
+                  <div className="ml-10">{"Round Trip"}</div>
+                </div>
+              </div>
+            </div>
+            {/* End .col */}
+          </div>
           <div className="button-grid-flex items-center">
             <LocationSearch locationCode={destinationLocationCode} locationName={destinationLocationName} />
             {/* <LocationSearch locationCode={locationCode} locationName={locationName} /> */}

@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 
 const DropdownFlightFilters = (props) => {
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
   const [priceValue, setPriceValue] = useState("Price");
   const [amenitiesValue, setAmenitiesValue] = useState("Cabin Class");
   const [styleValue, setStyleValue] = useState("Stops");
@@ -59,7 +59,7 @@ const DropdownFlightFilters = (props) => {
     { label: "Kensington and Chelsea", value: "kensington_and_chelsea" },
     { label: "Oxford Street", value: "oxford_street" },
   ];
-  const { totalPages,filterParam } = useSelector((state) => ({ ...state.flight }));
+  const { totalPages,filterParam } = useSelector((state) => state.flight);
   const dispatch = useDispatch();
   const router = useRouter();
   const handlePageClick = (cabimClass) => {

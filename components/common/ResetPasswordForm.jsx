@@ -17,7 +17,7 @@ const ResetPassword = () => {
     confirmPassword: true,
     newPassword: true,
   });
-  const { loading, error } = useSelector((state) => ({ ...state.auth }));
+  const { loading, error } = useSelector((state) => state.user);
   const { username, newPassword } = loginRQ;
   const dispatch = useDispatch();
   const router = useRouter();

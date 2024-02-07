@@ -7,9 +7,9 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 
 const DateSearch = ({cutOfDayss,stayInDayss}) => {
-  const { flightAvailRQ, hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightAvailRQ, hotelCriteria } = useSelector((state) => state.searchCriteria);
   const { cutOfDays, stayInDays, startDate, endDate } = useSelector((state) => state.searchCriteria) || {};
-  const { locationList, loading } = useSelector((state) => ({ ...state.flight }));
+  const { locationList, loading } = useSelector((state) => state.flight);
   const dispatch = useDispatch(); // Hook to dispatch actions
   // const [dates, setDates] = useState([
   //   new DateObject({ year: 2023, month: 1, day: 22 }),
@@ -29,7 +29,8 @@ const DateSearch = ({cutOfDayss,stayInDayss}) => {
       dispatch(
         updateHotelCriteria({
           ...hotelCriteria,
-          startDate: newDates,//.format("dd-mm-yyyy"), // Modify the format as needed
+          startDate: new Date(newDates).toISOString(),
+          // startDate: newDates,//.format("dd-mm-yyyy"), // Modify the format as needed
         })
       );
       dispatch(
@@ -43,13 +44,15 @@ const DateSearch = ({cutOfDayss,stayInDayss}) => {
       );}
     else{
       setDates(newDates);
-      if(newDates.length > 2)
+      if(newDates.length > 1)
       {
     dispatch(
       updateHotelCriteria({
         ...hotelCriteria,
-        startDate: newDates[0],//.format("dd-mm-yyyy"), // Modify the format as needed
-        endDate: newDates[1]//.format("dd-mm-yyyy"),     // Modify the format as needed
+        startDate: new Date(newDates[0]).toISOString(),
+        endDate: new Date(newDates[1]).toISOString(),
+        // startDate: newDates[0],//.format("dd-mm-yyyy"), // Modify the format as needed
+        // endDate: newDates[1]//.format("dd-mm-yyyy"),     // Modify the format as needed
       })
     );
     dispatch(

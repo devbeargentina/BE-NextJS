@@ -74,7 +74,7 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
 };
 
 const FlightGuestSearch = ({adult, child, infant}) => {
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
   const dispatch = useDispatch(); // Hook to dispatch actions
   const [guestCounts, setGuestCounts] = useState({
     Adults: adult,

@@ -8,14 +8,14 @@ import { fetchHotelLocationList, hotelAvailResult } from "@/features/hero/hotelS
 import { FLIGHT_TAB_NAME, HOTEL_TAB_NAME } from "@/utils/constants";
 
 const SearchBar = ({ locationCode, locationName }) => {
-  const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { hotelCriteria } = useSelector((state) => state.searchCriteria);
   const dispatch = useDispatch(); // Hook to dispatch actions
   const [searchValue, setSearchValue] = useState(locationName || ""); // Set default searchValue based on locationName
   const [selectedItem, setSelectedItem] = useState(null); // Set default selectedItem based on initialState
 
   const [options, setOptions] = useState([]);
 
-  const { hotelLocations,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelLocations,loading } = useSelector((state) => state.hotel);
   const router = useRouter();
   const handleSearch = async (query) => {
     if(query.length > 2){
@@ -107,8 +107,8 @@ const SearchBar = ({ locationCode, locationName }) => {
       maxLength={4}
       defaultSelected={[
         {
-          code: locationCode,
-          name: locationName,
+          code: hotelCriteria.locationCode,
+          name: hotelCriteria.locationName,
         },
       ]}
       onSearch={(query) => {

@@ -25,8 +25,8 @@ import { updateFlightAvailRQ } from "@/features/hero/searchCriteriaSlice";
 const index = ({ params }) => {
   
   const dispatch = useDispatch();
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
-  const { flightList, returnFlightList, filterParam, returnFilterParam,loading, totalFlights, totalReturnFlights, totalPages, totalRetutrnPages } = useSelector((state) => ({ ...state.flight }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
+  const { flightList, returnFlightList, filterParam, returnFilterParam,loading, totalFlights, totalReturnFlights, totalPages, totalRetutrnPages } = useSelector((state) => state.flight);
   const router = useRouter();
   console.log(params);
   const { destinationLocationCode,

@@ -7,7 +7,7 @@ import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
 const SearchBox = () => {
-  const { hotelList,hotelAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList,hotelAvailRQ, filterParam,loading } = useSelector((state) => state.hotel);
   
   const [searchTerm, setSearchTerm] = useState('');
 

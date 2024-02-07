@@ -10,7 +10,7 @@ const initialState = {
       locationToName: "",
       cutOfDays: 2,
       stayInDays: 2,
-      startDate: new Date(new DateObject()).toISOString(),
+      startDate: new Date().toISOString(),
       endDate: new Date(new DateObject()).toISOString(),
       adult: 2,
       child: 0,
@@ -18,10 +18,10 @@ const initialState = {
     },    
   flightAvailRQ: {
     searchParam: {
-      originLocationCode: "",
-      originLocationName: "",
-      destinationLocationCode: "",
-      destinationLocationName: "",
+      destinationLocationCode: "MIA",
+      destinationLocationName: "Miami - MIA INTL APT - Miami",
+      originLocationCode: "EZE",
+      originLocationName: "Buenos Aires - EZE INTL APT - Buenos Aires",
       startDate: new Date(new DateObject()).toISOString(),
       endDate: new Date(new DateObject()).toISOString(),
       adult: 1,
@@ -64,6 +64,7 @@ export const searchCriteriaSlice = createSlice({
       };
     },    
     updateFlightAvailRQ: (state, action) => {
+      debugger;   
       // Merge the payload with the existing FlightAvailRQ
       state.flightAvailRQ = {
         ...state.flightAvailRQ,

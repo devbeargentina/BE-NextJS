@@ -28,8 +28,8 @@ const intialStateContact = {
   isSendEmailMsgPNR:false,
 }
   const FlightTravellerInfo = () => {
-    const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
-    const { flightList,filterParam } = useSelector((state) => ({ ...state.flight }));
+    const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
+    const { flightList,filterParam } = useSelector((state) => state.flight);
     const [passengerData, setPassengerData] = useState(Array(flightAvailRQ.searchParam.adult).fill(initialStatePassenger));
     const [contactData, setContactData] = useState(intialStateContact);
     const [validation, setValidation] = useState(Array(flightAvailRQ.searchParam.adult).fill({
@@ -50,7 +50,7 @@ const intialStateContact = {
     });
     const [dates, setDates] = useState(      new DateObject(),//.add((cutOfDays), "day"),
     );
-    const { loading, error } = useSelector((state) => ({ ...state.auth }));
+    const { loading, error } = useSelector((state) => state.user);
     const { firstname, lastname, email, gender, birthdate, phonenumber, socialsecuritynumber } = passengerData;
     const dispatch = useDispatch();
     const router = useRouter();

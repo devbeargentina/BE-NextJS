@@ -11,7 +11,7 @@ const MainFilterSearchBox = () => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
   const { cutOfDays,
   stayInDays, } = useSelector((state) => state.searchCriteria) || {};
-  const { flightAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
+  const { flightAvailRQ } = useSelector((state) => state.searchCriteria);
   const { destinationLocationCode,
   destinationLocationName,
   originLocationCode,
@@ -25,6 +25,7 @@ const MainFilterSearchBox = () => {
   const dispatch = useDispatch();
   const Router = useRouter()
   const handleSearch = () => {
+    debugger;
      Router.push(`/flight-list-v1/${destinationLocationCode}/${destinationLocationName}/${originLocationCode}/${originLocationName}/${startDate}/${endDate}/${adult}/${child}/${infant}`)
   }
   return (
@@ -34,7 +35,7 @@ const MainFilterSearchBox = () => {
       </div>
       {/* End .row */}
 
-      <div className="mainSearch -col-5 border-light rounded-4 pr-20 py-20 lg:px-20 lg:pt-5 lg:pb-20 mt-15">
+      <div className="mainSearch mainSearchList -col-5 border-light rounded-4 pr-20 py-20 lg:px-20 lg:pt-5 lg:pb-20 mt-15">
         <div className="button-grid items-center">
             <LocationSearch locationCode={destinationLocationCode} locationName={destinationLocationName} />
           {/* <LocationSearch /> */}

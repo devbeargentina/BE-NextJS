@@ -9,7 +9,7 @@ import SkeletonFilter from "@/components/common/skeletons/Skeleton";
 import { useSelector } from "react-redux";
 
 const Sidebar = () => {
-  const { flightList,filterParam,loading } = useSelector((state) => ({ ...state.flight }));
+  const { flightList,filterParam,loading } = useSelector((state) => state.flight);
   return (
     <>
     {true? <>
