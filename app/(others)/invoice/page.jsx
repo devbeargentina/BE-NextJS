@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import InvoiceComponent from "@/components/invoice/Invoice";
+// import InvoiceComponent from "@/components/invoice/Invoice";
 
 export const metadata = {
   title: "Invoice || BE - Argentina - Travel & Tour React NextJS Template",
@@ -9,7 +9,7 @@ export const metadata = {
 const Invoice = () => {
   return (
     <>
-      <InvoiceComponent />
+      {/* <InvoiceComponent /> */}
     </>
   );
 };
