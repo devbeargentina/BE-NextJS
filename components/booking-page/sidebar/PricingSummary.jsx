@@ -13,7 +13,7 @@ const PricingSummary = () => {
         </div>
         {/* End col */}
         <div className="col-auto">
-          <div className="text-15">{selectedHotel?.selectedHotel?.currency} {hotelinfo.prices.price.totalFixAmounts.service.amount}</div>
+          <div className="text-15">{selectedHotel?.selectedHotel?.currency} {hotelinfo?.prices?.price?.totalFixAmounts.service.amount}</div>
         </div>
         {/* End col */}
       </div>
@@ -24,7 +24,7 @@ const PricingSummary = () => {
           <div className="text-15">Taxes and fees</div>
         </div>
         <div className="col-auto">
-          <div className="text-15">{selectedHotel?.selectedHotel?.currency} {hotelinfo.prices.price.totalFixAmounts.service.serviceTaxAmount}</div>
+          <div className="text-15">{selectedHotel?.selectedHotel?.currency} {hotelinfo?.prices?.price?.totalFixAmounts.service.serviceTaxAmount}</div>
         </div>
       </div>
       {/* End .row */}
@@ -45,7 +45,7 @@ const PricingSummary = () => {
             <div className="text-18 lh-13 fw-500">Price</div>
           </div>
           <div className="col-auto">
-            <div className="text-18 lh-13 fw-500">{selectedHotel?.selectedHotel?.currency} {hotelinfo.prices.price.totalFixAmounts.nett}</div>
+            <div className="text-18 lh-13 fw-500">{selectedHotel?.selectedHotel?.currency} {hotelinfo?.prices?.price?.totalFixAmounts.nett}</div>
           </div>
         </div>
       </div>
