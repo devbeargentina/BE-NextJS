@@ -49,5 +49,4 @@ jobs:
         with:
           app-name: 'ewadas'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_**** }}
           package: .
