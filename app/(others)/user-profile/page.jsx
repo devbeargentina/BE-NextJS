@@ -3,7 +3,7 @@ import CallToActions from "@/components/common/CallToActions";
 import DefaultHeader from "@/components/header/default-header";
 import DefaultFooter from "@/components/footer/default";
 import TermsConent from "@/components/common/TermsConent";
-import SettingsTabs from "@/components/dashboard/dashboard/db-settings copy/components/index";
+// import SettingsTabs from "@/components/dashboard/dashboard/db-settings copy/components/index";
 import Image from "next/image";
 
 export const metadata = {
@@ -54,7 +54,7 @@ const BecomeExpert = () => {
         <div className="container">
           <div className="tabs js-tabs">
             
-          <SettingsTabs />
+          {/* <SettingsTabs /> */}
           </div>
         </div>
       </section>

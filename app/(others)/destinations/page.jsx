@@ -4,21 +4,21 @@ import DefaultHeader from "@/components/header/default-header";
 import DefaultFooter from "@/components/footer/default";
 import TopDestinations2 from "@/components/destinations/TopDestinations2";
 import Faq from "@/components/faq/Faq";
-import TestimonialLeftCol from "@/components/home/home-1/TestimonialLeftCol";
-import Testimonial from "@/components/home/home-1/Testimonial";
+// import TestimonialLeftCol from "@/components/home/home-1/TestimonialLeftCol";
+// import Testimonial from "@/components/home/home-1/Testimonial";
 import Link from "next/link";
 import Slights from "@/components/block/Slights";
-import Blog from "@/components/blog/Blog3";
+// import Blog from "@/components/blog/Blog3";
 import LocationTopBar from "@/components/common/LocationTopBar";
 import Banner from "@/components/destinations/components/Banner";
 import Categories from "@/components/destinations/components/Categories";
 import IntroTown from "@/components/destinations/components/IntroTown";
 import Weather from "@/components/destinations/components/Weather";
 import GeneralInfo from "@/components/destinations/components/GeneralInfo";
-import Cars from "@/components/cars/Cars";
-import Tours from "@/components/tours/Tours";
-import Activity from "@/components/activity/Activity";
-import Rentals from "@/components/rentals/Rentals";
+// import Cars from "@/components/cars/Cars";
+// import Tours from "@/components/tours/Tours";
+// import Activity from "@/components/activity/Activity";
+// import Rentals from "@/components/rentals/Rentals";
 import Hotels from "@/components/hotels/Hotels2";
 
 export const metadata = {
@@ -149,7 +149,7 @@ const Destinations = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            <Tours />
+            {/* <Tours /> */}
           </div>
           {/* End .row */}
         </div>
@@ -183,7 +183,7 @@ const Destinations = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            <Activity />
+            {/* <Activity /> */}
           </div>
           {/* End .row */}
         </div>
@@ -219,7 +219,7 @@ const Destinations = () => {
           {/* End .row */}
 
           <div className="y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            <Rentals />
+            {/* <Rentals /> */}
           </div>
           {/* End .row */}
         </div>
@@ -253,7 +253,7 @@ const Destinations = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            <Cars />
+            {/* <Cars /> */}
           </div>
           {/* End .row */}
         </div>
@@ -277,7 +277,7 @@ const Destinations = () => {
           </div>
           {/* End .row  */}
           <div className="row y-gap-30 pt-40">
-            <Blog />
+            {/* <Blog /> */}
           </div>
           {/* End .row */}
         </div>
@@ -300,7 +300,7 @@ const Destinations = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40">
-            <Slights />
+            {/* <Slights /> */}
           </div>
           {/* End .row */}
 
@@ -324,7 +324,7 @@ const Destinations = () => {
         <div className="container">
           <div className="row y-gap-40 justify-between">
             <div className="col-xl-5 col-lg-6" data-aos="fade-up">
-              <TestimonialLeftCol />
+              {/* <TestimonialLeftCol /> */}
             </div>
             {/* End col */}
 
@@ -334,7 +334,7 @@ const Destinations = () => {
                 data-aos="fade-up"
                 data-aos-delay="50"
               >
-                <Testimonial />
+                {/* <Testimonial /> */}
               </div>
             </div>
           </div>
@@ -386,7 +386,7 @@ const Destinations = () => {
           {/* End .row */}
 
           <div className="pt-40 relative">
-            <TopDestinations2 />
+            {/* <TopDestinations2 /> */}
           </div>
         </div>
         {/* End .container */}
