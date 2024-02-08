@@ -9,7 +9,7 @@ const PricingSummary = () => {
       <div className="text-20 fw-500 mb-20">Your price summary</div>
       <div className="row y-gap-5 justify-between">
         <div className="col-auto">
-          <div className="text-15">{hotelinfo.hotelRooms.hotelRoomList[0].name}</div>
+          <div className="text-15">{hotelinfo?.hotelRooms?.hotelRoomList[0].name}</div>
         </div>
         {/* End col */}
         <div className="col-auto">
