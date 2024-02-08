@@ -6,10 +6,10 @@ import WhyChoose from "@/components/block/BlockGuide";
 import Block1 from "@/components/about/Block1";
 import Image from "next/image";
 import Counter from "@/components/counter/Counter";
-// import Team1 from "@/components/team/Team1";
-// import Testimonial from "@/components/testimonial/Testimonial";
+import Team1 from "@/components/team/Team1";
+import Testimonial from "@/components/testimonial/Testimonial";
 import Counter2 from "@/components/counter/Counter2";
-// import Brand from "@/components/brand/Brand";
+import Brand from "@/components/brand/Brand";
 
 export const metadata = {
   title: "About || BE - Argentina - Travel & Tour React NextJS Template",
@@ -140,7 +140,7 @@ const About = () => {
 
           <div className="overflow-hidden pt-80 js-section-slider">
             <div className="item_gap-x30">
-              {/* <Testimonial /> */}
+              <Testimonial />
             </div>
           </div>
           {/* End .overflow-hidden */}
@@ -153,7 +153,7 @@ const About = () => {
 
             <div className="col-xl-8">
               <div className="row y-gap-30 justify-between items-center">
-                {/* <Brand /> */}
+                <Brand />
               </div>
             </div>
             {/* End .col */}

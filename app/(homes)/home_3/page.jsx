@@ -1,14 +1,14 @@
 import dynamic from "next/dynamic";
 import Header3 from "@/components/header/header-3";
 import Hero3 from "@/components/hero/hero-3";
-//import TopDestinations from "@/components/destinations/TopDestinations";
+import TopDestinations from "@/components/destinations/TopDestinations";
 import Hotels from "@/components/hotels/Hotels2";
 import Link from "next/link";
-//import Tours from "@/components/tours/Tours";
-// import Activity from "@/components/activity/Activity";
-// import Rentals from "@/components/rentals/Rentals";
-// import Cars from "@/components/cars/Cars";
-// import Cruise from "@/components/cruise/Cruise";
+import Tours from "@/components/tours/Tours";
+import Activity from "@/components/activity/Activity";
+import Rentals from "@/components/rentals/Rentals";
+import Cars from "@/components/cars/Cars";
+import Cruise from "@/components/cruise/Cruise";
 import Flights from "@/components/flight/Flights";
 import Footer3 from "@/components/footer/footer-3";
 import AddBanner from "@/components/home/home-3/AddBanner";
@@ -91,7 +91,7 @@ const home_3 = () => {
           {/* End .row */}
 
           <div className="row y-gap-40 justify-between pt-40 sm:pt-20">
-            {/* <TopDestinations /> */}
+            <TopDestinations />
           </div>
           {/* End .row */}
         </div>
@@ -157,7 +157,7 @@ const home_3 = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            {/* <Tours /> */}
+            <Tours />
           </div>
           {/* End .row */}
         </div>
@@ -191,7 +191,7 @@ const home_3 = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            {/* <Activity /> */}
+            <Activity />
           </div>
           {/* End .row */}
         </div>
@@ -227,7 +227,7 @@ const home_3 = () => {
           {/* End .row */}
 
           <div className="y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            {/* <Rentals /> */}
+            <Rentals />
           </div>
           {/* End .row */}
         </div>
@@ -261,7 +261,7 @@ const home_3 = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            {/* <Cars /> */}
+            <Cars />
           </div>
           {/* End .row */}
         </div>
@@ -295,7 +295,7 @@ const home_3 = () => {
           {/* End .row */}
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-            {/* <Cruise /> */}
+            <Cruise />
           </div>
           {/* End .row */}
         </div>
