@@ -2,7 +2,7 @@
 'use client'
 
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";  // Adjust the path accordingly
 
 const counters = [

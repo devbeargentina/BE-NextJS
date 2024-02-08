@@ -13,20 +13,20 @@ const PricingSummary = () => {
         </div>
         {/* End col */}
         <div className="col-auto">
-          <div className="text-15">{selectedHotel.selectedHotel.currency} {hotelinfo.prices.price.totalFixAmounts.nett}</div>
+          <div className="text-15">{selectedHotel.selectedHotel.currency} {hotelinfo.prices.price.totalFixAmounts.service.amount}</div>
         </div>
         {/* End col */}
       </div>
       {/* End .row */}
 
-      {/* <div className="row y-gap-5 justify-between pt-5">
+      <div className="row y-gap-5 justify-between pt-5">
         <div className="col-auto">
           <div className="text-15">Taxes and fees</div>
         </div>
         <div className="col-auto">
-          <div className="text-15">US$674.47</div>
+          <div className="text-15">{selectedHotel.selectedHotel.currency} {hotelinfo.prices.price.totalFixAmounts.service.serviceTaxAmount}</div>
         </div>
-      </div> */}
+      </div>
       {/* End .row */}
 
       {/* <div className="row y-gap-5 justify-between pt-5">

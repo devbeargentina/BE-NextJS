@@ -37,8 +37,8 @@ const index = ({params}) => {
   useEffect(() => {
     const hotelAvailRQ = {
       searchParam: {
-        startDate: params.startdate,
-        endDate: params.enddate,
+        startDate: new Date(decodeURIComponent(params.startdate)).toISOString() ||  new Date(new DateObject()).toISOString(),
+        endDate: new Date(decodeURIComponent(params.enddate)).toISOString() ||  new Date(new DateObject()).toISOString(),
         cityJPDCode: params.locationcode,
         pax: [
           {

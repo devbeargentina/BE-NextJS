@@ -23,7 +23,7 @@ const HotelFilterSearchWidget = () => {
   const Router = useRouter()
   const handleSearch = () => {
     
-    Router.push(`/hotel-list/${locationCode}/${locationName}/${startDate.format("YYYY-MM-DD")}/${endDate.format("YYYY-MM-DD")}/${adult}/${child}/${room}`)
+    Router.push(`/hotel-list/${locationCode}/${locationName}/${startDate}/${endDate}/${adult}/${child}/${room}`)
   }
   return (
       <div className="tabs__content js-tabs-content">
