@@ -107,14 +107,14 @@ const HotelProperties = () => {
                     <p className="text-14">{item?.address.address}</p>
                   </div>
 
-                  <div className="col-auto">
+                  {/* <div className="col-auto">
                     <button
                       data-x-click="mapFilter"
                       className="d-block text-14 text-blue-1 underline"
                     >
                       Show on map
                     </button>
-                  </div>
+                  </div> */}
 
                   <div className="col-auto">
                     <div className="size-3 rounded-full bg-light-1"></div>

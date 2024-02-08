@@ -1,11 +1,24 @@
 import Image from "next/image";
-import { useState } from "react";
+import { hotelAvailResult, updateHotelAvailRQ ,updateSelectedHotel} from "@/features/hero/hotelSlice";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import InputRange from "react-input-range";
+import { useDispatch, useSelector } from "react-redux";
 
 const AvailableRooms = ({ hotel }) => {
-
+  const { hotelList,hotelAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.hotel }));
+  const dispatch = useDispatch();
+  const router = useRouter();
   const handleBooking = (ratePlanCode) => {
     // Your booking logic goes here
     console.log(`Booking room with rate plan code: ${ratePlanCode}`);
+    const modifiedHotel = {
+      selectedHotel:hotel,
+      selectedRoomTypeCode:ratePlanCode,
+   };
+
+    dispatch(updateSelectedHotel(modifiedHotel));    
+    router.push('/cart-page');
     // Add additional booking logic as needed
   };
   return (
@@ -15,7 +28,7 @@ const AvailableRooms = ({ hotel }) => {
       <div className="border-light rounded-4 px-30 py-30 sm:px-20 sm:py-20">
         <div className="row y-gap-20">
           <div className="col-12">
-            <h3 className="text-18 fw-500 mb-15">{item.hotelRooms.hotelRoomList[0].name}</h3>
+            <h3 className="text-18 fw-500 mb-15">{item?.hotelRooms?.hotelRoomList[0].name}</h3>
             <div className="roomGrid">
               <div className="roomGrid__header">
                 <div>Room Type</div>
@@ -95,7 +108,7 @@ const AvailableRooms = ({ hotel }) => {
 
                     <div>
                       <div className="d-flex items-center text-light-1">
-                        {Array(item.hotelRooms.hotelRoomList[0].roomOccupancy.adults).fill().map((_, starIndex) => (
+                        {Array(item?.hotelRooms?.hotelRoomList[0].roomOccupancy.adults).fill().map((_, starIndex) => (
                           <div className="icon-man text-24" />
                         ))}
                       </div>

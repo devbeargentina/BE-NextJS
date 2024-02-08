@@ -76,7 +76,7 @@ const HotelSingleV1Dynamic = ({ params }) => {
                 </div>
                 {/* End .col-12  Overview */}
 
-                {hotel.features &&
+                {hotel?.features &&
                   <div className="col-12">
                     <h3 className="text-22 fw-500 pt-40 border-top-light">
                       Most Popular Facilities

@@ -10,8 +10,8 @@ const initialState = {
       locationToName: "",
       cutOfDays: 2,
       stayInDays: 2,
-      startDate: new Date().toISOString(),
-      endDate: new Date(new DateObject()).toISOString(),
+      startDate: new Date(new DateObject()).toISOString(),
+      endDate:new Date(new DateObject()).toISOString(),
       adult: 2,
       child: 0,
       room: 1
@@ -64,7 +64,6 @@ export const searchCriteriaSlice = createSlice({
       };
     },    
     updateFlightAvailRQ: (state, action) => {
-      debugger;   
       // Merge the payload with the existing FlightAvailRQ
       state.flightAvailRQ = {
         ...state.flightAvailRQ,
