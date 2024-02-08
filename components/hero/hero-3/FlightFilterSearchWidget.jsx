@@ -27,7 +27,7 @@ tripType } = flightAvailRQ.searchParam;
     const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
     const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
 
-     Router.push(`/flight-list-v1/${destinationLocationCode}/${destinationLocationName}/${originLocationCode}/${originLocationName}/${formattedStartDate}/${formattedEndDate}/${adult}/${child}/${infant}`)
+     Router.push(`/flight-list-v1/${destinationLocationCode}/${destinationLocationName}/${originLocationCode}/${originLocationName}/${formattedStartDate}/${formattedEndDate}/${adult}-${child}-${infant}`)
   }
   
   const handleTriptypeChange = (value) => {
