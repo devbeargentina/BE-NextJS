@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const BookingDetailsHotel = () => {
   const { selectedFlight } = useSelector((state) => ({ ...state.hotel }));
-  console.log("selectedFlight :",JSON.stringify(selectedHotel))
+ // console.log("selectedFlight :",JSON.stringify(selectedHotel))
   return (
     <>
     
