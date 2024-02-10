@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import BirthDate from "../common/BirthDate";
 import DateSearch from "../common/BirthDate";
 import { DateObject } from "react-multi-date-picker";
-import BookingDetailsFlight from "./sidebar/BookingDetailsFlight";
 import PricingSummary from "./sidebar/PricingSummary";
 
 const initialStatePassenger = {
@@ -30,10 +29,11 @@ const intialStateContact = {
   isSendEmailMsgPNR:false,
 }
   const HotelTravellerInfo = () => {
-    const { hotelAvailRQ } = useSelector((state) => ({ ...state.searchCriteria }));
-    const [passengerData, setPassengerData] = useState(Array(1).fill(initialStatePassenger));
+    const { hotelCriteria } = useSelector((state) => ({ ...state.searchCriteria }));
+    const { checkavailbookingrulesRS } = useSelector((state) => state.hotel);
+    const [passengerData, setPassengerData] = useState(Array(hotelCriteria?.room).fill(initialStatePassenger));
     const [contactData, setContactData] = useState(intialStateContact);
-    const [validation, setValidation] = useState(Array(1).fill({
+    const [validation, setValidation] = useState(Array(hotelCriteria?.room).fill({
       gender : true,
       firstname : true,
       lastname : true,
@@ -168,6 +168,7 @@ const intialStateContact = {
       // format: "YYYY/MM/DD",
       // ... other props
     };
+    
     return (
       <>
       
@@ -186,16 +187,45 @@ const intialStateContact = {
           <h2 className="text-22 fw-500 mt-40 md:mt-24">
             Let us know who you are
           </h2> */}
+        {checkavailbookingrulesRS?.warningCode && checkavailbookingrulesRS?.warningCode === "warnPriceChanged" &&
+          <div className="row x-gap-20 y-gap-20">
+            <div className={`col-12`}>
+              <div className="alert alert-warning">
+                OOPS!! Price Changed
+              </div>
+            </div>
+          </div>
+        }
+        {checkavailbookingrulesRS?.cancellationPolicy && (
+          <div className="row x-gap-20 y-gap-20">
+            <div className={`col-12`}>
+            
+              <div className="py-15 px-20 rounded-4 text-15 bg-blue-1-05 border-bottom">
+                <h5>Cancellation Policy</h5>
+                <br/>
+                <ul>
+                  {checkavailbookingrulesRS?.cancellationPolicy.policyRules.map((item) => (
+                    <li>
+                      If you cancel booking before {item?.to} days of check in then {item?.percentagePrice} percentage charges apply
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+        
+
   {passengerData.map((passenger, index) => (
         <div key={index} className="row x-gap-20 y-gap-20">
           {index !== 0 ? <hr /> : <></>}
         {/* End .col */}
   
         <div className={`col-12`}>
-        <div className="py-15 px-20 rounded-4 text-15 bg-blue-1-05 border-bottom">
+          <div className="py-15 px-20 rounded-4 text-15 bg-blue-1-05 border-bottom">
             Passenger {`${index + 1}`}
           </div>
-          </div>
+        </div>
         <div className={`col-2`}>
           <div className={`form-input h-full ${validationRules.gender && !validation[index].gender ? 'error' : ''}`}>            
             <select className="form-select rounded-4 border-light justify-between pt-3 text-16 fw-500 px-20 h-full w-140 sm:w-full text-14" id={`gender-${index}`} name={`gender`} onChange={(e) => onInputChange(e, index)} >

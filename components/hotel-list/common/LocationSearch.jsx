@@ -108,7 +108,7 @@ const SearchBar = ({ locationCode, locationName }) => {
       defaultSelected={[
         {
           code: hotelCriteria.locationCode,
-          name: hotelCriteria.locationName,
+          name: locationName,
         },
       ]}
       onSearch={(query) => {

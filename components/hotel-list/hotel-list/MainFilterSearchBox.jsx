@@ -15,7 +15,6 @@ const MainFilterSearchBox = ({params}) => {
   adult,
   child,
   room } = useSelector((state) => state.searchCriteria) || {};
-  
   const dispatch = useDispatch();
   const Router = useRouter()
   const handleSearch = () => {
@@ -40,7 +39,7 @@ const MainFilterSearchBox = ({params}) => {
           </div>
           {/* End check-in-out */}
 
-          <GuestSearch  adult={adult} child={child} room={room} />
+          <GuestSearch  adult={params.adult} child={params.child} room={params.room} />
           {/* End guest */}
 
           <div className="button-item h-full">

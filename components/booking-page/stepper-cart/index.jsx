@@ -15,7 +15,6 @@ const Index = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
   const router = useRouter();
-  
   const steps = [
     {
       title: "Personal Details",

@@ -24,8 +24,8 @@ const PassportDate = ({cutOfDayss,stayInDayss}) => {
     dispatch(
       updateHotelCriteria({
         ...hotelCriteria,
-        startDate: startDate,//.format("dd-mm-yyyy"), // Modify the format as needed
-        endDate: endDate//.format("dd-mm-yyyy"),     // Modify the format as needed
+        startDate: new Date(startDate).toISOString(),
+        endDate: new Date(endDate).toISOString(),//.format("dd-mm-yyyy"),     // Modify the format as needed
       })
     );
     dispatch(

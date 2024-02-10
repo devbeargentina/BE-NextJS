@@ -54,6 +54,21 @@ export const fetchHotelDetails = createAsyncThunk(
   }
 );
 
+export const hotelCheckavailBookingRules = createAsyncThunk(
+  "hotel/hotelcheckavailbookingrules",
+  async ({ hotelCheckAvailBookingRulesRQ, router, toast }, { rejectWithValue }) => {
+    try {
+      console.log(JSON.stringify(hotelCheckAvailBookingRulesRQ));
+      const response = await API.post(`api/hotel/hotelcheckavailbookingrules`,  hotelCheckAvailBookingRulesRQ );
+      //navigate("/booking-page");
+      router.push('/cart-page')
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 // Async Thunk for Adding Hotel to Cart
 export const addToCart = createAsyncThunk(
   "hotel/addToCart",
@@ -127,8 +142,10 @@ const hotelSlice = createSlice({
     hotelDetails: null,
     selectedHotel:null,
     selectedRoomTypeCode:null,
+    bookingCode:null,
     cart: [],
     reservationStatus: null,
+    checkavailbookingrulesRS:null,
     error: "",
     totalHotels:0,
     totalPages:0,
@@ -191,6 +208,25 @@ const hotelSlice = createSlice({
       state.error = action.payload.message;
     });
 
+    builder.addCase(hotelCheckavailBookingRules.pending, (state) => {
+      
+      state.loading = true;
+    });
+    builder.addCase(hotelCheckavailBookingRules.fulfilled, (state, action) => {
+      
+      state.loading = false;
+      state.checkavailbookingrulesRS = action.payload?.result;
+      // state.selectedRoomTypeCode = action.payload?.result?.hotelOptions?.hotelOption?.ratePlanCode;
+      // if(action.payload?.result?.warningCode && action.payload?.result?.warningCode == "warnPriceChanged"){
+      //   state.selectedHotel.selectedHotel.hotelOptions = action.payload?.result.hotelOptions;
+      // }
+    });
+    builder.addCase(hotelCheckavailBookingRules.rejected, (state, action) => {
+      
+      state.loading = false;
+      state.error = action.payload?.message;
+    });
+    
     // Similar handling for other async actions
     // ...
 

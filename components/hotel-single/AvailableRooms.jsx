@@ -1,12 +1,13 @@
 import Image from "next/image";
-import { hotelAvailResult, updateHotelAvailRQ ,updateSelectedHotel} from "@/features/hero/hotelSlice";
+import { hotelCheckavailBookingRules,hotelAvailResult, updateHotelAvailRQ ,updateSelectedHotel} from "@/features/hero/hotelSlice";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import InputRange from "react-input-range";
 import { useDispatch, useSelector } from "react-redux";
 
 const AvailableRooms = ({ hotel }) => {
-  const { hotelList,hotelAvailRQ, filterParam,loading } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelList,hotelAvailRQ, filterParam,loading,selectedRoomTypeCode } = useSelector((state) => ({ ...state.hotel }));
+  const { hotelCriteria } = useSelector((state) => state.searchCriteria);
   const dispatch = useDispatch();
   const router = useRouter();
   const handleBooking = (ratePlanCode) => {
@@ -15,10 +16,26 @@ const AvailableRooms = ({ hotel }) => {
     const modifiedHotel = {
       selectedHotel:hotel,
       selectedRoomTypeCode:ratePlanCode,
-   };
+    };
+   dispatch(updateSelectedHotel(modifiedHotel));
+   const pax = Array(hotelCriteria.room).fill().map(() => ({ age: 25 }));
+   const hotelCheckAvailBookingRulesRQ = {
+      searchParam: {
+        startDate: new Date(decodeURIComponent(hotelCriteria.startDate)).toISOString() ||  new Date(new DateObject()).toISOString(),
+        endDate: new Date(decodeURIComponent(hotelCriteria.endDate)).toISOString() ||  new Date(new DateObject()).toISOString(),
+        pax: [
+          { 
+            age: 25 
+          }
+        ]
+      },
+      selectedRoomTypeCode:ratePlanCode,
+      HotelCode:hotel?.jpCode
+    };
+    
+    dispatch(hotelCheckavailBookingRules({ hotelCheckAvailBookingRulesRQ, router, undefined }));
 
-    dispatch(updateSelectedHotel(modifiedHotel));    
-    router.push('/cart-page');
+    //router.push('/cart-page');
     // Add additional booking logic as needed
   };
   return (
@@ -255,7 +272,6 @@ const AvailableRooms = ({ hotel }) => {
                   {item?.prices.price.currency} {item?.prices.price.totalFixAmounts.gross}
                   </div>
                   <a
-                    href="#"
                     className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10"
                     onClick={() => handleBooking(item.ratePlanCode)}
                   >

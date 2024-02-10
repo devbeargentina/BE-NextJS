@@ -13,6 +13,7 @@ import { hotelAvailResult } from "@/features/hero/hotelSlice";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { updateHotelCriteria } from "@/features/hero/searchCriteriaSlice";
 
 // export const metadata = {
 //   title: "Hotel List v1 || BE - Argentina - Travel & Tour React NextJS Template",
@@ -22,15 +23,10 @@ import { useRouter } from "next/navigation";
 const index = ({params}) => {
   
   const dispatch = useDispatch();
-  const { locationCode,
-    locationName,
-    startDate,
-    endDate,
-    adult,
-    child,
-    rooms } = useSelector((state) => state.searchCriteria) || {};
+  const { hotelCriteria } = useSelector((state) => state.searchCriteria) || {};
   const { hotelList,hotelAvailRQ,loading } = useSelector((state) => state.hotel);
   const router = useRouter();
+  
   // const id = params.id;
   // const hotel = hotelsData.find((item) => item.id == id) || hotelsData[0];
   
@@ -64,6 +60,17 @@ const index = ({params}) => {
       },
       isApplySortParam: false
     };
+
+    dispatch(
+      updateHotelCriteria({
+            ...hotelCriteria,
+            startDate: new Date(decodeURIComponent(params.startdate)).toISOString() ||  new Date(new DateObject()).toISOString(),
+            endDate: new Date(decodeURIComponent(params.enddate)).toISOString() ||  new Date(new DateObject()).toISOString(),
+            adult: params.adult|| 1,
+            child:params.child || 0,
+            room: params.room        
+       })
+    );
 
     // Dispatch the action
     dispatch(hotelAvailResult({ hotelAvailRQ, router, undefined }));
