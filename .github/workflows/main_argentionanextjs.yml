@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - argentinaweb
+name: Build and deploy Node.js app to Azure Web App - argentionanextjs
 
 on:
   push:
@@ -18,10 +18,12 @@ jobs:
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
 
       - name: npm install, build, and test
         run: |
-          npm install --force
+          npm install
           npm run build --if-present
           npm run test --if-present
 
@@ -40,7 +42,9 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+    permissions:
+      id-token: write #This is required for requesting the JWT
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -50,11 +54,18 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
       
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_975D9AB1C5334687AAE516CB018C8EEF }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3E6BCDA624134A21814D622DD2AAF42B }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_41D4B9E635954F4E985E67B669CDCF12 }}
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'argentinaweb'
+          app-name: 'argentionanextjs'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B6D37DD18C8A46B98F768B2C57FBC245 }}
+          
